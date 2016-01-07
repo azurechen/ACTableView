@@ -38,6 +38,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if (cell == nil) {
             cell = sections[indexPath.section].items[indexPath.row]
         }
+        sections[indexPath.section].items[indexPath.row].handle?(cell!)
         
         return cell!
     }
