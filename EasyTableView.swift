@@ -8,13 +8,14 @@
 
 import UIKit
 
-class EasyTableView: UITableView, UITableViewDataSource {
+class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     var sections: [EasyTableViewSection] = []
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        self.delegate = self
         self.dataSource = self
     }
     
@@ -22,6 +23,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         sections.append(section)
     }
     
+    // DataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
@@ -46,6 +48,13 @@ class EasyTableView: UITableView, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footer
+    }
+    
+    // Delegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        
+        sections[indexPath.section].items[indexPath.row].didSelect?()
     }
 }
 

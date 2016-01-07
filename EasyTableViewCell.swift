@@ -10,6 +10,8 @@ import UIKit
 
 class EasyTableViewCell: UITableViewCell {
     
+    var didSelect: (() -> ())?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
