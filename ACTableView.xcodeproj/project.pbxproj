@@ -13,6 +13,8 @@
 		537FC6461C5D162600E949B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6451C5D162600E949B1 /* Assets.xcassets */; };
 		537FC6491C5D162600E949B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6471C5D162600E949B1 /* LaunchScreen.storyboard */; };
 		537FC6541C5D162600E949B1 /* ACTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6531C5D162600E949B1 /* ACTableViewTests.swift */; };
+		53D2F0F81C5E469500F82347 /* EasyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0F61C5E469500F82347 /* EasyTableView.swift */; };
+		53D2F0F91C5E469500F82347 /* EasyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		537FC64F1C5D162600E949B1 /* ACTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		537FC6531C5D162600E949B1 /* ACTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTableViewTests.swift; sourceTree = "<group>"; };
 		537FC6551C5D162600E949B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53D2F0F61C5E469500F82347 /* EasyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableView.swift; sourceTree = "<group>"; };
+		53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,7 @@
 		537FC6321C5D162600E949B1 = {
 			isa = PBXGroup;
 			children = (
+				53D2F0F51C5E468500F82347 /* Sources */,
 				537FC63D1C5D162600E949B1 /* ACTableView */,
 				537FC6521C5D162600E949B1 /* ACTableViewTests */,
 				537FC63C1C5D162600E949B1 /* Products */,
@@ -94,6 +99,15 @@
 				537FC6551C5D162600E949B1 /* Info.plist */,
 			);
 			path = ACTableViewTests;
+			sourceTree = "<group>";
+		};
+		53D2F0F51C5E468500F82347 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				53D2F0F61C5E469500F82347 /* EasyTableView.swift */,
+				53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */,
+			);
+			name = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,6 +213,8 @@
 			files = (
 				537FC6411C5D162600E949B1 /* ViewController.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
+				53D2F0F81C5E469500F82347 /* EasyTableView.swift in Sources */,
+				53D2F0F91C5E469500F82347 /* EasyTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +404,7 @@
 				537FC65A1C5D162600E949B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		537FC65B1C5D162600E949B1 /* Build configuration list for PBXNativeTarget "ACTableViewTests" */ = {
 			isa = XCConfigurationList;
@@ -396,6 +413,7 @@
 				537FC65D1C5D162600E949B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
