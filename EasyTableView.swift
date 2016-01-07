@@ -10,7 +10,7 @@ import UIKit
 
 class EasyTableView: UITableView, UITableViewDataSource {
     
-    var _items: [[EasyTableViewCell]] = []
+    var sections: [EasyTableViewSection] = []
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -18,31 +18,46 @@ class EasyTableView: UITableView, UITableViewDataSource {
         self.dataSource = self
     }
     
-    func add(item: EasyTableViewCell, inSection section: Int) {
-        if (_items[safe: section] == nil) {
-            for (var i = _items.count; i <= section; i++) {
-                _items.append([])
-            }
-        }
-        _items[section].append(item)
+    func addSection(section: EasyTableViewSection) {
+        sections.append(section)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return _items.count
+        return sections.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return _items[section].count
+        return sections[section].items.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = _items[indexPath.section][indexPath.row].reuseIdentifier!
+        let identifier = sections[indexPath.section].items[indexPath.row].reuseIdentifier!
         var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? EasyTableViewCell
         if (cell == nil) {
-            cell = _items[indexPath.section][indexPath.row]
+            cell = sections[indexPath.section].items[indexPath.row]
         }
         
         return cell!
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].header
+    }
+    
+    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return sections[section].footer
+    }
+}
+
+class EasyTableViewSection {
+    
+    var items: [EasyTableViewCell] = []
+    var header: String?
+    var footer: String?
+    
+    init(items: [EasyTableViewCell], header: String?, footer: String?) {
+        self.items = items
+        self.header = header
+        self.footer = footer
+    }
 }
