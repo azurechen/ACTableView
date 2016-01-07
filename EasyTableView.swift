@@ -36,7 +36,13 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return _items[indexPath.section][indexPath.row]
+        let identifier = _items[indexPath.section][indexPath.row].reuseIdentifier!
+        var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? EasyTableViewCell
+        if (cell == nil) {
+            cell = _items[indexPath.section][indexPath.row]
+        }
+        
+        return cell!
     }
-
+    
 }
