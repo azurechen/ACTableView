@@ -38,6 +38,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if (cell == nil) {
             cell = sections[indexPath.section].items[indexPath.row]
         }
+        cell!.didSelect = nil
         sections[indexPath.section].items[indexPath.row].handle?(cell!)
         
         return cell!
@@ -55,7 +56,8 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        sections[indexPath.section].items[indexPath.row].didSelect?()
+        let cell = self.tableView(tableView, cellForRowAtIndexPath: indexPath) as! EasyTableViewCell
+        cell.didSelect?()
     }
 }
 
@@ -65,7 +67,7 @@ class EasyTableViewSection {
     var header: String?
     var footer: String?
     
-    init(items: [EasyTableViewCell], header: String?, footer: String?) {
+    init(header: String?, footer: String?, items: [EasyTableViewCell]) {
         self.items = items
         self.header = header
         self.footer = footer

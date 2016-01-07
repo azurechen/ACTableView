@@ -23,15 +23,17 @@ class EasyTableViewCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    //    init() {
-    //        //super.init(style: .Default, reuseIdentifier: NSStringFromClass(self.dynamicType))
-    //        //self.type = .Custom
-    //    }
+    init(handle: (cell: EasyTableViewCell) -> ()) {
+        super.init(style: .Default, reuseIdentifier: NSStringFromClass(self.dynamicType))
+        
+        print(NSStringFromClass(self.dynamicType))
+        self.type = .Custom
+        self.handle = handle
+    }
     
     init(style: UITableViewCellStyle, handle: (cell: EasyTableViewCell) -> ()) {
         super.init(style: style, reuseIdentifier: "\(NSStringFromClass(self.dynamicType))WithStyle\(style.rawValue)")
         
-        self.type = .Default
         self.handle = handle
     }
     
