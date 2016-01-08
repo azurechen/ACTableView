@@ -89,6 +89,25 @@ class EasyTableView: UITableView, UITableViewDataSource {
         }
     }
     
+    func hideAllRowsIfNeeded() {
+        for (sectionIndex, section) in sections.enumerate() {
+            for (itemIndex, item) in section.items.enumerate() {
+                if (!item.initDisplay && item.display) {
+                    hideRow(atIndex: itemIndex, inSection: sectionIndex)
+                }
+            }
+        }
+    }
+    
+    func updateRow(atIndex index: Int, inSection section: Int, animated: Bool) {
+        let indexPath = getIndexPath(atIndex: index, inSection: section)!
+        if (animated) {
+            self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+        } else {
+            self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+        }
+    }
+    
     // DataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
@@ -115,6 +134,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         }
         item.handle?(cell!)
         
+        cell?.clipsToBounds
         return cell!
     }
     
