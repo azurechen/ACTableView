@@ -19,16 +19,21 @@ class EasyTableViewItem {
     var style: UITableViewCellStyle = .Default
     var handle: ((UITableViewCell) -> ())?
     var reuseIdentifier: String
+    var display: Bool
+    
     var didSelect: (() -> ())?
     
-    init(nibName: String, handle: (cell: UITableViewCell) -> ()) {
+    init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
         self.type = .Custom
         self.handle = handle
+        self.display = display
         self.reuseIdentifier = nibName
     }
     
-    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> ()) {
+    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool) {
+        self.style = style
         self.handle = handle
+        self.display = display
         self.reuseIdentifier = "UITableViewCell.WithStyle\(style.rawValue)"
     }
     

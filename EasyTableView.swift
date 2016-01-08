@@ -33,17 +33,41 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func getItem(atSectionIndex sectionIndex: Int, atItemIndex itemIndex: Int) -> EasyTableViewItem {
+        return sections[sectionIndex].items[itemIndex]
+    }
+    
+    func getItemInTableView(tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem? {
+        let section = sections[indexPath.section]
+        var count = 0
+        for item in section.items {
+            if (item.display) {
+                if (count == indexPath.row) {
+                    return item
+                }
+                count++
+            }
+        }
+        return nil
+    }
+    
     // DataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return sections.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].items.count
+        var count = 0
+        for item in sections[section].items {
+            if (item.display) {
+                count++
+            }
+        }
+        return count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = sections[indexPath.section].items[indexPath.row]
+        let item = getItemInTableView(tableView, atIndexPath: indexPath)!
         let identifier = item.reuseIdentifier
         
         // get cell
@@ -68,7 +92,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        let item = sections[indexPath.section].items[indexPath.row]
+        let item = getItemInTableView(tableView, atIndexPath: indexPath)!
         item.didSelect?()
     }
 }
