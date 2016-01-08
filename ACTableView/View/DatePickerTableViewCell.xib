@@ -28,6 +28,9 @@
                     <constraint firstAttribute="bottom" secondItem="JkF-ZV-1d6" secondAttribute="bottom" id="gUn-IX-izt"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="datePicker" destination="JkF-ZV-1d6" id="KVC-Qr-TXR"/>
+            </connections>
             <point key="canvasLocation" x="360" y="354"/>
         </tableViewCell>
     </objects>
