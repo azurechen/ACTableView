@@ -78,6 +78,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
             let indexPath = getIndexPath(atIndex: index, inSection: section)!
             self.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
+        updateBoundRows(item)
     }
     
     func hideRow(atIndex index: Int, inSection section: Int) {
@@ -87,6 +88,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
             item.display = false
             self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
+        updateBoundRows(item)
     }
     
     func hideAllRowsIfNeeded() {
@@ -100,11 +102,29 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     func updateRow(atIndex index: Int, inSection section: Int, animated: Bool) {
-        let indexPath = getIndexPath(atIndex: index, inSection: section)!
-        if (animated) {
-            self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-        } else {
-            self.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+        let item = getItem(atIndex: index, inSection: section)
+        let indexPath = getIndexPath(atIndex: index, inSection: section)
+        if (indexPath != nil) {
+            if (animated) {
+                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+            } else {
+                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+            }
+            updateBoundRows(item)
+        }
+    }
+    
+    func updateData(atIndex index: Int, inSection section: Int) {
+        let item = getItem(atIndex: index, inSection: section)
+        updateBoundRows(item)
+    }
+    
+    private func updateBoundRows(item: EasyTableViewItem) {
+        for (boundItemIndex, boundItemSection) in item.boundItems {
+            let indexPath = getIndexPath(atIndex: boundItemIndex, inSection: boundItemSection)
+            if (indexPath != nil) {
+                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+            }
         }
     }
     

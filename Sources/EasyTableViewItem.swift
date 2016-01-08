@@ -21,22 +21,31 @@ class EasyTableViewItem {
     let initDisplay: Bool
     var display: Bool
     var reuseIdentifier: String
+    var boundItems: [(index: Int, section: Int)] = []
     
-    var didSelect: (() -> ())?
+    convenience init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
+        self.init(nibName: nibName, handle: handle, display: display, bind: [])
+    }
     
-    init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
+    init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool, bind boundItems: [(index: Int, section: Int)]) {
         self.type = .Custom
         self.handle = handle
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = nibName
+        self.boundItems = boundItems
     }
     
-    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool) {
+    convenience init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool) {
+        self.init(style: style, handle: handle, display: display, bind: [])
+    }
+    
+    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool, bind boundItems: [(index: Int, section: Int)]) {
         self.style = style
         self.handle = handle
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = "UITableViewCell.WithStyle\(style.rawValue)"
+        self.boundItems = boundItems
     }
 }
