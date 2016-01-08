@@ -8,14 +8,13 @@
 
 import UIKit
 
-class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
+class EasyTableView: UITableView, UITableViewDataSource {
     
     var sections: [EasyTableViewSection] = []
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.delegate = self
         self.dataSource = self
         
         self.rowHeight = UITableViewAutomaticDimension
@@ -33,14 +32,29 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    private func getIndexPathOfCell(atIndex index: Int, inSection sectionNum: Int) -> NSIndexPath? {
+    func getIndexPath(atIndex index: Int, inSection sectionNum: Int) -> NSIndexPath? {
         let section = sections[sectionNum]
         var count = 0
         for (var i = 0; i < section.items.count; i++) {
             let item = section.items[i]
             if (item.display) {
                 if (i == index) {
-                    return NSIndexPath(forRow: sectionNum, inSection: count)
+                    return NSIndexPath(forRow: count, inSection: sectionNum)
+                }
+                count++
+            }
+        }
+        return nil
+    }
+    
+    func getItemIndex(atIndexPath indexPath: NSIndexPath) -> (index: Int, section: Int)? {
+        let section = sections[indexPath.section]
+        var count = 0
+        for (var i = 0; i < section.items.count; i++) {
+            let item = section.items[i]
+            if (item.display) {
+                if (count == indexPath.row) {
+                    return (i, indexPath.section)
                 }
                 count++
             }
@@ -52,33 +66,26 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return sections[section].items[index]
     }
     
-    func getItemAtIndexPathOfCell(indexPath: NSIndexPath) -> EasyTableViewItem? {
-        let section = sections[indexPath.section]
-        var count = 0
-        for item in section.items {
-            if (item.display) {
-                if (count == indexPath.row) {
-                    return item
-                }
-                count++
-            }
-        }
-        return nil
+    func getItem(atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem {
+        let (index, section) = getItemIndex(atIndexPath: indexPath)!
+        return sections[section].items[index]
     }
     
     func showRow(atIndex index: Int, inSection section: Int) {
         let item = getItem(atIndex: index, inSection: section)
         if (!item.display) {
             item.display = true
-            self.insertRowsAtIndexPaths([getIndexPathOfCell(atIndex: index, inSection: section)!], withRowAnimation: UITableViewRowAnimation.Fade)
+            let indexPath = getIndexPath(atIndex: index, inSection: section)!
+            self.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
     
     func hideRow(atIndex index: Int, inSection section: Int) {
         let item = getItem(atIndex: index, inSection: section)
         if (item.display) {
-            self.deleteRowsAtIndexPaths([getIndexPathOfCell(atIndex: index, inSection: section)!], withRowAnimation: UITableViewRowAnimation.Fade)
+            let indexPath = getIndexPath(atIndex: index, inSection: section)!
             item.display = false
+            self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
     
@@ -98,7 +105,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = getItemAtIndexPathOfCell(indexPath)!
+        let item = getItem(atIndexPath: indexPath)
         let identifier = item.reuseIdentifier
         
         // get cell
@@ -117,14 +124,6 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sections[section].footer
-    }
-    
-    // Delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
-        
-        let item = getItemAtIndexPathOfCell(indexPath)!
-        item.didSelect?()
     }
 }
 
