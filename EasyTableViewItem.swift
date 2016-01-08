@@ -36,5 +36,4 @@ class EasyTableViewItem {
         self.display = display
         self.reuseIdentifier = "UITableViewCell.WithStyle\(style.rawValue)"
     }
-    
 }

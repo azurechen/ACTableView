@@ -33,11 +33,26 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    func getItem(atSectionIndex sectionIndex: Int, atItemIndex itemIndex: Int) -> EasyTableViewItem {
-        return sections[sectionIndex].items[itemIndex]
+    private func getIndexPathOfCell(atIndex index: Int, inSection sectionNum: Int) -> NSIndexPath? {
+        let section = sections[sectionNum]
+        var count = 0
+        for (var i = 0; i < section.items.count; i++) {
+            let item = section.items[i]
+            if (item.display) {
+                if (i == index) {
+                    return NSIndexPath(forRow: sectionNum, inSection: count)
+                }
+                count++
+            }
+        }
+        return nil
     }
     
-    func getItemInTableView(tableView: UITableView, atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem? {
+    func getItem(atIndex index: Int, inSection section: Int) -> EasyTableViewItem {
+        return sections[section].items[index]
+    }
+    
+    func getItemAtIndexPathOfCell(indexPath: NSIndexPath) -> EasyTableViewItem? {
         let section = sections[indexPath.section]
         var count = 0
         for item in section.items {
@@ -49,6 +64,22 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         return nil
+    }
+    
+    func showRow(atIndex index: Int, inSection section: Int) {
+        let item = getItem(atIndex: index, inSection: section)
+        if (!item.display) {
+            item.display = true
+            self.insertRowsAtIndexPaths([getIndexPathOfCell(atIndex: index, inSection: section)!], withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
+    
+    func hideRow(atIndex index: Int, inSection section: Int) {
+        let item = getItem(atIndex: index, inSection: section)
+        if (item.display) {
+            self.deleteRowsAtIndexPaths([getIndexPathOfCell(atIndex: index, inSection: section)!], withRowAnimation: UITableViewRowAnimation.Fade)
+            item.display = false
+        }
     }
     
     // DataSource
@@ -67,7 +98,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = getItemInTableView(tableView, atIndexPath: indexPath)!
+        let item = getItemAtIndexPathOfCell(indexPath)!
         let identifier = item.reuseIdentifier
         
         // get cell
@@ -92,7 +123,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        let item = getItemInTableView(tableView, atIndexPath: indexPath)!
+        let item = getItemAtIndexPathOfCell(indexPath)!
         item.didSelect?()
     }
 }
