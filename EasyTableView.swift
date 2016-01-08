@@ -17,10 +17,20 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         
         self.delegate = self
         self.dataSource = self
+        
+        self.rowHeight = UITableViewAutomaticDimension
+        self.estimatedRowHeight = 44
     }
     
     func addSection(section: EasyTableViewSection) {
         sections.append(section)
+        
+        // register nibs
+        for item in section.items {
+            if (item.type == .Custom) {
+                self.registerNib(UINib(nibName: item.reuseIdentifier!, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier!)
+            }
+        }
     }
     
     // DataSource
@@ -33,13 +43,16 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = sections[indexPath.section].items[indexPath.row].reuseIdentifier!
+        let item = sections[indexPath.section].items[indexPath.row]
+        let identifier = item.reuseIdentifier!
+        
+        // get cell
         var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? EasyTableViewCell
         if (cell == nil) {
-            cell = sections[indexPath.section].items[indexPath.row]
+            cell = item
         }
         cell!.didSelect = nil
-        sections[indexPath.section].items[indexPath.row].handle?(cell!)
+        item.handle?(cell!)
         
         return cell!
     }

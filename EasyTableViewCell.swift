@@ -24,15 +24,14 @@ class EasyTableViewCell: UITableViewCell {
     }
     
     init(handle: (cell: EasyTableViewCell) -> ()) {
-        super.init(style: .Default, reuseIdentifier: NSStringFromClass(self.dynamicType))
+        super.init(style: .Default, reuseIdentifier: NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last!)
         
-        print(NSStringFromClass(self.dynamicType))
         self.type = .Custom
         self.handle = handle
     }
     
     init(style: UITableViewCellStyle, handle: (cell: EasyTableViewCell) -> ()) {
-        super.init(style: style, reuseIdentifier: "\(NSStringFromClass(self.dynamicType))WithStyle\(style.rawValue)")
+        super.init(style: style, reuseIdentifier: "\(NSStringFromClass(self.dynamicType).componentsSeparatedByString(".").last!)WithStyle\(style.rawValue)")
         
         self.handle = handle
     }
