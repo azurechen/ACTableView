@@ -14,7 +14,7 @@
 		537FC6491C5D162600E949B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6471C5D162600E949B1 /* LaunchScreen.storyboard */; };
 		537FC6541C5D162600E949B1 /* ACTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6531C5D162600E949B1 /* ACTableViewTests.swift */; };
 		53D2F0F81C5E469500F82347 /* EasyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0F61C5E469500F82347 /* EasyTableView.swift */; };
-		53D2F0F91C5E469500F82347 /* EasyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */; };
+		53D2F0F91C5E469500F82347 /* EasyTableViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0F71C5E469500F82347 /* EasyTableViewItem.swift */; };
 		53D2F0FE1C5E4B6100F82347 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F0FC1C5E4B6100F82347 /* DatePickerTableViewCell.swift */; };
 		53D2F0FF1C5E4B6100F82347 /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53D2F0FD1C5E4B6100F82347 /* DatePickerTableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -41,7 +41,7 @@
 		537FC6531C5D162600E949B1 /* ACTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTableViewTests.swift; sourceTree = "<group>"; };
 		537FC6551C5D162600E949B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53D2F0F61C5E469500F82347 /* EasyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableView.swift; sourceTree = "<group>"; };
-		53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewCell.swift; sourceTree = "<group>"; };
+		53D2F0F71C5E469500F82347 /* EasyTableViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewItem.swift; sourceTree = "<group>"; };
 		53D2F0FC1C5E4B6100F82347 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		53D2F0FD1C5E4B6100F82347 /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				53D2F0F61C5E469500F82347 /* EasyTableView.swift */,
-				53D2F0F71C5E469500F82347 /* EasyTableViewCell.swift */,
+				53D2F0F71C5E469500F82347 /* EasyTableViewItem.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -229,7 +229,7 @@
 				537FC6411C5D162600E949B1 /* ViewController.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
 				53D2F0F81C5E469500F82347 /* EasyTableView.swift in Sources */,
-				53D2F0F91C5E469500F82347 /* EasyTableViewCell.swift in Sources */,
+				53D2F0F91C5E469500F82347 /* EasyTableViewItem.swift in Sources */,
 				53D2F0FE1C5E4B6100F82347 /* DatePickerTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,7 +28,7 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // register nibs
         for item in section.items {
             if (item.type == .Custom) {
-                self.registerNib(UINib(nibName: item.reuseIdentifier!, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier!)
+                self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
             }
         }
     }
@@ -44,14 +44,13 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let item = sections[indexPath.section].items[indexPath.row]
-        let identifier = item.reuseIdentifier!
+        let identifier = item.reuseIdentifier
         
         // get cell
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? EasyTableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(identifier.componentsSeparatedByString(".").first!)
         if (cell == nil) {
-            cell = item
+            cell = UITableViewCell(style: item.style, reuseIdentifier: item.reuseIdentifier)
         }
-        cell!.didSelect = nil
         item.handle?(cell!)
         
         return cell!
@@ -69,18 +68,18 @@ class EasyTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        let cell = self.tableView(tableView, cellForRowAtIndexPath: indexPath) as! EasyTableViewCell
-        cell.didSelect?()
+        let item = sections[indexPath.section].items[indexPath.row]
+        item.didSelect?()
     }
 }
 
 class EasyTableViewSection {
     
-    var items: [EasyTableViewCell] = []
+    var items: [EasyTableViewItem] = []
     var header: String?
     var footer: String?
     
-    init(header: String?, footer: String?, items: [EasyTableViewCell]) {
+    init(header: String?, footer: String?, items: [EasyTableViewItem]) {
         self.items = items
         self.header = header
         self.footer = footer
