@@ -10,12 +10,17 @@ import UIKit
 
 class EasyTableViewSection {
     
-    var items: [EasyTableViewItem] = []
     var header: String?
     var footer: String?
+    var items: [EasyTableViewItem] = []
     
     init(header: String?, footer: String?, items: [EasyTableViewItem]) {
+        self.header = header
+        self.footer = footer
         self.items = items
+    }
+    
+    init(header: String?, footer: String?) {
         self.header = header
         self.footer = footer
     }
