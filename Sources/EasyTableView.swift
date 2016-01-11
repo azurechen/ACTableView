@@ -31,7 +31,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
             item.row = index
             
             // register nibs
-            if (item.type == .Custom) {
+            if (item.type == .Nib) {
                 self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
             }
         }
@@ -103,7 +103,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         // get cell
         var cell = tableView.dequeueReusableCellWithIdentifier(identifier.componentsSeparatedByString(".").first!)
         if (cell == nil) {
-            cell = UITableViewCell(style: item.style, reuseIdentifier: item.reuseIdentifier)
+            cell = UITableViewCell(style: item.style, reuseIdentifier: identifier)
         }
         item.handle?(cell!)
         

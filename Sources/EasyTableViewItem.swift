@@ -11,7 +11,8 @@ import UIKit
 class EasyTableViewItem {
     
     enum Type {
-        case Custom
+        case StoryBoard
+        case Nib
         case Default
     }
     
@@ -27,12 +28,25 @@ class EasyTableViewItem {
     var reuseIdentifier: String
     var bind: ((EasyTableViewItem) -> [EasyTableViewItem])?
     
+    convenience init(identifier: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
+        self.init(identifier: identifier, handle: handle, display: display, bind: nil)
+    }
+    
+    init(identifier: String, handle: (cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
+        self.type = .StoryBoard
+        self.handle = handle
+        self.initDisplay = display
+        self.display = display
+        self.reuseIdentifier = identifier
+        self.bind = bind
+    }
+    
     convenience init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
         self.init(nibName: nibName, handle: handle, display: display, bind: nil)
     }
     
     init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
-        self.type = .Custom
+        self.type = .Nib
         self.handle = handle
         self.initDisplay = display
         self.display = display
@@ -53,6 +67,7 @@ class EasyTableViewItem {
         self.bind = bind
     }
     
+    // methods
     func prev() -> EasyTableViewItem {
         return self.tableView.getItem(forRow: self.row - 1, inSection: self.section)
     }
