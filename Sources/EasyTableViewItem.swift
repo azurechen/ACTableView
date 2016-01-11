@@ -15,6 +15,9 @@ class EasyTableViewItem {
         case Default
     }
     
+    var row: Int!
+    var section: Int!
+    
     var type: Type = .Default
     var style: UITableViewCellStyle = .Default
     var handle: ((UITableViewCell) -> ())?

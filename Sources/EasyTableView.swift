@@ -24,21 +24,25 @@ class EasyTableView: UITableView, UITableViewDataSource {
     func addSection(section: EasyTableViewSection) {
         sections.append(section)
         
-        // register nibs
-        for item in section.items {
+        // set row and section of items
+        for (index, item) in section.items.enumerate() {
+            item.section = sections.count - 1
+            item.row = index
+            
+            // register nibs
             if (item.type == .Custom) {
                 self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
             }
         }
     }
     
-    func getIndexPath(atIndex index: Int, inSection sectionNum: Int) -> NSIndexPath? {
+    func getIndexPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
         let section = sections[sectionNum]
         var count = 0
         for (var i = 0; i < section.items.count; i++) {
             let item = section.items[i]
             if (item.display) {
-                if (i == index) {
+                if (i == row) {
                     return NSIndexPath(forRow: count, inSection: sectionNum)
                 }
                 count++
@@ -47,14 +51,18 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    func getItemIndex(atIndexPath indexPath: NSIndexPath) -> (index: Int, section: Int)? {
+    func getItem(forRow row: Int, inSection section: Int) -> EasyTableViewItem {
+        return sections[section].items[row]
+    }
+    
+    func getItem(atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem! {
         let section = sections[indexPath.section]
         var count = 0
         for (var i = 0; i < section.items.count; i++) {
             let item = section.items[i]
             if (item.display) {
                 if (count == indexPath.row) {
-                    return (i, indexPath.section)
+                    return sections[indexPath.section].items[i]
                 }
                 count++
             }
@@ -62,29 +70,20 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    func getItem(atIndex index: Int, inSection section: Int) -> EasyTableViewItem {
-        return sections[section].items[index]
-    }
-    
-    func getItem(atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem {
-        let (index, section) = getItemIndex(atIndexPath: indexPath)!
-        return sections[section].items[index]
-    }
-    
-    func showRow(atIndex index: Int, inSection section: Int) {
-        let item = getItem(atIndex: index, inSection: section)
+    func showRow(forRow row: Int, inSection section: Int) {
+        let item = getItem(forRow: row, inSection: section)
         if (!item.display) {
             item.display = true
-            let indexPath = getIndexPath(atIndex: index, inSection: section)!
+            let indexPath = getIndexPath(forRow: row, inSection: section)!
             self.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
         updateBoundRows(item)
     }
     
-    func hideRow(atIndex index: Int, inSection section: Int) {
-        let item = getItem(atIndex: index, inSection: section)
+    func hideRow(forRow row: Int, inSection section: Int) {
+        let item = getItem(forRow: row, inSection: section)
         if (item.display) {
-            let indexPath = getIndexPath(atIndex: index, inSection: section)!
+            let indexPath = getIndexPath(forRow: row, inSection: section)!
             item.display = false
             self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
@@ -93,17 +92,17 @@ class EasyTableView: UITableView, UITableViewDataSource {
     
     func hideAllRowsIfNeeded() {
         for (sectionIndex, section) in sections.enumerate() {
-            for (itemIndex, item) in section.items.enumerate() {
+            for (row, item) in section.items.enumerate() {
                 if (!item.initDisplay && item.display) {
-                    hideRow(atIndex: itemIndex, inSection: sectionIndex)
+                    hideRow(forRow: row, inSection: sectionIndex)
                 }
             }
         }
     }
     
-    func updateRow(atIndex index: Int, inSection section: Int, animated: Bool) {
-        let item = getItem(atIndex: index, inSection: section)
-        let indexPath = getIndexPath(atIndex: index, inSection: section)
+    func updateRow(forRow row: Int, inSection section: Int, animated: Bool) {
+        let item = getItem(forRow: row, inSection: section)
+        let indexPath = getIndexPath(forRow: row, inSection: section)
         if (indexPath != nil) {
             if (animated) {
                 self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -114,14 +113,14 @@ class EasyTableView: UITableView, UITableViewDataSource {
         }
     }
     
-    func updateData(atIndex index: Int, inSection section: Int) {
-        let item = getItem(atIndex: index, inSection: section)
+    func updateData(forRow row: Int, inSection section: Int) {
+        let item = getItem(forRow: row, inSection: section)
         updateBoundRows(item)
     }
     
     private func updateBoundRows(item: EasyTableViewItem) {
-        for (boundItemIndex, boundItemSection) in item.boundItems {
-            let indexPath = getIndexPath(atIndex: boundItemIndex, inSection: boundItemSection)
+        for (boundItemRow, boundItemSection) in item.boundItems {
+            let indexPath = getIndexPath(forRow: boundItemRow, inSection: boundItemSection)
             if (indexPath != nil) {
                 self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
             }
