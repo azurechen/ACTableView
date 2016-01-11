@@ -15,6 +15,7 @@ class EasyTableViewItem {
         case Default
     }
     
+    var tableView: EasyTableView!
     var row: Int!
     var section: Int!
     
@@ -24,31 +25,47 @@ class EasyTableViewItem {
     let initDisplay: Bool
     var display: Bool
     var reuseIdentifier: String
-    var boundItems: [(index: Int, section: Int)] = []
+    var bind: ((EasyTableViewItem) -> [EasyTableViewItem])?
     
     convenience init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool) {
-        self.init(nibName: nibName, handle: handle, display: display, bind: [])
+        self.init(nibName: nibName, handle: handle, display: display, bind: nil)
     }
     
-    init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool, bind boundItems: [(index: Int, section: Int)]) {
+    init(nibName: String, handle: (cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
         self.type = .Custom
         self.handle = handle
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = nibName
-        self.boundItems = boundItems
+        self.bind = bind
     }
     
     convenience init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool) {
-        self.init(style: style, handle: handle, display: display, bind: [])
+        self.init(style: style, handle: handle, display: display, bind: nil)
     }
     
-    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool, bind boundItems: [(index: Int, section: Int)]) {
+    init(style: UITableViewCellStyle, handle: (cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
         self.style = style
         self.handle = handle
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = "UITableViewCell.WithStyle\(style.rawValue)"
-        self.boundItems = boundItems
+        self.bind = bind
+    }
+    
+    func prev() -> EasyTableViewItem {
+        return self.tableView.getItem(forRow: self.row - 1, inSection: self.section)
+    }
+    
+    func next() -> EasyTableViewItem {
+        return self.tableView.getItem(forRow: self.row + 1, inSection: self.section)
+    }
+    
+    func prevRow() -> (row: Int, section: Int) {
+        return (row: self.row - 1, section: self.section)
+    }
+    
+    func nextRow() -> (row: Int, section: Int) {
+        return (row: self.row + 1, section: self.section)
     }
 }

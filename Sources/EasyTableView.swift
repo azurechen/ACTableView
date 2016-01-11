@@ -26,6 +26,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         
         // set row and section of items
         for (index, item) in section.items.enumerate() {
+            item.tableView = self
             item.section = sections.count - 1
             item.row = index
             
@@ -119,10 +120,12 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     private func updateBoundRows(item: EasyTableViewItem) {
-        for (boundItemRow, boundItemSection) in item.boundItems {
-            let indexPath = getIndexPath(forRow: boundItemRow, inSection: boundItemSection)
-            if (indexPath != nil) {
-                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+        if (item.bind != nil) {
+            for item in item.bind!(item) {
+                let indexPath = getIndexPath(forRow: item.row, inSection: item.section)
+                if (indexPath != nil) {
+                    self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+                }
             }
         }
     }
