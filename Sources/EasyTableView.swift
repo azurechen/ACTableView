@@ -71,60 +71,11 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    func showRow(forRow row: Int, inSection section: Int) {
-        let item = getItem(forRow: row, inSection: section)
-        if (!item.display) {
-            item.display = true
-            let indexPath = getIndexPath(forRow: row, inSection: section)!
-            self.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-        updateBoundRows(item)
-    }
-    
-    func hideRow(forRow row: Int, inSection section: Int) {
-        let item = getItem(forRow: row, inSection: section)
-        if (item.display) {
-            let indexPath = getIndexPath(forRow: row, inSection: section)!
-            item.display = false
-            self.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-        }
-        updateBoundRows(item)
-    }
-    
     func hideAllRowsIfNeeded() {
-        for (sectionIndex, section) in sections.enumerate() {
-            for (row, item) in section.items.enumerate() {
+        for section in sections {
+            for item in section.items {
                 if (!item.initDisplay && item.display) {
-                    hideRow(forRow: row, inSection: sectionIndex)
-                }
-            }
-        }
-    }
-    
-    func updateRow(forRow row: Int, inSection section: Int, animated: Bool) {
-        let item = getItem(forRow: row, inSection: section)
-        let indexPath = getIndexPath(forRow: row, inSection: section)
-        if (indexPath != nil) {
-            if (animated) {
-                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-            } else {
-                self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
-            }
-            updateBoundRows(item)
-        }
-    }
-    
-    func updateData(forRow row: Int, inSection section: Int) {
-        let item = getItem(forRow: row, inSection: section)
-        updateBoundRows(item)
-    }
-    
-    private func updateBoundRows(item: EasyTableViewItem) {
-        if (item.bind != nil) {
-            for item in item.bind!(item) {
-                let indexPath = getIndexPath(forRow: item.row, inSection: item.section)
-                if (indexPath != nil) {
-                    self.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+                    item.hide()
                 }
             }
         }
