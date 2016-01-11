@@ -119,16 +119,3 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return sections[section].footer
     }
 }
-
-class EasyTableViewSection {
-    
-    var items: [EasyTableViewItem] = []
-    var header: String?
-    var footer: String?
-    
-    init(header: String?, footer: String?, items: [EasyTableViewItem]) {
-        self.items = items
-        self.header = header
-        self.footer = footer
-    }
-}

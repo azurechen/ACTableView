@@ -44,6 +44,7 @@
 		53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTableViewCell.xib; sourceTree = "<group>"; };
 		53D2F1041C5E517B00F82347 /* EasyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableView.swift; sourceTree = "<group>"; };
 		53D2F1051C5E517B00F82347 /* EasyTableViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewItem.swift; sourceTree = "<group>"; };
+		53D2F1081C5E54ED00F82347 /* EasyTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				53D2F1041C5E517B00F82347 /* EasyTableView.swift */,
+				53D2F1081C5E54ED00F82347 /* EasyTableViewSection.swift */,
 				53D2F1051C5E517B00F82347 /* EasyTableViewItem.swift */,
 			);
 			path = Sources;
@@ -232,6 +234,7 @@
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
 				53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */,
 				53D2F1061C5E517B00F82347 /* EasyTableView.swift in Sources */,
+				53D2F1091C5E54ED00F82347 /* EasyTableViewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
