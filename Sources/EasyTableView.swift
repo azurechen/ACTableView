@@ -105,7 +105,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         if (cell == nil) {
             cell = UITableViewCell(style: item.style, reuseIdentifier: identifier)
         }
-        item.handle?(cell!)
+        item.handle?(item: item, cell: cell!)
         
         cell?.clipsToBounds
         return cell!
