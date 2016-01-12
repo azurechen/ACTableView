@@ -29,11 +29,11 @@ class EasyTableViewItem {
     var bind: ((EasyTableViewItem) -> [EasyTableViewItem])?
     
     // storyboard
-    convenience init(identifier: String, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool) {
-        self.init(identifier: identifier, handle: handle, display: display, bind: nil)
+    convenience init(identifier: String, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(identifier: identifier, display: display, bind: nil, handle: handle)
     }
     
-    init(identifier: String, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
+    init(identifier: String, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
         self.type = .StoryBoard
         self.handle = handle
         self.initDisplay = display
@@ -43,11 +43,11 @@ class EasyTableViewItem {
     }
     
     // nib
-    convenience init(nibName: String, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool) {
-        self.init(nibName: nibName, handle: handle, display: display, bind: nil)
+    convenience init(nibName: String, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(nibName: nibName, display: display, bind: nil, handle: handle)
     }
     
-    init(nibName: String, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
+    init(nibName: String, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
         self.type = .Nib
         self.handle = handle
         self.initDisplay = display
@@ -56,12 +56,12 @@ class EasyTableViewItem {
         self.bind = bind
     }
     
-    // build-in cells
-    convenience init(style: UITableViewCellStyle, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool) {
-        self.init(style: style, handle: handle, display: display, bind: nil)
+    // built-in cells
+    convenience init(style: UITableViewCellStyle, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(style: style, display: display, bind: nil, handle: handle)
     }
     
-    init(style: UITableViewCellStyle, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> (), display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?) {
+    init(style: UITableViewCellStyle, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
         self.style = style
         self.handle = handle
         self.initDisplay = display
