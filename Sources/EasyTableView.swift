@@ -21,7 +21,13 @@ class EasyTableView: UITableView, UITableViewDataSource {
         self.estimatedRowHeight = 44
     }
     
+    func clear(){
+        sections.removeAll()
+    }
+    
     func addSection(section: EasyTableViewSection) {
+        section.tableView = self
+        section.section = sections.count - 1
         sections.append(section)
         
         // set row and section of items
@@ -37,18 +43,43 @@ class EasyTableView: UITableView, UITableViewDataSource {
         }
     }
     
-    func getIndexPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
-        let section = sections[sectionNum]
-        var count = 0
-        for (var i = 0; i < section.items.count; i++) {
-            let item = section.items[i]
-            if (item.display) {
-                if (i == row) {
-                    return NSIndexPath(forRow: count, inSection: sectionNum)
+    func getSection(atIndexOfSectionInTableView index: Int) -> EasyTableViewSection! {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                if (countSection == index) {
+                    return sections[i]
                 }
-                count++
+                countSection++
             }
         }
+        
+        return nil
+    }
+    
+    func getIndexPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                var countRow = 0
+                
+                for (var j = 0; j < section.items.count; j++) {
+                    let item = section.items[j]
+                    if (item.display) {
+                        if (i == sectionNum && j == row) {
+                            return NSIndexPath(forRow: countRow, inSection: countSection)
+                        }
+                        countRow++
+                    }
+                }
+                countSection++
+            }
+        }
+        
         return nil
     }
     
@@ -56,18 +87,31 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return sections[section].items[row]
     }
     
+    func getItem(indexPath: NSIndexPath) -> EasyTableViewItem {
+        return getItem(forRow: indexPath.row, inSection: indexPath.section)
+    }
+    
     func getItem(atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem! {
-        let section = sections[indexPath.section]
-        var count = 0
-        for (var i = 0; i < section.items.count; i++) {
-            let item = section.items[i]
-            if (item.display) {
-                if (count == indexPath.row) {
-                    return sections[indexPath.section].items[i]
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                var countRow = 0
+                
+                for (var j = 0; j < section.items.count; j++) {
+                    let item = section.items[j]
+                    if (item.display) {
+                        if (countSection == indexPath.section && countRow == indexPath.row) {
+                            return sections[i].items[j]
+                        }
+                        countRow++
+                    }
                 }
-                count++
+                countSection++
             }
         }
+        
         return nil
     }
     
@@ -83,12 +127,18 @@ class EasyTableView: UITableView, UITableViewDataSource {
     
     // DataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return sections.count
+        var count = 0
+        for section in sections {
+            if (section.display) {
+                count++
+            }
+        }
+        return count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
-        for item in sections[section].items {
+        for item in self.getSection(atIndexOfSectionInTableView: section).items {
             if (item.display) {
                 count++
             }
