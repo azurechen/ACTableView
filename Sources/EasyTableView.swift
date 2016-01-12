@@ -26,9 +26,9 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     func addSection(section: EasyTableViewSection) {
+        sections.append(section)
         section.tableView = self
         section.section = sections.count - 1
-        sections.append(section)
         
         // set row and section of items
         for (index, item) in section.items.enumerate() {
@@ -41,6 +41,26 @@ class EasyTableView: UITableView, UITableViewDataSource {
                 self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
             }
         }
+    }
+    
+    func getIndexOfSectionInTableView(atIndexOfSectionInItems index: Int) -> Int? {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                if (i == index) {
+                    return countSection
+                }
+                countSection++
+            }
+        }
+        
+        return nil
+    }
+    
+    func getSection(atIndexOfSectionInItems index: Int) -> EasyTableViewSection! {
+        return self.sections[index]
     }
     
     func getSection(atIndexOfSectionInTableView index: Int) -> EasyTableViewSection! {

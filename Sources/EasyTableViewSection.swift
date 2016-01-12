@@ -32,16 +32,20 @@ class EasyTableViewSection {
     func show() {
         if (!self.display) {
             self.display = true
-            //let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
-            //self.tableView.deleteSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Fade)
+            let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
+            if (index != nil) {
+                self.tableView.insertSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+            }
         }
     }
     
     func hide() {
         if (self.display) {
-            //let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
+            let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
             self.display = false
-            //self.tableView.deleteSections(NSIndexSet(index: 1), withRowAnimation: UITableViewRowAnimation.Fade)
+            if (index != nil) {
+                self.tableView.deleteSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+            }
         }
     }
 }
