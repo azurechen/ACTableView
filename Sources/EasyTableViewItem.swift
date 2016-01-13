@@ -16,7 +16,7 @@ class EasyTableViewItem {
         case Default
     }
     
-    var tableView: EasyTableView!
+    weak var tableView: EasyTableView!
     var row: Int!
     var section: Int!
     

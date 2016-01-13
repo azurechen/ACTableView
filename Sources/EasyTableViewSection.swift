@@ -10,7 +10,7 @@ import UIKit
 
 class EasyTableViewSection {
     
-    var tableView: EasyTableView!
+    weak var tableView: EasyTableView!
     var section: Int!
     
     var header: String?
