@@ -59,10 +59,12 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    func getSection(atIndexOfSectionInItems index: Int) -> EasyTableViewSection! {
+    // get a section from items, including sections that display is false
+    func getSection(atIndex index: Int) -> EasyTableViewSection! {
         return self.sections[index]
     }
     
+    // get a section in TableView
     func getSection(atIndexOfSectionInTableView index: Int) -> EasyTableViewSection! {
         var countSection = 0
         
@@ -85,15 +87,17 @@ class EasyTableView: UITableView, UITableViewDataSource {
         for (var i = 0; i < sections.count; i++) {
             let section = sections[i]
             if (section.display) {
-                var countRow = 0
-                
-                for (var j = 0; j < section.items.count; j++) {
-                    let item = section.items[j]
-                    if (item.display) {
-                        if (i == sectionNum && j == row) {
-                            return NSIndexPath(forRow: countRow, inSection: countSection)
+                if (i == sectionNum) {
+                    var countRow = 0
+                    
+                    for (var j = 0; j < section.items.count; j++) {
+                        let item = section.items[j]
+                        if (item.display) {
+                            if (j == row) {
+                                return NSIndexPath(forRow: countRow, inSection: countSection)
+                            }
+                            countRow++
                         }
-                        countRow++
                     }
                 }
                 countSection++
@@ -103,29 +107,29 @@ class EasyTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
+    // get an item from items, including items that display is false
     func getItem(forRow row: Int, inSection section: Int) -> EasyTableViewItem {
         return sections[section].items[row]
     }
     
-    func getItem(indexPath: NSIndexPath) -> EasyTableViewItem {
-        return getItem(forRow: indexPath.row, inSection: indexPath.section)
-    }
-    
-    func getItem(atIndexPath indexPath: NSIndexPath) -> EasyTableViewItem! {
+    // get an item from cells in tableView
+    func getItem(atIndexPathInTableView indexPath: NSIndexPath) -> EasyTableViewItem! {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
             let section = sections[i]
             if (section.display) {
-                var countRow = 0
-                
-                for (var j = 0; j < section.items.count; j++) {
-                    let item = section.items[j]
-                    if (item.display) {
-                        if (countSection == indexPath.section && countRow == indexPath.row) {
-                            return sections[i].items[j]
+                if (countSection == indexPath.section) {
+                    var countRow = 0
+                    
+                    for (var j = 0; j < section.items.count; j++) {
+                        let item = section.items[j]
+                        if (item.display) {
+                            if (countRow == indexPath.row) {
+                                return sections[i].items[j]
+                            }
+                            countRow++
                         }
-                        countRow++
                     }
                 }
                 countSection++
@@ -167,7 +171,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = getItem(atIndexPath: indexPath)
+        let item = getItem(atIndexPathInTableView: indexPath)
         let identifier = item.reuseIdentifier
         
         // get cell
