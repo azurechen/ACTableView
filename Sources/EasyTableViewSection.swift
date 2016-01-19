@@ -34,7 +34,7 @@ class EasyTableViewSection {
             self.display = true
             let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
             if (index != nil) {
-                self.tableView.insertSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.insertSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.Fade)
             }
         }
     }
@@ -44,7 +44,7 @@ class EasyTableViewSection {
             let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
             self.display = false
             if (index != nil) {
-                self.tableView.deleteSections(NSIndexSet(index: 0), withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.deleteSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.Fade)
             }
         }
     }
