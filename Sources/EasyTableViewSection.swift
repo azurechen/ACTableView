@@ -29,7 +29,7 @@ class EasyTableViewSection {
         self.items = items
     }
     
-    func show() {
+    func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
             let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
@@ -39,7 +39,7 @@ class EasyTableViewSection {
         }
     }
     
-    func hide() {
+    func hide(animated animated: Bool = true) {
         if (self.display) {
             let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
             self.display = false

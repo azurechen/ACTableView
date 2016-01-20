@@ -87,7 +87,7 @@ class EasyTableViewItem {
         return (row: self.row + 1, section: self.section)
     }
     
-    func show() {
+    func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
             let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
@@ -96,7 +96,7 @@ class EasyTableViewItem {
         updateBoundRows(self)
     }
     
-    func hide(updateBoundRows update:Bool = true) {
+    func hide(animated animated: Bool = true, updateBoundRows update:Bool = true) {
         if (self.display) {
             let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
             self.display = false
@@ -116,7 +116,7 @@ class EasyTableViewItem {
         }
     }
     
-    func reload(animated animated: Bool) {
+    func reload(animated animated: Bool = true) {
         let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)
         if (indexPath != nil) {
             if (animated) {
@@ -143,4 +143,3 @@ class EasyTableViewItem {
         }
     }
 }
-
