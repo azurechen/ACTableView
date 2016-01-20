@@ -149,6 +149,16 @@ class EasyTableView: UITableView, UITableViewDataSource {
         }
     }
     
+    func showAllRows() {
+        for section in sections {
+            for item in section.items {
+                if (!item.display) {
+                    item.show()
+                }
+            }
+        }
+    }
+    
     // DataSource
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         var count = 0
@@ -186,10 +196,10 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].header
+        return getSection(atIndexOfSectionInTableView: section).header
     }
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sections[section].footer
+        return getSection(atIndexOfSectionInTableView: section).footer
     }
 }
