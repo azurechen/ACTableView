@@ -96,13 +96,24 @@ class EasyTableViewItem {
         updateBoundRows(self)
     }
     
-    func hide() {
+    func hide(updateBoundRows update:Bool = true) {
         if (self.display) {
             let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
             self.display = false
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         }
-        updateBoundRows(self)
+        if(update){
+            updateBoundRows(self)
+        }
+    }
+    
+    
+    func toggle(){
+        if(self.display){
+            self.hide()
+        } else {
+            self.show()
+        }
     }
     
     func reload(animated animated: Bool) {
@@ -132,3 +143,4 @@ class EasyTableViewItem {
         }
     }
 }
+
