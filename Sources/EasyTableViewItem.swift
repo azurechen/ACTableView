@@ -91,7 +91,7 @@ class EasyTableViewItem {
         if (!self.display) {
             self.display = true
             let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
         updateBoundRows(self)
     }
@@ -100,7 +100,7 @@ class EasyTableViewItem {
         if (self.display) {
             let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
             self.display = false
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
         if(update){
             updateBoundRows(self)
