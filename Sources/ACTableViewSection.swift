@@ -34,7 +34,7 @@ class ACTableViewSection {
     func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let index = self.tableView.indexOfSectionInTableView(atIndexOfSectionInItems: section)
+            let index = self.tableView.indexOfSectionFromACIndex(section)
             if (index != nil) {
                 self.tableView.insertSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
             }
@@ -43,7 +43,7 @@ class ACTableViewSection {
     
     func hide(animated animated: Bool = true) {
         if (self.display) {
-            let index = self.tableView.indexOfSectionInTableView(atIndexOfSectionInItems: section)
+            let index = self.tableView.indexOfSectionFromACIndex(section)
             self.display = false
             if (index != nil) {
                 self.tableView.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)

@@ -94,7 +94,7 @@ class ACTableViewItem {
     func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)!
+            let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
         updateBoundRows(self)
@@ -102,7 +102,7 @@ class ACTableViewItem {
     
     func hide(animated animated: Bool = true, updateBoundRows update:Bool = true) {
         if (self.display) {
-            let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)!
+            let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
             self.display = false
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
@@ -121,7 +121,7 @@ class ACTableViewItem {
     }
     
     func reload(animated animated: Bool = true) {
-        let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)
+        let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)
         if (indexPath != nil) {
             if (animated) {
                 self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -139,7 +139,7 @@ class ACTableViewItem {
     private func updateBoundRows(item: ACTableViewItem) {
         if (item.bind != nil) {
             for item in item.bind!(item) {
-                if let indexPath = self.tableView.indexPathFromItemPath(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
+                if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
                     item.handle?(item: item, cell: cell)
                 }
             }

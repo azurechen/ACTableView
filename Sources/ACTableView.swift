@@ -44,7 +44,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // section index mapping
-    func indexOfSectionInTableView(atIndexOfSectionInItems index: Int) -> Int? {
+    func indexOfSectionFromACIndex(index: Int) -> Int? {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -60,35 +60,8 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    // get a section by tag
-    func sectionWithTag(tag: String) -> ACTableViewSection! {
-        for section in sections {
-            if (section.tag == tag) {
-                return section
-            }
-        }
-        return nil
-    }
-    
-    // get a section in TableView
-    func sectionFromIndexInTableView(index: Int) -> ACTableViewSection! {
-        var countSection = 0
-        
-        for (var i = 0; i < sections.count; i++) {
-            let section = sections[i]
-            if (section.display) {
-                if (countSection == index) {
-                    return sections[i]
-                }
-                countSection++
-            }
-        }
-        
-        return nil
-    }
-    
     // item index mapping
-    func indexPathFromItemPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
+    func indexPathFromACIndex(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -114,6 +87,33 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
+    // get a section by tag
+    func sectionWithTag(tag: String) -> ACTableViewSection! {
+        for section in sections {
+            if (section.tag == tag) {
+                return section
+            }
+        }
+        return nil
+    }
+    
+    // get a section by Section Index in TableView
+    private func sectionAtIndex(index: Int) -> ACTableViewSection! {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                if (countSection == index) {
+                    return sections[i]
+                }
+                countSection++
+            }
+        }
+        
+        return nil
+    }
+    
     // get an item by tag
     func itemWithTag(tag: String) -> ACTableViewItem! {
         for section in sections {
@@ -126,7 +126,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    // get an item from cells in tableView
+    // get an item by IndexPath in tableView
     func itemAtIndexPath(indexPath: NSIndexPath) -> ACTableViewItem! {
         var countSection = 0
         
@@ -206,7 +206,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
-        for item in self.sectionFromIndexInTableView(section).items {
+        for item in self.sectionAtIndex(section).items {
             if (item.display) {
                 count++
             }
@@ -230,10 +230,10 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionFromIndexInTableView(section).header
+        return sectionAtIndex(section).header
     }
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sectionFromIndexInTableView(section).footer
+        return sectionAtIndex(section).footer
     }
 }
