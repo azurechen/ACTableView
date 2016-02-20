@@ -12,6 +12,13 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: ACTableView!
     
+    // section tags
+    private var SECTION_EXPANDABLE = "section_expandable"
+    
+    // item tags
+    private var ITEM_EXPAND = "item_expand"
+    private var ITEM_COLLAPSE = "item_collapse"
+    
     private var _startDate = NSDate()
     private var _endDate = NSDate()
     
@@ -42,6 +49,7 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         
         self.tableView.addSection(ACTableViewSection(
+            tag: SECTION_EXPANDABLE,
             header: "Expandable Section",
             footer: nil,
             display: false,
@@ -62,11 +70,11 @@ class ViewController: UIViewController, UITableViewDelegate {
             footer: nil,
             display: true,
             items: [
-                ACTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
+                ACTableViewItem(tag: ITEM_EXPAND, identifier: "CentralCell", display: true) { (item, cell) in
                     let _cell = cell as! CentralTableViewCell
                     _cell.label.text = "Show Section"
                 },
-                ACTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
+                ACTableViewItem(tag: ITEM_COLLAPSE, identifier: "CentralCell", display: true) { (item, cell) in
                     let _cell = cell as! CentralTableViewCell
                     _cell.label.text = "Hide Section"
                 },
@@ -122,15 +130,11 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         let item = self.tableView.getItem(atIndexPathInTableView: indexPath)
         
-        
-        if (item.section == 2) {
-            let section = self.tableView.getSection(atIndex: 1)
-            if (item.row == 0) {
-                section.show()
-            }
-            if (item.row == 1) {
-                section.hide()
-            }
+        if (item.tag == ITEM_EXPAND) {
+            self.tableView.sectionWithTag(SECTION_EXPANDABLE)!.show()
+        }
+        if (item.tag == ITEM_COLLAPSE) {
+            self.tableView.sectionWithTag(SECTION_EXPANDABLE)!.hide()
         }
         if (item.section == 3 && item.row == 0) || (item.section == 3 && item.row == 2) {
             let pickerItem = item.next()
