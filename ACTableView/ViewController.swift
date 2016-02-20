@@ -103,7 +103,6 @@ class ViewController: UIViewController, UITableViewDelegate {
                 // DatePicker
                 ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
-                    _cell.datePicker.tag = 1
                     _cell.datePicker.date = self._startDate
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 },
@@ -119,7 +118,6 @@ class ViewController: UIViewController, UITableViewDelegate {
                 },
                 ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
-                    _cell.datePicker.tag = 2
                     _cell.datePicker.date = self._endDate
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 }
@@ -133,10 +131,10 @@ class ViewController: UIViewController, UITableViewDelegate {
         let item = self.tableView.itemAtIndexPath(indexPath)
         
         if (item.tag == ITEM_EXPAND) {
-            self.tableView.sectionWithTag(SECTION_EXPANDABLE)!.show()
+            self.tableView.sectionWithTag(SECTION_EXPANDABLE).show()
         }
         if (item.tag == ITEM_COLLAPSE) {
-            self.tableView.sectionWithTag(SECTION_EXPANDABLE)!.hide()
+            self.tableView.sectionWithTag(SECTION_EXPANDABLE).hide()
         }
         if (item.section == 3 && item.row == 0) || (item.section == 3 && item.row == 2) {
             let pickerItem = item.next()
@@ -151,15 +149,15 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     // UIDatePicker
     func datePickerValueChanged(sender: UIDatePicker) {
-        if (sender.tag == 1) {
+        let item = self.tableView.itemWithSubview(sender)
+        
+        if (item.tag == ITEM_START_PICKER) {
             _startDate = sender.date
-            let item = self.tableView.itemWithTag(ITEM_START_PICKER)
-            item!.updateData()
+            item.updateData()
         }
-        if (sender.tag == 2) {
+        if (item.tag == ITEM_END_PICKER) {
             _endDate = sender.date
-            let item = self.tableView.itemWithTag(ITEM_END_PICKER)
-            item!.updateData()
+            item.updateData()
         }
     }
     

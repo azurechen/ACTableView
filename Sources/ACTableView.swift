@@ -43,6 +43,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         }
     }
     
+    // section index mapping
     func indexOfSectionInTableView(atIndexOfSectionInItems index: Int) -> Int? {
         var countSection = 0
         
@@ -60,7 +61,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get a section by tag
-    func sectionWithTag(tag: String) -> ACTableViewSection? {
+    func sectionWithTag(tag: String) -> ACTableViewSection! {
         for section in sections {
             if (section.tag == tag) {
                 return section
@@ -86,6 +87,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
+    // item index mapping
     func indexPathFromItemPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
         var countSection = 0
         
@@ -113,7 +115,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item by tag
-    func itemWithTag(tag: String) -> ACTableViewItem? {
+    func itemWithTag(tag: String) -> ACTableViewItem! {
         for section in sections {
             for item in section.items {
                 if (item.tag == tag) {
@@ -122,11 +124,6 @@ class ACTableView: UITableView, UITableViewDataSource {
             }
         }
         return nil
-    }
-    
-    // get an item from items, including items that display is false
-    func itemAtItemPath(forRow row: Int, inSection section: Int) -> ACTableViewItem {
-        return sections[section].items[row]
     }
     
     // get an item from cells in tableView
@@ -156,6 +153,25 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
+    // get an item by subview
+    func itemWithSubview(subview: UIView) -> ACTableViewItem! {
+        var view: UIView? = subview
+        
+        while (view != nil) {
+            if let v = view as? UITableViewCell {
+                if let indexPath = indexPathForCell(v) {
+                    return itemAtIndexPath(indexPath)
+                } else {
+                    return nil
+                }
+            } else {
+                view = view!.superview
+            }
+        }
+        return nil
+    }
+    
+    // hide all rows
     func hideAllRowsIfNeeded() {
         for section in sections {
             for item in section.items {
@@ -166,6 +182,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         }
     }
     
+    // show all rows
     func showAllRows() {
         for section in sections {
             for item in section.items {

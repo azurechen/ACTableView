@@ -76,11 +76,11 @@ class ACTableViewItem {
     
     // methods
     func prev() -> ACTableViewItem {
-        return self.tableView.itemAtItemPath(forRow: self.row - 1, inSection: self.section)
+        return self.tableView.sections[section].items[row - 1]
     }
     
     func next() -> ACTableViewItem {
-        return self.tableView.itemAtItemPath(forRow: self.row + 1, inSection: self.section)
+        return self.tableView.sections[section].items[row + 1]
     }
     
     func prevRow() -> (row: Int, section: Int) {
@@ -139,9 +139,8 @@ class ACTableViewItem {
     private func updateBoundRows(item: ACTableViewItem) {
         if (item.bind != nil) {
             for item in item.bind!(item) {
-                let indexPath = self.tableView.indexPathFromItemPath(forRow: item.row, inSection: item.section)
-                if (indexPath != nil) {
-                    self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+                if let indexPath = self.tableView.indexPathFromItemPath(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
+                    item.handle?(item: item, cell: cell)
                 }
             }
         }
