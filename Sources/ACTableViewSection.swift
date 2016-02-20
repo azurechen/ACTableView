@@ -1,5 +1,5 @@
 //
-//  EasyTableViewSection.swift
+//  ACTableViewSection.swift
 //  ACTableView
 //
 //  Created by AzureChen on 2016/1/11.
@@ -8,21 +8,21 @@
 
 import UIKit
 
-class EasyTableViewSection {
+class ACTableViewSection {
     
-    weak var tableView: EasyTableView!
+    weak var tableView: ACTableView!
     var section: Int!
     
     var header: String?
     var footer: String?
-    var items: [EasyTableViewItem]
+    var items: [ACTableViewItem]
     var display: Bool
     
     convenience init(header: String?, footer: String?, display: Bool) {
         self.init(header: header, footer: footer, display: display, items: [])
     }
     
-    init(header: String?, footer: String?, display: Bool, items: [EasyTableViewItem]) {
+    init(header: String?, footer: String?, display: Bool, items: [ACTableViewItem]) {
         self.header = header
         self.footer = footer
         self.display = display

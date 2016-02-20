@@ -16,9 +16,9 @@
 		537FC6541C5D162600E949B1 /* ACTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6531C5D162600E949B1 /* ACTableViewTests.swift */; };
 		53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */; };
 		53D2F1031C5E511800F82347 /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */; };
-		53D2F1061C5E517B00F82347 /* EasyTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1041C5E517B00F82347 /* EasyTableView.swift */; };
-		53D2F1071C5E517B00F82347 /* EasyTableViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1051C5E517B00F82347 /* EasyTableViewItem.swift */; };
-		53D2F10D1C5E58B500F82347 /* EasyTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F10C1C5E58B500F82347 /* EasyTableViewSection.swift */; };
+		53D2F1061C5E517B00F82347 /* ACTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1041C5E517B00F82347 /* ACTableView.swift */; };
+		53D2F1071C5E517B00F82347 /* ACTableViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1051C5E517B00F82347 /* ACTableViewItem.swift */; };
+		53D2F10D1C5E58B500F82347 /* ACTableViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F10C1C5E58B500F82347 /* ACTableViewSection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,9 +45,9 @@
 		537FC6551C5D162600E949B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTableViewCell.xib; sourceTree = "<group>"; };
-		53D2F1041C5E517B00F82347 /* EasyTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableView.swift; sourceTree = "<group>"; };
-		53D2F1051C5E517B00F82347 /* EasyTableViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewItem.swift; sourceTree = "<group>"; };
-		53D2F10C1C5E58B500F82347 /* EasyTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EasyTableViewSection.swift; sourceTree = "<group>"; };
+		53D2F1041C5E517B00F82347 /* ACTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACTableView.swift; sourceTree = "<group>"; };
+		53D2F1051C5E517B00F82347 /* ACTableViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACTableViewItem.swift; sourceTree = "<group>"; };
+		53D2F10C1C5E58B500F82347 /* ACTableViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACTableViewSection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +113,9 @@
 		53D2F0F51C5E468500F82347 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				53D2F1041C5E517B00F82347 /* EasyTableView.swift */,
-				53D2F10C1C5E58B500F82347 /* EasyTableViewSection.swift */,
-				53D2F1051C5E517B00F82347 /* EasyTableViewItem.swift */,
+				53D2F1041C5E517B00F82347 /* ACTableView.swift */,
+				53D2F10C1C5E58B500F82347 /* ACTableViewSection.swift */,
+				53D2F1051C5E517B00F82347 /* ACTableViewItem.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -234,13 +234,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53D2F1071C5E517B00F82347 /* EasyTableViewItem.swift in Sources */,
+				53D2F1071C5E517B00F82347 /* ACTableViewItem.swift in Sources */,
 				537FC6411C5D162600E949B1 /* ViewController.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
 				53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */,
 				535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */,
-				53D2F1061C5E517B00F82347 /* EasyTableView.swift in Sources */,
-				53D2F10D1C5E58B500F82347 /* EasyTableViewSection.swift in Sources */,
+				53D2F1061C5E517B00F82347 /* ACTableView.swift in Sources */,
+				53D2F10D1C5E58B500F82347 /* ACTableViewSection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

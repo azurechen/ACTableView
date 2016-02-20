@@ -1,6 +1,6 @@
 //
-//  EasyTableViewItem.swift
-//  EasyTableView
+//  ACTableViewItem.swift
+//  ACTableView
 //
 //  Created by AzureChen on 2016/1/7.
 //  Copyright © 2016 AzureChen. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EasyTableViewItem {
+class ACTableViewItem {
     
     enum Type {
         case StoryBoard
@@ -16,24 +16,24 @@ class EasyTableViewItem {
         case Default
     }
     
-    weak var tableView: EasyTableView!
+    weak var tableView: ACTableView!
     var row: Int!
     var section: Int!
     
     var type: Type = .Default
     var style: UITableViewCellStyle = .Default
-    var handle: ((item: EasyTableViewItem, cell: UITableViewCell) -> ())?
+    var handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
     let initDisplay: Bool
     var display: Bool
     var reuseIdentifier: String
-    var bind: ((EasyTableViewItem) -> [EasyTableViewItem])?
+    var bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
     // storyboard
-    convenience init(identifier: String, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    convenience init(identifier: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.init(identifier: identifier, display: display, bind: nil, handle: handle)
     }
     
-    init(identifier: String, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    init(identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.type = .StoryBoard
         self.handle = handle
         self.initDisplay = display
@@ -43,11 +43,11 @@ class EasyTableViewItem {
     }
     
     // nib
-    convenience init(nibName: String, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    convenience init(nibName: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.init(nibName: nibName, display: display, bind: nil, handle: handle)
     }
     
-    init(nibName: String, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    init(nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.type = .Nib
         self.handle = handle
         self.initDisplay = display
@@ -57,11 +57,11 @@ class EasyTableViewItem {
     }
     
     // built-in cells
-    convenience init(style: UITableViewCellStyle, display: Bool, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    convenience init(style: UITableViewCellStyle, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.init(style: style, display: display, bind: nil, handle: handle)
     }
     
-    init(style: UITableViewCellStyle, display: Bool, bind: ((item: EasyTableViewItem) -> [EasyTableViewItem])?, handle: (item: EasyTableViewItem, cell: UITableViewCell) -> ()) {
+    init(style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.style = style
         self.handle = handle
         self.initDisplay = display
@@ -71,11 +71,11 @@ class EasyTableViewItem {
     }
     
     // methods
-    func prev() -> EasyTableViewItem {
+    func prev() -> ACTableViewItem {
         return self.tableView.getItem(forRow: self.row - 1, inSection: self.section)
     }
     
-    func next() -> EasyTableViewItem {
+    func next() -> ACTableViewItem {
         return self.tableView.getItem(forRow: self.row + 1, inSection: self.section)
     }
     
@@ -132,7 +132,7 @@ class EasyTableViewItem {
         updateBoundRows(self)
     }
     
-    private func updateBoundRows(item: EasyTableViewItem) {
+    private func updateBoundRows(item: ACTableViewItem) {
         if (item.bind != nil) {
             for item in item.bind!(item) {
                 let indexPath = self.tableView.getIndexPath(forRow: item.row, inSection: item.section)

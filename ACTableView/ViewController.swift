@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate {
     
-    @IBOutlet weak var tableView: EasyTableView!
+    @IBOutlet weak var tableView: ACTableView!
     
     private var _startDate = NSDate()
     private var _endDate = NSDate()
@@ -21,52 +21,52 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         self.tableView.delegate = self
         
-        self.tableView.addSection(EasyTableViewSection(
+        self.tableView.addSection(ACTableViewSection(
             header: "Built-in Cells",
             footer: nil,
             display: true,
             items: [
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "home")
                     cell.textLabel?.text = "Home"
                 },
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "call")
                     cell.textLabel?.text = "Call"
                 },
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "settings")
                     cell.textLabel?.text = "Settins"
                 },
             ]))
         
         
-        self.tableView.addSection(EasyTableViewSection(
+        self.tableView.addSection(ACTableViewSection(
             header: "Expandable Section",
             footer: nil,
             display: false,
             items: [
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "First"
                 },
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "Second"
                 },
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "Third"
                 },
             ]))
         
-        self.tableView.addSection(EasyTableViewSection(
+        self.tableView.addSection(ACTableViewSection(
             header: "Custom Cells on StoryBoard",
             footer: nil,
             display: true,
             items: [
-                EasyTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
+                ACTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
                     let _cell = cell as! CentralTableViewCell
                     _cell.label.text = "Show Section"
                 },
-                EasyTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
+                ACTableViewItem(identifier: "CentralCell", display: true) { (item, cell) in
                     let _cell = cell as! CentralTableViewCell
                     _cell.label.text = "Hide Section"
                 },
@@ -75,13 +75,13 @@ class ViewController: UIViewController, UITableViewDelegate {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .MediumStyle
         dateFormatter.timeStyle = .ShortStyle
-        self.tableView.addSection(EasyTableViewSection(
+        self.tableView.addSection(ACTableViewSection(
             header: "Custom Cells with Nib",
             footer: nil,
             display: true,
             items: [
                 // label
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "Start Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._startDate)
                     if (item.next().display) {
@@ -91,14 +91,14 @@ class ViewController: UIViewController, UITableViewDelegate {
                     }
                 },
                 // DatePicker
-                EasyTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [EasyTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.tag = 1
                     _cell.datePicker.date = self._startDate
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 },
                 // label
-                EasyTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "End Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._endDate)
                     if (item.next().display) {
@@ -107,7 +107,7 @@ class ViewController: UIViewController, UITableViewDelegate {
                         cell.detailTextLabel!.textColor = UIColor.grayColor()
                     }
                 },
-                EasyTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [EasyTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.tag = 2
                     _cell.datePicker.date = self._endDate

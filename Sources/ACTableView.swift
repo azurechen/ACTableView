@@ -1,6 +1,6 @@
 //
-//  EasyTableView.swift
-//  EasyTableView
+//  ACTableView.swift
+//  ACTableView
 //
 //  Created by AzureChen on 2016/1/7.
 //  Copyright © 2016 AzureChen. All rights reserved.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class EasyTableView: UITableView, UITableViewDataSource {
+class ACTableView: UITableView, UITableViewDataSource {
     
-    var sections: [EasyTableViewSection] = []
+    var sections: [ACTableViewSection] = []
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -25,7 +25,7 @@ class EasyTableView: UITableView, UITableViewDataSource {
         sections.removeAll()
     }
     
-    func addSection(section: EasyTableViewSection) {
+    func addSection(section: ACTableViewSection) {
         sections.append(section)
         section.tableView = self
         section.section = sections.count - 1
@@ -60,12 +60,12 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     // get a section from items, including sections that display is false
-    func getSection(atIndex index: Int) -> EasyTableViewSection! {
+    func getSection(atIndex index: Int) -> ACTableViewSection! {
         return self.sections[index]
     }
     
     // get a section in TableView
-    func getSection(atIndexOfSectionInTableView index: Int) -> EasyTableViewSection! {
+    func getSection(atIndexOfSectionInTableView index: Int) -> ACTableViewSection! {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -108,12 +108,12 @@ class EasyTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item from items, including items that display is false
-    func getItem(forRow row: Int, inSection section: Int) -> EasyTableViewItem {
+    func getItem(forRow row: Int, inSection section: Int) -> ACTableViewItem {
         return sections[section].items[row]
     }
     
     // get an item from cells in tableView
-    func getItem(atIndexPathInTableView indexPath: NSIndexPath) -> EasyTableViewItem! {
+    func getItem(atIndexPathInTableView indexPath: NSIndexPath) -> ACTableViewItem! {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
