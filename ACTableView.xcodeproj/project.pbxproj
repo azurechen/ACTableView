@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */; };
 		537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC63E1C5D162600E949B1 /* AppDelegate.swift */; };
 		537FC6411C5D162600E949B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6401C5D162600E949B1 /* ViewController.swift */; };
 		537FC6441C5D162600E949B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6421C5D162600E949B1 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralTableViewCell.swift; sourceTree = "<group>"; };
 		537FC63B1C5D162600E949B1 /* ACTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537FC63E1C5D162600E949B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		537FC6401C5D162600E949B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			children = (
 				53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */,
 				53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */,
+				5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */,
 			);
 			name = Views;
 			path = View;
@@ -178,6 +181,7 @@
 				TargetAttributes = {
 					537FC63A1C5D162600E949B1 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 8Q7M9GVALG;
 					};
 					537FC64E1C5D162600E949B1 = {
 						CreatedOnToolsVersion = 7.2;
@@ -234,6 +238,7 @@
 				537FC6411C5D162600E949B1 /* ViewController.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
 				53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */,
+				535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */,
 				53D2F1061C5E517B00F82347 /* EasyTableView.swift in Sources */,
 				53D2F10D1C5E58B500F82347 /* EasyTableViewSection.swift in Sources */,
 			);
@@ -364,10 +369,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ACTableView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.azurechen.ACTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -375,10 +384,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = ACTableView/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.azurechen.ACTableView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
