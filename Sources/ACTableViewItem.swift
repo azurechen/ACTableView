@@ -20,20 +20,22 @@ class ACTableViewItem {
     var row: Int!
     var section: Int!
     
+    var tag: String?
     var type: Type = .Default
     var style: UITableViewCellStyle = .Default
     var handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
     let initDisplay: Bool
     var display: Bool
     var reuseIdentifier: String
-    var bind: ((ACTableViewItem) -> [ACTableViewItem])?
+    private var bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
     // storyboard
-    convenience init(identifier: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(identifier: identifier, display: display, bind: nil, handle: handle)
+    convenience init(tag: String? = nil, identifier: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, identifier: identifier, display: display, bind: nil, handle: handle)
     }
     
-    init(identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.tag = tag
         self.type = .StoryBoard
         self.handle = handle
         self.initDisplay = display
@@ -43,11 +45,12 @@ class ACTableViewItem {
     }
     
     // nib
-    convenience init(nibName: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(nibName: nibName, display: display, bind: nil, handle: handle)
+    convenience init(tag: String? = nil, nibName: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, nibName: nibName, display: display, bind: nil, handle: handle)
     }
     
-    init(nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    init(tag: String? = nil, nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.tag = tag
         self.type = .Nib
         self.handle = handle
         self.initDisplay = display
@@ -57,11 +60,12 @@ class ACTableViewItem {
     }
     
     // built-in cells
-    convenience init(style: UITableViewCellStyle, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(style: style, display: display, bind: nil, handle: handle)
+    convenience init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, style: style, display: display, bind: nil, handle: handle)
     }
     
-    init(style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.tag = tag
         self.style = style
         self.handle = handle
         self.initDisplay = display

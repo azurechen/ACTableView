@@ -13,16 +13,18 @@ class ACTableViewSection {
     weak var tableView: ACTableView!
     var section: Int!
     
+    var tag: String?
     var header: String?
     var footer: String?
     var items: [ACTableViewItem]
     var display: Bool
     
-    convenience init(header: String?, footer: String?, display: Bool) {
-        self.init(header: header, footer: footer, display: display, items: [])
+    convenience init(tag: String? = nil, header: String?, footer: String?, display: Bool) {
+        self.init(tag: tag, header: header, footer: footer, display: display, items: [])
     }
     
-    init(header: String?, footer: String?, display: Bool, items: [ACTableViewItem]) {
+    init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACTableViewItem]) {
+        self.tag = tag
         self.header = header
         self.footer = footer
         self.display = display

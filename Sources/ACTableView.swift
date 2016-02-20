@@ -59,6 +59,16 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
+    // get a section by tag
+    func sectionWithTag(tag: String) -> ACTableViewSection? {
+        for section in sections {
+            if (section.tag == tag) {
+                return section
+            }
+        }
+        return nil
+    }
+
     // get a section from items, including sections that display is false
     func getSection(atIndex index: Int) -> ACTableViewSection! {
         return self.sections[index]
@@ -104,6 +114,18 @@ class ACTableView: UITableView, UITableViewDataSource {
             }
         }
         
+        return nil
+    }
+    
+    // get an item by tag
+    func itemWithTag(tag: String) -> ACTableViewItem? {
+        for section in sections {
+            for item in section.items {
+                if (item.tag == tag) {
+                    return item
+                }
+            }
+        }
         return nil
     }
     
