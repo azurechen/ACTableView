@@ -153,11 +153,11 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         if (item.tag == ITEM_START_PICKER) {
             _startDate = sender.date
-            item.updateData()
+            item.updateBoundRows()
         }
         if (item.tag == ITEM_END_PICKER) {
             _endDate = sender.date
-            item.updateData()
+            item.updateBoundRows()
         }
     }
     

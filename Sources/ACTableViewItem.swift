@@ -83,40 +83,29 @@ class ACTableViewItem {
         return self.tableView.sections[section].items[row + 1]
     }
     
-    func prevRow() -> (row: Int, section: Int) {
-        return (row: self.row - 1, section: self.section)
-    }
-    
-    func nextRow() -> (row: Int, section: Int) {
-        return (row: self.row + 1, section: self.section)
-    }
-    
     func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
             let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
-        updateBoundRows(self)
+        updateBoundRows()
     }
     
-    func hide(animated animated: Bool = true, updateBoundRows update:Bool = true) {
+    func hide(animated animated: Bool = true) {
         if (self.display) {
             let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
             self.display = false
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
-        if(update){
-            updateBoundRows(self)
-        }
+        updateBoundRows()
     }
     
-    
-    func toggle(){
+    func toggle(animated animated: Bool = true){
         if(self.display){
-            self.hide()
+            self.hide(animated: animated)
         } else {
-            self.show()
+            self.show(animated: animated)
         }
     }
     
@@ -128,17 +117,13 @@ class ACTableViewItem {
             } else {
                 self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
             }
-            updateBoundRows(self)
+            updateBoundRows()
         }
     }
     
-    func updateData() {
-        updateBoundRows(self)
-    }
-    
-    private func updateBoundRows(item: ACTableViewItem) {
-        if (item.bind != nil) {
-            for item in item.bind!(item) {
+    func updateBoundRows() {
+        if (self.bind != nil) {
+            for item in self.bind!(self) {
                 if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
                     item.handle?(item: item, cell: cell)
                 }
