@@ -18,6 +18,8 @@ class ViewController: UIViewController, UITableViewDelegate {
     // item tags
     private var ITEM_EXPAND = "item_expand"
     private var ITEM_COLLAPSE = "item_collapse"
+    private var ITEM_START_PICKER = "item_start_picker"
+    private var ITEM_END_PICKER = "item_end_picker"
     
     private var _startDate = NSDate()
     private var _endDate = NSDate()
@@ -99,7 +101,7 @@ class ViewController: UIViewController, UITableViewDelegate {
                     }
                 },
                 // DatePicker
-                ACTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.tag = 1
                     _cell.datePicker.date = self._startDate
@@ -115,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate {
                         cell.detailTextLabel!.textColor = UIColor.grayColor()
                     }
                 },
-                ACTableViewItem(nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.tag = 2
                     _cell.datePicker.date = self._endDate
@@ -128,7 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
-        let item = self.tableView.getItem(atIndexPathInTableView: indexPath)
+        let item = self.tableView.itemAtIndexPath(indexPath)
         
         if (item.tag == ITEM_EXPAND) {
             self.tableView.sectionWithTag(SECTION_EXPANDABLE)!.show()
@@ -151,13 +153,13 @@ class ViewController: UIViewController, UITableViewDelegate {
     func datePickerValueChanged(sender: UIDatePicker) {
         if (sender.tag == 1) {
             _startDate = sender.date
-            let item = self.tableView.getItem(forRow: 1, inSection: 3)
-            item.updateData()
+            let item = self.tableView.itemWithTag(ITEM_START_PICKER)
+            item!.updateData()
         }
         if (sender.tag == 2) {
             _endDate = sender.date
-            let item = self.tableView.getItem(forRow: 3, inSection: 3)
-            item.updateData()
+            let item = self.tableView.itemWithTag(ITEM_END_PICKER)
+            item!.updateData()
         }
     }
     

@@ -20,7 +20,7 @@ class ACTableViewItem {
     var row: Int!
     var section: Int!
     
-    var tag: String?
+    let tag: String?
     var type: Type = .Default
     var style: UITableViewCellStyle = .Default
     var handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
@@ -76,11 +76,11 @@ class ACTableViewItem {
     
     // methods
     func prev() -> ACTableViewItem {
-        return self.tableView.getItem(forRow: self.row - 1, inSection: self.section)
+        return self.tableView.itemAtItemPath(forRow: self.row - 1, inSection: self.section)
     }
     
     func next() -> ACTableViewItem {
-        return self.tableView.getItem(forRow: self.row + 1, inSection: self.section)
+        return self.tableView.itemAtItemPath(forRow: self.row + 1, inSection: self.section)
     }
     
     func prevRow() -> (row: Int, section: Int) {
@@ -94,7 +94,7 @@ class ACTableViewItem {
     func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
+            let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)!
             self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
         updateBoundRows(self)
@@ -102,7 +102,7 @@ class ACTableViewItem {
     
     func hide(animated animated: Bool = true, updateBoundRows update:Bool = true) {
         if (self.display) {
-            let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)!
+            let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)!
             self.display = false
             self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
         }
@@ -121,7 +121,7 @@ class ACTableViewItem {
     }
     
     func reload(animated animated: Bool = true) {
-        let indexPath = self.tableView.getIndexPath(forRow: row, inSection: section)
+        let indexPath = self.tableView.indexPathFromItemPath(forRow: row, inSection: section)
         if (indexPath != nil) {
             if (animated) {
                 self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
@@ -139,7 +139,7 @@ class ACTableViewItem {
     private func updateBoundRows(item: ACTableViewItem) {
         if (item.bind != nil) {
             for item in item.bind!(item) {
-                let indexPath = self.tableView.getIndexPath(forRow: item.row, inSection: item.section)
+                let indexPath = self.tableView.indexPathFromItemPath(forRow: item.row, inSection: item.section)
                 if (indexPath != nil) {
                     self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
                 }

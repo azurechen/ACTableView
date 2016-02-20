@@ -43,7 +43,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         }
     }
     
-    func getIndexOfSectionInTableView(atIndexOfSectionInItems index: Int) -> Int? {
+    func indexOfSectionInTableView(atIndexOfSectionInItems index: Int) -> Int? {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -68,14 +68,9 @@ class ACTableView: UITableView, UITableViewDataSource {
         }
         return nil
     }
-
-    // get a section from items, including sections that display is false
-    func getSection(atIndex index: Int) -> ACTableViewSection! {
-        return self.sections[index]
-    }
     
     // get a section in TableView
-    func getSection(atIndexOfSectionInTableView index: Int) -> ACTableViewSection! {
+    func sectionFromIndexInTableView(index: Int) -> ACTableViewSection! {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -91,7 +86,7 @@ class ACTableView: UITableView, UITableViewDataSource {
         return nil
     }
     
-    func getIndexPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
+    func indexPathFromItemPath(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -130,12 +125,12 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item from items, including items that display is false
-    func getItem(forRow row: Int, inSection section: Int) -> ACTableViewItem {
+    func itemAtItemPath(forRow row: Int, inSection section: Int) -> ACTableViewItem {
         return sections[section].items[row]
     }
     
     // get an item from cells in tableView
-    func getItem(atIndexPathInTableView indexPath: NSIndexPath) -> ACTableViewItem! {
+    func itemAtIndexPath(indexPath: NSIndexPath) -> ACTableViewItem! {
         var countSection = 0
         
         for (var i = 0; i < sections.count; i++) {
@@ -194,7 +189,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
-        for item in self.getSection(atIndexOfSectionInTableView: section).items {
+        for item in self.sectionFromIndexInTableView(section).items {
             if (item.display) {
                 count++
             }
@@ -203,7 +198,7 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = getItem(atIndexPathInTableView: indexPath)
+        let item = itemAtIndexPath(indexPath)
         let identifier = item.reuseIdentifier
         
         // get cell
@@ -218,10 +213,10 @@ class ACTableView: UITableView, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return getSection(atIndexOfSectionInTableView: section).header
+        return sectionFromIndexInTableView(section).header
     }
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return getSection(atIndexOfSectionInTableView: section).footer
+        return sectionFromIndexInTableView(section).footer
     }
 }

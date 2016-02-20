@@ -13,7 +13,7 @@ class ACTableViewSection {
     weak var tableView: ACTableView!
     var section: Int!
     
-    var tag: String?
+    let tag: String?
     var header: String?
     var footer: String?
     var items: [ACTableViewItem]
@@ -34,7 +34,7 @@ class ACTableViewSection {
     func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
+            let index = self.tableView.indexOfSectionInTableView(atIndexOfSectionInItems: section)
             if (index != nil) {
                 self.tableView.insertSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
             }
@@ -43,7 +43,7 @@ class ACTableViewSection {
     
     func hide(animated animated: Bool = true) {
         if (self.display) {
-            let index = self.tableView.getIndexOfSectionInTableView(atIndexOfSectionInItems: section)
+            let index = self.tableView.indexOfSectionInTableView(atIndexOfSectionInItems: section)
             self.display = false
             if (index != nil) {
                 self.tableView.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
