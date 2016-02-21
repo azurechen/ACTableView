@@ -138,11 +138,8 @@ It make you create a form with `Date Picker` quickly. The following is an exampl
 // item tags
 private var ITEM_START_DATE   = "item_start_date"
 private var ITEM_START_PICKER = "item_start_picker"
-private var ITEM_END_DATE     = "item_end_date"
-private var ITEM_END_PICKER   = "item_end_picker"
-    
+
 private var _startDate = NSDate()
-private var _endDate = NSDate()
 ```
 ```Swift
 let dateFormatter = NSDateFormatter()
@@ -170,23 +167,6 @@ self.tableView.addSection(ACTableViewSection(
             _cell.datePicker.date = self._startDate
             _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
         },
-        // Label
-        ACTableViewItem(tag: ITEM_END_DATE, style: .Value1, display: true) { (item, cell) in
-            cell.textLabel?.text = "End Date"
-            cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._endDate)
-            if (item.next().display) {
-                cell.detailTextLabel!.textColor = UIColor.redColor()
-            } else {
-                cell.detailTextLabel!.textColor = UIColor.grayColor()
-            }
-        },
-        // DatePicker
-        ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
-            let _cell = cell as! DatePickerTableViewCell
-            _cell.datePicker.datePickerMode = .Date
-            _cell.datePicker.date = self._endDate
-            _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
-        }
     ]))
 ```
 
@@ -229,22 +209,13 @@ Use the following way to bind the two items together.
 let items = [
     // Label
     ACTableViewItem(tag: ITEM_START_DATE, style: .Value1, display: true) { (item, cell) in
-        cell.textLabel?.text = "Start Date"
-        cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._startDate)
-        if (item.next().display) {
-            cell.detailTextLabel!.textColor = UIColor.redColor()
-        } else {
-            cell.detailTextLabel!.textColor = UIColor.grayColor()
-        }
+        // update the text or color
     },
     // DatePicker
     ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, 
         bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
         
-        let _cell = cell as! DatePickerTableViewCell
-        _cell.datePicker.datePickerMode = .Date
-        _cell.datePicker.date = self._startDate
-        _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        // set the datePicker
     },
 ]
 ```
