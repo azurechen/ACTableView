@@ -16,10 +16,12 @@ class ViewController: UIViewController, UITableViewDelegate {
     private var SECTION_EXPANDABLE = "section_expandable"
     
     // item tags
-    private var ITEM_EXPAND = "item_expand"
-    private var ITEM_COLLAPSE = "item_collapse"
-    private var ITEM_START_PICKER = "item_start_picker"
-    private var ITEM_END_PICKER = "item_end_picker"
+    private var ITEM_EXPAND        = "item_expand"
+    private var ITEM_COLLAPSE      = "item_collapse"
+    private var ITEM_START_DATE    = "item_start_date"
+    private var ITEM_START_PICKER  = "item_start_picker"
+    private var ITEM_END_DATE      = "item_end_date"
+    private var ITEM_END_PICKER    = "item_end_picker"
     
     private var _startDate = NSDate()
     private var _endDate = NSDate()
@@ -68,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             ]))
         
         self.tableView.addSection(ACTableViewSection(
-            header: "Custom Cells on StoryBoard",
+            header: "Custom Cells on Storyboard",
             footer: nil,
             display: true,
             items: [
@@ -84,14 +86,14 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .MediumStyle
-        dateFormatter.timeStyle = .ShortStyle
+        dateFormatter.timeStyle = .NoStyle
         self.tableView.addSection(ACTableViewSection(
             header: "Custom Cells with Nib",
             footer: nil,
             display: true,
             items: [
-                // label
-                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
+                // Label
+                ACTableViewItem(tag: ITEM_START_DATE, style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "Start Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._startDate)
                     if (item.next().display) {
@@ -103,11 +105,12 @@ class ViewController: UIViewController, UITableViewDelegate {
                 // DatePicker
                 ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
+                    _cell.datePicker.datePickerMode = .Date
                     _cell.datePicker.date = self._startDate
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 },
-                // label
-                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
+                // Label
+                ACTableViewItem(tag: ITEM_END_DATE, style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "End Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._endDate)
                     if (item.next().display) {
@@ -116,8 +119,10 @@ class ViewController: UIViewController, UITableViewDelegate {
                         cell.detailTextLabel!.textColor = UIColor.grayColor()
                     }
                 },
+                // DatePicker
                 ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
+                    _cell.datePicker.datePickerMode = .Date
                     _cell.datePicker.date = self._endDate
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 }
@@ -128,6 +133,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
         
+        // get the item that related to the clicked cell
         let item = self.tableView.itemAtIndexPath(indexPath)
         
         if (item.tag == ITEM_EXPAND) {
@@ -136,7 +142,7 @@ class ViewController: UIViewController, UITableViewDelegate {
         if (item.tag == ITEM_COLLAPSE) {
             self.tableView.sectionWithTag(SECTION_EXPANDABLE).hide()
         }
-        if (item.section == 3 && item.row == 0) || (item.section == 3 && item.row == 2) {
+        if (item.tag == ITEM_START_DATE || item.tag == ITEM_END_DATE) {
             let pickerItem = item.next()
             if (pickerItem.display) {
                 pickerItem.hide()

@@ -11,7 +11,7 @@ import UIKit
 class ACTableViewItem {
     
     enum Type {
-        case StoryBoard
+        case Storyboard
         case Nib
         case Default
     }
@@ -36,7 +36,7 @@ class ACTableViewItem {
     
     init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
-        self.type = .StoryBoard
+        self.type = .Storyboard
         self.handle = handle
         self.initDisplay = display
         self.display = display
