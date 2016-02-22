@@ -8,22 +8,22 @@
 
 import UIKit
 
-class ACTableViewSection {
+public class ACTableViewSection {
     
     weak var tableView: ACTableView!
     var section: Int!
     
-    let tag: String?
+    public let tag: String?
     var header: String?
     var footer: String?
     var items: [ACTableViewItem]
-    var display: Bool
+    public var display: Bool
     
-    convenience init(tag: String? = nil, header: String?, footer: String?, display: Bool) {
+    public convenience init(tag: String? = nil, header: String?, footer: String?, display: Bool) {
         self.init(tag: tag, header: header, footer: footer, display: display, items: [])
     }
     
-    init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACTableViewItem]) {
+    public init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACTableViewItem]) {
         self.tag = tag
         self.header = header
         self.footer = footer
@@ -31,7 +31,7 @@ class ACTableViewSection {
         self.items = items
     }
     
-    func show(animated animated: Bool = true) {
+    public func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
             let index = self.tableView.indexOfSectionFromACIndex(section)
@@ -41,7 +41,7 @@ class ACTableViewSection {
         }
     }
     
-    func hide(animated animated: Bool = true) {
+    public func hide(animated animated: Bool = true) {
         if (self.display) {
             let index = self.tableView.indexOfSectionFromACIndex(section)
             self.display = false
