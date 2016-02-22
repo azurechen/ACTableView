@@ -16,18 +16,19 @@ public class ACTableViewItem {
         case Default
     }
     
-    weak var tableView: ACTableView!
-    var row: Int!
-    var section: Int!
+    internal weak var tableView: ACTableView!
+    internal var row: Int!
+    internal var section: Int!
     
     public let tag: String?
-    var type: Type = .Default
-    var style: UITableViewCellStyle = .Default
-    var handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
-    let initDisplay: Bool
     public var display: Bool
-    var reuseIdentifier: String
-    private var bind: ((ACTableViewItem) -> [ACTableViewItem])?
+    
+    internal let type: Type
+    internal let style: UITableViewCellStyle
+    internal let handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
+    internal let initDisplay: Bool
+    internal let reuseIdentifier: String
+    private let bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
     // storyboard
     public convenience init(tag: String? = nil, identifier: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
@@ -37,6 +38,7 @@ public class ACTableViewItem {
     public init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
         self.type = .Storyboard
+        self.style = .Default
         self.handle = handle
         self.initDisplay = display
         self.display = display
@@ -52,6 +54,7 @@ public class ACTableViewItem {
     public init(tag: String? = nil, nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
         self.type = .Nib
+        self.style = .Default
         self.handle = handle
         self.initDisplay = display
         self.display = display
@@ -66,6 +69,7 @@ public class ACTableViewItem {
     
     public init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
+        self.type = .Default
         self.style = style
         self.handle = handle
         self.initDisplay = display

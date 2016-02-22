@@ -10,9 +10,9 @@ import UIKit
 
 public class ACTableView: UITableView, UITableViewDataSource {
     
-    var sections: [ACTableViewSection] = []
+    internal var sections: [ACTableViewSection] = []
     
-    required public init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.dataSource = self
@@ -41,50 +41,6 @@ public class ACTableView: UITableView, UITableViewDataSource {
                 self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
             }
         }
-    }
-    
-    // section index mapping
-    func indexOfSectionFromACIndex(index: Int) -> Int? {
-        var countSection = 0
-        
-        for (var i = 0; i < sections.count; i++) {
-            let section = sections[i]
-            if (section.display) {
-                if (i == index) {
-                    return countSection
-                }
-                countSection++
-            }
-        }
-        
-        return nil
-    }
-    
-    // item index mapping
-    func indexPathFromACIndex(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
-        var countSection = 0
-        
-        for (var i = 0; i < sections.count; i++) {
-            let section = sections[i]
-            if (section.display) {
-                if (i == sectionNum) {
-                    var countRow = 0
-                    
-                    for (var j = 0; j < section.items.count; j++) {
-                        let item = section.items[j]
-                        if (item.display) {
-                            if (j == row) {
-                                return NSIndexPath(forRow: countRow, inSection: countSection)
-                            }
-                            countRow++
-                        }
-                    }
-                }
-                countSection++
-            }
-        }
-        
-        return nil
     }
     
     // get a section by tag
@@ -191,6 +147,50 @@ public class ACTableView: UITableView, UITableViewDataSource {
                 }
             }
         }
+    }
+    
+    // section index mapping
+    internal func indexOfSectionFromACIndex(index: Int) -> Int? {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                if (i == index) {
+                    return countSection
+                }
+                countSection++
+            }
+        }
+        
+        return nil
+    }
+    
+    // item index mapping
+    internal func indexPathFromACIndex(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
+        var countSection = 0
+        
+        for (var i = 0; i < sections.count; i++) {
+            let section = sections[i]
+            if (section.display) {
+                if (i == sectionNum) {
+                    var countRow = 0
+                    
+                    for (var j = 0; j < section.items.count; j++) {
+                        let item = section.items[j]
+                        if (item.display) {
+                            if (j == row) {
+                                return NSIndexPath(forRow: countRow, inSection: countSection)
+                            }
+                            countRow++
+                        }
+                    }
+                }
+                countSection++
+            }
+        }
+        
+        return nil
     }
     
     // DataSource

@@ -10,14 +10,15 @@ import UIKit
 
 public class ACTableViewSection {
     
-    weak var tableView: ACTableView!
-    var section: Int!
+    internal weak var tableView: ACTableView!
+    internal var section: Int!
     
     public let tag: String?
-    var header: String?
-    var footer: String?
-    var items: [ACTableViewItem]
     public var display: Bool
+    
+    internal let header: String?
+    internal let footer: String?
+    internal let items: [ACTableViewItem]
     
     public convenience init(tag: String? = nil, header: String?, footer: String?, display: Bool) {
         self.init(tag: tag, header: header, footer: footer, display: display, items: [])
