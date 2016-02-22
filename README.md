@@ -221,3 +221,24 @@ let items = [
 ```
 
 The bound item will be updated when the cell with `datePicker` show or hide, and you can call `updateBoundRows()` when the value of `datePicker` is changed.
+
+How to Install
+--------------
+
+If you didn't use [CocoaPods](http://cocoapods.org) before, install it first
+
+```bash
+$ gem install cocoapods
+```
+
+And append the following line into your `Podfile`
+
+```Swift
+pod 'ACTableView', :git => 'https://github.com/azurechen/ACTableView.git'
+```
+
+Then, run this command
+
+```bash
+$ pod install
+```
