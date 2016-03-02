@@ -108,7 +108,7 @@ Another details please build this project and see the example.
 
 ###Event Delegation
 
-If you want to know which cell is clicked, still using `UITableViewDelegate`. But the way of handling anythings become easier now.
+If you want to know which cell is clicked, you can still use `UITableViewDelegate`. But the way of handling anythings become easier now.
 
 ```Swift
 // UITableViewDelegate
