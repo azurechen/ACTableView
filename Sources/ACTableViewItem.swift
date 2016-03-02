@@ -25,21 +25,21 @@ public class ACTableViewItem {
     
     internal let type: Type
     internal let style: UITableViewCellStyle
-    internal let handle: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
+    internal let handler: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
     internal let initDisplay: Bool
     internal let reuseIdentifier: String
     private let bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
     // storyboard
-    public convenience init(tag: String? = nil, identifier: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(tag: tag, identifier: identifier, display: display, bind: nil, handle: handle)
+    public convenience init(tag: String? = nil, identifier: String, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, identifier: identifier, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
         self.type = .Storyboard
         self.style = .Default
-        self.handle = handle
+        self.handler = handler
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = identifier
@@ -47,15 +47,15 @@ public class ACTableViewItem {
     }
     
     // nib
-    public convenience init(tag: String? = nil, nibName: String, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(tag: tag, nibName: nibName, display: display, bind: nil, handle: handle)
+    public convenience init(tag: String? = nil, nibName: String, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, nibName: nibName, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
         self.type = .Nib
         self.style = .Default
-        self.handle = handle
+        self.handler = handler
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = nibName
@@ -63,15 +63,15 @@ public class ACTableViewItem {
     }
     
     // built-in cells
-    public convenience init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
-        self.init(tag: tag, style: style, display: display, bind: nil, handle: handle)
+    public convenience init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+        self.init(tag: tag, style: style, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handle: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.tag = tag
         self.type = .Default
         self.style = style
-        self.handle = handle
+        self.handler = handler
         self.initDisplay = display
         self.display = display
         self.reuseIdentifier = "UITableViewCell.WithStyle\(style.rawValue)"
@@ -129,7 +129,7 @@ public class ACTableViewItem {
         if (self.bind != nil) {
             for item in self.bind!(self) {
                 if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
-                    item.handle?(item: item, cell: cell)
+                    item.handler?(item: item, cell: cell)
                 }
             }
         }

@@ -26,7 +26,7 @@ Set `sections` and `items` by using appropriate method. Using `style`, `identifi
         footer: nil,
         display: true,
         items: [
-            ACTableViewItem(style: .Value1, display: true, handle: { (item, cell) in
+            ACTableViewItem(style: .Value1, display: true, handler: { (item, cell) in
                 cell.imageView?.image = UIImage(named: "home")
                 cell.textLabel?.text = "Home"
             }),
@@ -45,7 +45,7 @@ Set `sections` and `items` by using appropriate method. Using `style`, `identifi
         footer: nil,
         display: true,
         items: [
-            ACTableViewItem(tag: ITEM_HOME, identifier: "CentralCell", display: true, handle: { (item, cell) in
+            ACTableViewItem(tag: ITEM_HOME, identifier: "CentralCell", display: true, handler: { (item, cell) in
                 let _cell = cell as! CentralTableViewCell
                 _cell.label.text = "Home"
             }),
@@ -64,7 +64,7 @@ Set `sections` and `items` by using appropriate method. Using `style`, `identifi
         footer: nil,
         display: true,
         items: [
-            ACTableViewItem(tag: ITEM_HOME, nibName: "CentralCell", display: true, handle: { (item, cell) in
+            ACTableViewItem(tag: ITEM_HOME, nibName: "CentralCell", display: true, handler: { (item, cell) in
                 let _cell = cell as! CentralTableViewCell
                 _cell.label.text = "Home"
             }),
@@ -79,10 +79,10 @@ Set `sections` and `items` by using appropriate method. Using `style`, `identifi
 
 * <b>Important</b>: Notice that the `tag` parameter of `ACTableViewItem` is optional, but if you need to know which cell is clicked later. You must give them a `tag`.
 
-And you can write anything that the cell should be modified in `handle`, the closure is the code that originally be executed in `tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)`
+And you can write anything that the cell should be modified in `handler`, the closure is the code that originally be executed in `tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)`
 
 ```Swift
-ACTableViewItem(tag: TAG, style: .Value1, display: true, handle: { (item, cell) in
+ACTableViewItem(tag: TAG, style: .Value1, display: true, handler: { (item, cell) in
 }),
 ```
 

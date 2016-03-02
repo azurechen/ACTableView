@@ -223,7 +223,7 @@ public class ACTableView: UITableView, UITableViewDataSource {
         if (cell == nil) {
             cell = UITableViewCell(style: item.style, reuseIdentifier: identifier)
         }
-        item.handle?(item: item, cell: cell!)
+        item.handler?(item: item, cell: cell!)
         
         cell?.clipsToBounds
         return cell!
