@@ -18,7 +18,7 @@ public class ACTableViewSection {
     
     internal let header: String?
     internal let footer: String?
-    internal let items: [ACTableViewItem]
+    internal var items: [ACTableViewItem]
     
     public convenience init(tag: String? = nil, header: String?, footer: String?, display: Bool) {
         self.init(tag: tag, header: header, footer: footer, display: display, items: [])
@@ -30,6 +30,28 @@ public class ACTableViewSection {
         self.footer = footer
         self.display = display
         self.items = items
+    }
+    
+    internal func setItems() {
+        // set row and section of items
+        for (index, item) in self.items.enumerate() {
+            item.tableView = self.tableView
+            item.section = self.tableView.sections.count - 1
+            item.row = index
+            
+            // register nibs
+            if (item.type == .Nib) {
+                self.tableView.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
+            }
+        }
+    }
+    
+    public func updateItems(items: [ACTableViewItem]) {
+        // clear items
+        self.items.removeAll()
+        // reset Items
+        self.items = items
+        setItems()
     }
     
     public func show(animated animated: Bool = true) {
@@ -48,6 +70,17 @@ public class ACTableViewSection {
             self.display = false
             if (index != nil) {
                 self.tableView.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
+            }
+        }
+    }
+    
+    public func reload(animated animated: Bool = true) {
+        let index = self.tableView.indexOfSectionFromACIndex(section)
+        if (index != nil) {
+            if (animated) {
+                self.tableView.reloadSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.Fade)
+            } else {
+                self.tableView.reloadSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.None)
             }
         }
     }

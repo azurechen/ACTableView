@@ -29,18 +29,7 @@ public class ACTableView: UITableView, UITableViewDataSource {
         sections.append(section)
         section.tableView = self
         section.section = sections.count - 1
-        
-        // set row and section of items
-        for (index, item) in section.items.enumerate() {
-            item.tableView = self
-            item.section = sections.count - 1
-            item.row = index
-            
-            // register nibs
-            if (item.type == .Nib) {
-                self.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
-            }
-        }
+        section.setItems()
     }
     
     // get a section by tag
