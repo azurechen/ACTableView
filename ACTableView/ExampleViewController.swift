@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  ExampleViewController.swift
 //  ACTableView
 //
 //  Created by Azure Chen on 2016/1/31.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate {
+class ExampleViewController: UIViewController, UITableViewDelegate {
     
     @IBOutlet weak var tableView: ACTableView!
     
