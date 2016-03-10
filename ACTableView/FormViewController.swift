@@ -18,22 +18,23 @@ class FormViewController: UIViewController, UITableViewDelegate {
         super.viewDidLoad()
         self.title = "Form"
         
-        let builder = ACFormBuilder()
+        let builder = ACForm.Builder()
             .setStyle(.Value1)
             .setNormalColor(UIColor.grayColor())
             .setTintColor(UIColor.redColor())
             .addSection(ACFormSection(
-                header: "Settings",
+                header: "Profile",
                 footer: nil,
                 display: true,
                 items: [
-                    ACFormItem(tag: TAG_NAME, input: .Label, title: "Name", placeholder: "What's your name?", defaultValue: nil),
+                    ACFormInput(name: TAG_NAME, type: .Label, title: "Name", placeholder: "What's your name?", value: nil),
                 ]))
-        
         self.tableView.builder = builder
         self.tableView.construct()
         
-        //form.valueOf("TAG")
+        if let form = self.tableView.form {
+            let name = form.valueOfTag(TAG_NAME)
+        }
     }
     
 }
