@@ -27,7 +27,7 @@ class FormViewController: UIViewController, UITableViewDelegate {
                 footer: nil,
                 display: true,
                 items: [
-                    ACFormInput(name: TAG_NAME, type: .Label, title: "Name", placeholder: "What's your name?", value: nil),
+                    ACFormInput(name: TAG_NAME, type: .Text, title: "Name", placeholder: "What's your name?", value: nil),
                 ]))
         self.tableView.builder = builder
         self.tableView.construct()

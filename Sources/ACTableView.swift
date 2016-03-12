@@ -12,6 +12,10 @@ public class ACTableView: UITableView, UITableViewDataSource {
     
     internal var sections: [ACTableViewSection] = []
     
+    // For ACFrom
+    public var form: ACForm?
+    public var builder: ACForm.Builder?
+    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         

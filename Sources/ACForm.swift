@@ -10,28 +10,28 @@ import UIKit
 
 extension ACTableView {
     
-    public var form: ACForm? {
-        get {
-            return self.form
-        }
-        set {
-            
-        }
-    }
-    
-    public var builder: ACForm.Builder? {
-        get {
-            return self.builder
-        }
-        set {
-            
-        }
-    }
-    
     public func construct() {
         if (self.builder != nil) {
             self.form = self.builder!.buildPart()
             self.form!.tableView = self
+            
+            if (builder != nil) {
+                for formSection in builder!.sections {
+                    // transfer ACFormItem to ACTableItem
+                    var items: [ACTableViewItem] = []
+                    for formItem in formSection.items {
+                        if let item = formItem.getItem(builder!.style, normalColor: builder!.normalColor, tintColor: builder!.tintColor, placeHolderColor: builder!.placeHolderColor) {
+                            items.append(item)
+                        }
+                    }
+                    // transfer ACFormSection to ACTableViewSection
+                    self.addSection(ACTableViewSection(
+                        header: formSection.header,
+                        footer: formSection.footer,
+                        display: formSection.display,
+                        items: items))
+                }
+            }
         }
     }
 }
@@ -46,9 +46,14 @@ public class ACForm {
     
     public class Builder {
         
-        var sections: [ACFormSection]?
+        var sections: [ACFormSection] = []
+        var style: UITableViewCellStyle = .Value1
+        var normalColor: UIColor = UIColor.blackColor()
+        var tintColor: UIColor = UIColor.blueColor()
+        var placeHolderColor: UIColor = UIColor.lightGrayColor()
         
         public func addSection(section: ACFormSection) -> Self {
+            self.sections.append(section)
             return self
         }
         
@@ -122,7 +127,7 @@ public class ACFormInput {
         case Switch
     }
     
-    private let name: String?
+    private let name: String
     private let type: Type
     private let title: String?
     private let placeholder: String?
@@ -134,6 +139,33 @@ public class ACFormInput {
         self.title = title
         self.placeholder = placeholder
         self.value = value
+    }
+    
+    internal func getItem(style: UITableViewCellStyle, normalColor: UIColor, tintColor: UIColor, placeHolderColor: UIColor) -> ACTableViewItem? {
+        
+        var item: ACTableViewItem?
+        if (type == .Text) {
+            if let _value = self.value as? String? {
+                item = ACTableViewItem(tag: name + "_ITEM", nibName: "TextTableViewCell", display: true) { (item, cell) in
+                    if let _cell = cell as? TextTableViewCell {
+                        _cell.titleLabel.text = self.title
+                        _cell.titleLabel.textColor = normalColor
+                        
+                        if (_value == nil) {
+                            _cell.contentTextField.text = self.placeholder
+                            _cell.contentTextField.textColor = placeHolderColor
+                        } else {
+                            _cell.contentTextField.text = _value
+                            _cell.contentTextField.textColor = normalColor
+                        }
+                    }
+                }
+            } else {
+                print("The type of value is wrong.")
+            }
+        }
+        
+        return item
     }
     
 }

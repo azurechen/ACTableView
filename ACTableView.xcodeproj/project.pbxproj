@@ -14,6 +14,8 @@
 		537FC6461C5D162600E949B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6451C5D162600E949B1 /* Assets.xcassets */; };
 		537FC6491C5D162600E949B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 537FC6471C5D162600E949B1 /* LaunchScreen.storyboard */; };
 		537FC6541C5D162600E949B1 /* ACTableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6531C5D162600E949B1 /* ACTableViewTests.swift */; };
+		53863A931C934EB000F2E5B6 /* TextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53863A911C934EB000F2E5B6 /* TextTableViewCell.swift */; };
+		53863A941C934EB000F2E5B6 /* TextTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53863A921C934EB000F2E5B6 /* TextTableViewCell.xib */; };
 		538B74441C8C5CA500DBC9A7 /* ACForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538B74431C8C5CA500DBC9A7 /* ACForm.swift */; };
 		538B74461C8C600600DBC9A7 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538B74451C8C600600DBC9A7 /* FormViewController.swift */; };
 		53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */; };
@@ -45,6 +47,8 @@
 		537FC64F1C5D162600E949B1 /* ACTableViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACTableViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		537FC6531C5D162600E949B1 /* ACTableViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTableViewTests.swift; sourceTree = "<group>"; };
 		537FC6551C5D162600E949B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53863A911C934EB000F2E5B6 /* TextTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextTableViewCell.swift; sourceTree = "<group>"; };
+		53863A921C934EB000F2E5B6 /* TextTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextTableViewCell.xib; sourceTree = "<group>"; };
 		538B74431C8C5CA500DBC9A7 /* ACForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACForm.swift; sourceTree = "<group>"; };
 		538B74451C8C600600DBC9A7 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
@@ -115,6 +119,15 @@
 			path = ACTableViewTests;
 			sourceTree = "<group>";
 		};
+		538219A21C91E0ED00610C17 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				53863A911C934EB000F2E5B6 /* TextTableViewCell.swift */,
+				53863A921C934EB000F2E5B6 /* TextTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		53D2F0F51C5E468500F82347 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +135,7 @@
 				53D2F10C1C5E58B500F82347 /* ACTableViewSection.swift */,
 				53D2F1051C5E517B00F82347 /* ACTableViewItem.swift */,
 				538B74431C8C5CA500DBC9A7 /* ACForm.swift */,
+				538219A21C91E0ED00610C17 /* Cells */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -220,6 +234,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537FC6491C5D162600E949B1 /* LaunchScreen.storyboard in Resources */,
+				53863A941C934EB000F2E5B6 /* TextTableViewCell.xib in Resources */,
 				537FC6461C5D162600E949B1 /* Assets.xcassets in Resources */,
 				537FC6441C5D162600E949B1 /* Main.storyboard in Resources */,
 				53D2F1031C5E511800F82347 /* DatePickerTableViewCell.xib in Resources */,
@@ -244,6 +259,7 @@
 				53D2F1071C5E517B00F82347 /* ACTableViewItem.swift in Sources */,
 				537FC6411C5D162600E949B1 /* ExampleViewController.swift in Sources */,
 				538B74441C8C5CA500DBC9A7 /* ACForm.swift in Sources */,
+				53863A931C934EB000F2E5B6 /* TextTableViewCell.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
 				53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */,
 				535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */,
