@@ -12,6 +12,16 @@ extension ACTableView {
     
     public func construct() {
         if (self.builder != nil) {
+            
+            // CocoaPods Support, bundle is nil if not a library of CocoaPods
+            var bundle: NSBundle?
+            if let bundleURL = NSBundle(forClass: self.classForCoder).URLForResource("ACTableView", withExtension: "bundle") {
+                bundle = NSBundle(URL: bundleURL)
+            }
+            // Register all nibs
+            self.registerNib(UINib(nibName: "TextTableViewCell", bundle: bundle), forCellReuseIdentifier: "TextTableViewCell")
+            
+            
             self.form = self.builder!.buildPart()
             self.form!.tableView = self
             
@@ -51,6 +61,8 @@ public class ACForm {
         var normalColor: UIColor = UIColor.blackColor()
         var tintColor: UIColor = UIColor.blueColor()
         var placeHolderColor: UIColor = UIColor.lightGrayColor()
+        
+        public init() {}
         
         public func addSection(section: ACFormSection) -> Self {
             self.sections.append(section)
@@ -146,7 +158,7 @@ public class ACFormInput {
         var item: ACTableViewItem?
         if (type == .Text) {
             if let _value = self.value as? String? {
-                item = ACTableViewItem(tag: name + "_ITEM", nibName: "TextTableViewCell", display: true) { (item, cell) in
+                item = ACTableViewItem(tag: name + "_ITEM", identifier: "TextTableViewCell", display: true) { (item, cell) in
                     if let _cell = cell as? TextTableViewCell {
                         _cell.titleLabel.text = self.title
                         _cell.titleLabel.textColor = normalColor
