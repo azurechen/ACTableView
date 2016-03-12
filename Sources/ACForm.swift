@@ -19,7 +19,7 @@ extension ACTableView {
                 bundle = NSBundle(URL: bundleURL)
             }
             // Register all nibs
-            self.registerNib(UINib(nibName: "TextTableViewCell", bundle: bundle), forCellReuseIdentifier: "TextTableViewCell")
+            self.registerNib(UINib(nibName: "ACTextTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextTableViewCell")
             
             
             self.form = self.builder!.buildPart()
@@ -30,7 +30,7 @@ extension ACTableView {
                     // transfer ACFormItem to ACTableItem
                     var items: [ACTableViewItem] = []
                     for formItem in formSection.items {
-                        if let item = formItem.getItem(builder!.style, normalColor: builder!.normalColor, tintColor: builder!.tintColor, placeHolderColor: builder!.placeHolderColor) {
+                        if let item = formItem.getItem(builder!.style, normalColor: builder!.normalColor, tintColor: builder!.tintColor, placeholderColor: builder!.placeholderColor) {
                             items.append(item)
                         }
                     }
@@ -60,7 +60,7 @@ public class ACForm {
         var style: UITableViewCellStyle = .Value1
         var normalColor: UIColor = UIColor.blackColor()
         var tintColor: UIColor = UIColor.blueColor()
-        var placeHolderColor: UIColor = UIColor.lightGrayColor()
+        var placeholderColor: UIColor = UIColor.lightGrayColor()
         
         public init() {}
         
@@ -81,7 +81,7 @@ public class ACForm {
             return self
         }
         
-        public func setPlaceHolderColor(color: UIColor) -> Self {
+        public func setPlaceholderColor(color: UIColor) -> Self {
             return self
         }
         
@@ -153,23 +153,19 @@ public class ACFormInput {
         self.value = value
     }
     
-    internal func getItem(style: UITableViewCellStyle, normalColor: UIColor, tintColor: UIColor, placeHolderColor: UIColor) -> ACTableViewItem? {
+    internal func getItem(style: UITableViewCellStyle, normalColor: UIColor, tintColor: UIColor, placeholderColor: UIColor) -> ACTableViewItem? {
         
         var item: ACTableViewItem?
         if (type == .Text) {
             if let _value = self.value as? String? {
-                item = ACTableViewItem(tag: name + "_ITEM", identifier: "TextTableViewCell", display: true) { (item, cell) in
-                    if let _cell = cell as? TextTableViewCell {
-                        _cell.titleLabel.text = self.title
-                        _cell.titleLabel.textColor = normalColor
-                        
-                        if (_value == nil) {
-                            _cell.contentTextField.text = self.placeholder
-                            _cell.contentTextField.textColor = placeHolderColor
-                        } else {
-                            _cell.contentTextField.text = _value
-                            _cell.contentTextField.textColor = normalColor
-                        }
+                item = ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextTableViewCell", display: true) { (item, cell) in
+                    if let _cell = cell as? ACTextTableViewCell {
+                        _cell.normalColor = normalColor
+                        _cell.placeholderColor = placeholderColor
+                        _cell.title = self.title
+                        _cell.placeholder = self.placeholder
+                        _cell.value = _value
+                        _cell.initCell()
                     }
                 }
             } else {

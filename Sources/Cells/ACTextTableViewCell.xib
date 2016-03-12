@@ -8,7 +8,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="TextTableViewCell" customModule="ACTableView" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ACTextTableViewCell" customModule="ACTableView" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -21,6 +21,12 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nW1-aX-pdJ">
+                        <rect key="frame" x="57" y="10" width="248" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Content" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MC6-q1-vE7">
                         <rect key="frame" x="57" y="10" width="248" height="24"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -29,9 +35,12 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="5YK-iP-Fm4"/>
+                    <constraint firstItem="nW1-aX-pdJ" firstAttribute="top" secondItem="MC6-q1-vE7" secondAttribute="top" id="6Ce-jU-7kR"/>
                     <constraint firstAttribute="bottomMargin" secondItem="MC6-q1-vE7" secondAttribute="bottom" id="7WQ-ca-ksF"/>
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="86a-a4-whx"/>
+                    <constraint firstItem="nW1-aX-pdJ" firstAttribute="leading" secondItem="MC6-q1-vE7" secondAttribute="leading" id="Dz6-o0-iuX"/>
                     <constraint firstAttribute="trailingMargin" secondItem="MC6-q1-vE7" secondAttribute="trailing" id="GiB-VI-LrT"/>
+                    <constraint firstItem="nW1-aX-pdJ" firstAttribute="trailing" secondItem="MC6-q1-vE7" secondAttribute="trailing" id="ZUc-w8-vY0"/>
                     <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" id="cER-NB-yQa"/>
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="epJ-oW-Rts"/>
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="leading" secondItem="HCn-rq-Qks" secondAttribute="trailing" constant="8" id="pd2-bZ-ZNG"/>
@@ -39,6 +48,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="contentTextField" destination="MC6-q1-vE7" id="MAm-Ck-Kz2"/>
+                <outlet property="placeholderLabel" destination="nW1-aX-pdJ" id="bz4-zG-9C5"/>
                 <outlet property="titleLabel" destination="HCn-rq-Qks" id="r3a-u7-prC"/>
             </connections>
         </tableViewCell>

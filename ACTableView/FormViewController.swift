@@ -20,7 +20,7 @@ class FormViewController: UIViewController, UITableViewDelegate {
         
         let builder = ACForm.Builder()
             .setStyle(.Value1)
-            .setNormalColor(UIColor.grayColor())
+            .setNormalColor(UIColor.blackColor())
             .setTintColor(UIColor.redColor())
             .addSection(ACFormSection(
                 header: "Profile",
