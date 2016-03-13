@@ -19,7 +19,7 @@ extension ACTableView {
                 bundle = NSBundle(URL: bundleURL)
             }
             // Register all nibs
-            self.registerNib(UINib(nibName: "ACTextTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextTableViewCell")
+            self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
             
             
             self.form = self.builder!.buildForm()
@@ -67,7 +67,7 @@ public class ACForm {
     public struct Params {
         var delegate: ACFormDelegate?
         var sections: [ACFormSection] = []
-        var style: UITableViewCellStyle = .Value1
+        var style: ACFormStyle = .Value1
         var normalColor: UIColor = UIColor.blackColor()
         var tintColor: UIColor = UIColor.blueColor()
         var placeholderColor: UIColor = UIColor.lightGrayColor()
@@ -89,7 +89,7 @@ public class ACForm {
             return self
         }
         
-        public func setStyle(style: UITableViewCellStyle) -> Self {
+        public func setStyle(style: ACFormStyle) -> Self {
             self.params.style = style
             return self
         }
@@ -137,37 +137,9 @@ public class ACFormSection {
 
 public class ACFormInput: NSObject {
     
-    public enum Type {
-        // Non-editable Label
-        case Label
-        // Editable Label
-        case Text
-        case Password
-        case Number
-        case Float
-        // TextField
-        case TextArea
-        // Button
-        case Button
-        // Disclosure
-        case Radio
-        case CheckBox
-        // DatePicker
-        case DateTime
-        case Date
-        case Time
-        
-        // Stepper
-        case Stepper
-        // Segment
-        case Segment
-        // Switch
-        case Switch
-    }
-    
     private var delegate: ACFormDelegate?
     
-    private let type: Type
+    private let type: ACFormInputType
     internal let name: String
     internal let title: String?
     internal let placeholder: String?
@@ -175,7 +147,7 @@ public class ACFormInput: NSObject {
     
     internal weak var targetCell: UITableViewCell?
     
-    public init(type: Type, name: String, title: String?, placeholder: String?, value: AnyObject?) {
+    public init(type: ACFormInputType, name: String, title: String?, placeholder: String?, value: AnyObject?) {
         self.type = type
         self.name = name
         self.title = title
@@ -183,13 +155,13 @@ public class ACFormInput: NSObject {
         self.value = value
     }
     
-    internal func getItem(style: UITableViewCellStyle, normalColor: UIColor, tintColor: UIColor, placeholderColor: UIColor) -> ACTableViewItem? {
+    internal func getItem(style: ACFormStyle, normalColor: UIColor, tintColor: UIColor, placeholderColor: UIColor) -> ACTableViewItem? {
         
         var item: ACTableViewItem?
         if (type == .Text) {
             if let _value = self.value as? String? {
                 // use identifier to avoid unnecessary register
-                item = ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextTableViewCell", display: true) { (item, cell) in
+                item = ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextValue1", display: true) { (item, cell) in
                     self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
@@ -216,6 +188,7 @@ public class ACFormInput: NSObject {
         return item
     }
     
+    // Actions
     func textFieldDidEditingChanged(sender: UITextField) {
         self.value = sender.text
         self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
@@ -230,6 +203,38 @@ public class ACFormInput: NSObject {
         }
     }
     
+}
+
+public enum ACFormStyle {
+    case Value1
+}
+
+public enum ACFormInputType {
+    // Non-editable Label
+    case Label
+    // Editable Label
+    case Text
+    case Password
+    case Number
+    case Float
+    // TextField
+    case TextArea
+    // Button
+    case Button
+    // Disclosure
+    case Radio
+    case CheckBox
+    // DatePicker
+    case DateTime
+    case Date
+    case Time
+    
+    // Stepper
+    case Stepper
+    // Segment
+    case Segment
+    // Switch
+    case Switch
 }
 
 public protocol ACFormDelegate {
