@@ -211,7 +211,7 @@ public class ACFormInput: NSObject {
     
     func textFieldDidEditingChanged(sender: UITextField) {
         self.value = sender.text
-        self.delegate?.formDidChangeValue(self.name, value: self.value)
+        self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
         
         if let _value = self.value as? String? {
             let _cell = self.targetCell as! ACTextTableViewCell
@@ -227,5 +227,5 @@ public class ACFormInput: NSObject {
 
 public protocol ACFormDelegate {
     
-    func formDidChangeValue(name: String, value: AnyObject?)
+    func formInput(formInput: ACFormInput, withName name: String, didChangeValue value: AnyObject?)
 }

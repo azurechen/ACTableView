@@ -38,7 +38,7 @@ class FormViewController: UIViewController, ACFormDelegate {
         }
     }
     
-    func formDidChangeValue(name: String, value: AnyObject?) {
+    func formInput(formInput: ACFormInput, withName name: String, didChangeValue value: AnyObject?) {
         print("\(name) \(value as! String)")
     }
     
