@@ -157,11 +157,12 @@ public class ACFormInput: NSObject {
     
     internal func getItem(style: ACFormStyle, normalColor: UIColor, tintColor: UIColor, placeholderColor: UIColor) -> ACTableViewItem? {
         
-        var item: ACTableViewItem?
-        if (type == .Text) {
-            if let _value = self.value as? String? {
+        if (verifyValueType()) {
+            switch type {
+            case .Text:
+                let _value = self.value as! String?
                 // use identifier to avoid unnecessary register
-                item = ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextValue1", display: true) { (item, cell) in
+                return ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextValue1", display: true) { (item, cell) in
                     self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
@@ -180,15 +181,13 @@ public class ACFormInput: NSObject {
                         _cell.placeholderLabel.hidden = true
                     }
                 }
-            } else {
-                print("The type of value is wrong.")
             }
         }
         
-        return item
+        return nil
     }
     
-    // Actions
+    // Actions of Text, Password, Number and Float
     func textFieldDidEditingChanged(sender: UITextField) {
         self.value = sender.text
         self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
@@ -203,6 +202,18 @@ public class ACFormInput: NSObject {
         }
     }
     
+    func verifyValueType() -> Bool {
+        switch type {
+        case .Text:
+            if let _ = value as? String? {
+                return true
+            }
+        }
+        
+        print("The type of value is wrong.")
+        return false
+    }
+    
 }
 
 public enum ACFormStyle {
@@ -211,30 +222,30 @@ public enum ACFormStyle {
 
 public enum ACFormInputType {
     // Non-editable Label
-    case Label
-    // Editable Label
+//    case Label
+    // Editable TextField
     case Text
-    case Password
-    case Number
-    case Float
-    // TextField
-    case TextArea
+//    case Password
+//    case Number
+//    case Float
+    // TextView
+//    case TextArea
     // Button
-    case Button
+//    case Button
     // Disclosure
-    case Radio
-    case CheckBox
+//    case Radio
+//    case CheckBox
     // DatePicker
-    case DateTime
-    case Date
-    case Time
+//    case DateTime
+//    case Date
+//    case Time
     
     // Stepper
-    case Stepper
+//    case Stepper
     // Segment
-    case Segment
+//    case Segment
     // Switch
-    case Switch
+//    case Switch
 }
 
 public protocol ACFormDelegate {
