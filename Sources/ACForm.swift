@@ -30,6 +30,8 @@ extension ACTableView {
                     // transfer ACFormItem to ACTableItem
                     var items: [ACTableViewItem] = []
                     for formItem in formSection.items {
+                        // set delegate
+                        formItem.delegate = form!.params.delegate
                         if let item = formItem.getItem(form!.params.style, normalColor: form!.params.normalColor, tintColor: form!.params.tintColor, placeholderColor: form!.params.placeholderColor) {
                             items.append(item)
                         }
@@ -56,6 +58,7 @@ public class ACForm {
     }
     
     public struct Params {
+        var delegate: ACFormDelegate?
         var sections: [ACFormSection] = []
         var style: UITableViewCellStyle = .Value1
         var normalColor: UIColor = UIColor.blackColor()
@@ -71,6 +74,11 @@ public class ACForm {
         
         public func addSection(section: ACFormSection) -> Self {
             self.params.sections.append(section)
+            return self
+        }
+        
+        public func setDelegate(delegate: ACFormDelegate) -> Self {
+            self.params.delegate = delegate
             return self
         }
         
@@ -150,6 +158,8 @@ public class ACFormInput: NSObject {
         case Switch
     }
     
+    private var delegate: ACFormDelegate?
+    
     private let type: Type
     internal let name: String
     internal let title: String?
@@ -201,6 +211,7 @@ public class ACFormInput: NSObject {
     
     func textFieldDidEditingChanged(sender: UITextField) {
         self.value = sender.text
+        self.delegate?.formDidChangeValue(self.name, value: self.value)
         
         if let _value = self.value as? String? {
             let _cell = self.targetCell as! ACTextTableViewCell
@@ -212,4 +223,9 @@ public class ACFormInput: NSObject {
         }
     }
     
+}
+
+public protocol ACFormDelegate {
+    
+    func formDidChangeValue(name: String, value: AnyObject?)
 }

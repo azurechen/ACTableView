@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormViewController: UIViewController, UITableViewDelegate {
+class FormViewController: UIViewController, ACFormDelegate {
     
     let TAG_NAME = "Name"
     
@@ -22,6 +22,7 @@ class FormViewController: UIViewController, UITableViewDelegate {
             .setStyle(.Value1)
             .setNormalColor(UIColor.blackColor())
             .setTintColor(UIColor.redColor())
+            .setDelegate(self)
             .addSection(ACFormSection(
                 header: "Profile",
                 footer: nil,
@@ -35,6 +36,10 @@ class FormViewController: UIViewController, UITableViewDelegate {
         if let form = self.tableView.form {
             let name = form.valueOfTag(TAG_NAME)
         }
+    }
+    
+    func formDidChangeValue(name: String, value: AnyObject?) {
+        print("\(name) \(value as! String)")
     }
     
 }
