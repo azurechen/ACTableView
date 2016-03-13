@@ -22,15 +22,15 @@ extension ACTableView {
             self.registerNib(UINib(nibName: "ACTextTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextTableViewCell")
             
             
-            self.form = self.builder!.buildPart()
+            self.form = self.builder!.buildForm()
             self.form!.tableView = self
             
             if (builder != nil) {
-                for formSection in builder!.sections {
+                for formSection in form!.params.sections {
                     // transfer ACFormItem to ACTableItem
                     var items: [ACTableViewItem] = []
                     for formItem in formSection.items {
-                        if let item = formItem.getItem(builder!.style, normalColor: builder!.normalColor, tintColor: builder!.tintColor, placeholderColor: builder!.placeholderColor) {
+                        if let item = formItem.getItem(form!.params.style, normalColor: form!.params.normalColor, tintColor: form!.params.tintColor, placeholderColor: form!.params.placeholderColor) {
                             items.append(item)
                         }
                     }
@@ -49,44 +49,55 @@ extension ACTableView {
 public class ACForm {
     
     internal weak var tableView: ACTableView?
+    internal var params = Params()
     
     public func valueOfTag(tag: String) -> AnyObject? {
         return nil
     }
     
-    public class Builder {
-        
+    public struct Params {
         var sections: [ACFormSection] = []
         var style: UITableViewCellStyle = .Value1
         var normalColor: UIColor = UIColor.blackColor()
         var tintColor: UIColor = UIColor.blueColor()
         var placeholderColor: UIColor = UIColor.lightGrayColor()
+    }
+    
+    public class Builder {
+        
+        internal var params = Params()
         
         public init() {}
         
         public func addSection(section: ACFormSection) -> Self {
-            self.sections.append(section)
+            self.params.sections.append(section)
             return self
         }
         
         public func setStyle(style: UITableViewCellStyle) -> Self {
+            self.params.style = style
             return self
         }
         
         public func setNormalColor(color: UIColor) -> Self {
+            self.params.normalColor = color
             return self
         }
         
         public func setTintColor(color: UIColor) -> Self {
+            self.params.tintColor = color
             return self
         }
         
         public func setPlaceholderColor(color: UIColor) -> Self {
+            self.params.placeholderColor = color
             return self
         }
         
-        internal func buildPart() -> ACForm {
-            return ACForm()
+        internal func buildForm() -> ACForm {
+            let form = ACForm()
+            form.params = params
+            return form
         }
     }
 }
@@ -109,7 +120,7 @@ public class ACFormSection {
     }
 }
 
-public class ACFormInput {
+public class ACFormInput: NSObject {
     
     public enum Type {
         // Non-editable Label
@@ -139,15 +150,17 @@ public class ACFormInput {
         case Switch
     }
     
-    private let name: String
     private let type: Type
-    private let title: String?
-    private let placeholder: String?
-    private let value: AnyObject?
+    internal let name: String
+    internal let title: String?
+    internal let placeholder: String?
+    internal var value: AnyObject?
     
-    public init(name: String, type: Type, title: String?, placeholder: String?, value: AnyObject?) {
-        self.name = name
+    internal weak var targetCell: UITableViewCell?
+    
+    public init(type: Type, name: String, title: String?, placeholder: String?, value: AnyObject?) {
         self.type = type
+        self.name = name
         self.title = title
         self.placeholder = placeholder
         self.value = value
@@ -158,14 +171,24 @@ public class ACFormInput {
         var item: ACTableViewItem?
         if (type == .Text) {
             if let _value = self.value as? String? {
+                // use identifier to avoid unnecessary register
                 item = ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextTableViewCell", display: true) { (item, cell) in
-                    if let _cell = cell as? ACTextTableViewCell {
-                        _cell.normalColor = normalColor
-                        _cell.placeholderColor = placeholderColor
-                        _cell.title = self.title
-                        _cell.placeholder = self.placeholder
-                        _cell.value = _value
-                        _cell.initCell()
+                    self.targetCell = cell
+                    
+                    let _cell = cell as! ACTextTableViewCell
+                    _cell.contentTextField.addTarget(self, action: Selector("textFieldDidEditingChanged:"), forControlEvents: .EditingChanged)
+                    
+                    _cell.titleLabel.text = self.title
+                    _cell.titleLabel.textColor = normalColor
+                    _cell.placeholderLabel.text = self.placeholder
+                    _cell.placeholderLabel.textColor = placeholderColor
+                    _cell.contentTextField.text = _value
+                    _cell.contentTextField.textColor = normalColor
+                    
+                    if (_value == nil || _value == "") {
+                        _cell.placeholderLabel.hidden = false
+                    } else {
+                        _cell.placeholderLabel.hidden = true
                     }
                 }
             } else {
@@ -174,6 +197,19 @@ public class ACFormInput {
         }
         
         return item
+    }
+    
+    func textFieldDidEditingChanged(sender: UITextField) {
+        self.value = sender.text
+        
+        if let _value = self.value as? String? {
+            let _cell = self.targetCell as! ACTextTableViewCell
+            if (_value == nil || _value == "") {
+                _cell.placeholderLabel.hidden = false
+            } else {
+                _cell.placeholderLabel.hidden = true
+            }
+        }
     }
     
 }
