@@ -10,7 +10,7 @@ import UIKit
 
 class FormViewController: UIViewController, ACFormDelegate {
     
-    let TAG_NAME = "Name"
+    let INPUT_NAME = "Name"
     
     @IBOutlet weak var tableView: ACTableView!
     
@@ -28,18 +28,22 @@ class FormViewController: UIViewController, ACFormDelegate {
                 footer: nil,
                 display: true,
                 items: [
-                    ACFormInput(type: .Text, name: TAG_NAME, title: "Name", placeholder: "What's your name?", value: nil),
+                    ACFormInput(type: .Text, name: INPUT_NAME, title: "Name", placeholder: "What's your name?", value: nil),
                 ]))
         self.tableView.builder = builder
         self.tableView.construct()
         
-        if let form = self.tableView.form {
-            let name = form.valueOfTag(TAG_NAME)
-        }
+        
     }
     
     func formInput(formInput: ACFormInput, withName name: String, didChangeValue value: AnyObject?) {
-        print("\(name) \(value as! String)")
+        print("\(name) \(value as? String)")
+    }
+    
+    @IBAction func saveAction(sender: UIBarButtonItem) {
+        if let form = self.tableView.form {
+            print("\(INPUT_NAME) \(form.valueByName(INPUT_NAME) as? String)")
+        }
     }
     
 }

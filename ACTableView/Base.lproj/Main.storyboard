@@ -141,7 +141,13 @@
                             <constraint firstItem="22D-Ek-qfV" firstAttribute="top" secondItem="iyv-ro-4Ru" secondAttribute="bottom" id="vv4-5y-iHO"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="dkN-rP-PDd"/>
+                    <navigationItem key="navigationItem" id="dkN-rP-PDd">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="3aO-tX-Lnc">
+                            <connections>
+                                <action selector="saveAction:" destination="zHH-FN-Si3" id="s2e-ye-CfB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="iyv-ro-4Ru" id="D5H-h3-1IU"/>
                     </connections>

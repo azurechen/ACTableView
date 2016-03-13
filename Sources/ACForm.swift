@@ -53,7 +53,14 @@ public class ACForm {
     internal weak var tableView: ACTableView?
     internal var params = Params()
     
-    public func valueOfTag(tag: String) -> AnyObject? {
+    public func valueByName(name: String) -> AnyObject? {
+        for formSection in params.sections {
+            for formItem in formSection.items {
+                if (formItem.name == name) {
+                    return formItem.value
+                }
+            }
+        }
         return nil
     }
     
