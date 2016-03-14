@@ -10,8 +10,8 @@ import UIKit
 
 class ACValue1TableViewCell: UITableViewCell {
     
-    let ICON_WIDTH: CGFloat = 29.0
-    let ICON_TEAILING: CGFloat = 15.0
+    private let ICON_WIDTH: CGFloat = 29.0
+    private let ICON_TEAILING: CGFloat = 15.0
     
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint!
@@ -19,7 +19,10 @@ class ACValue1TableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     
-    var inset: CGFloat?
+    private var inset: CGFloat?
+    
+    internal weak var input: ACFormInput?
+    internal var params: ACFormParams?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,4 +43,13 @@ class ACValue1TableViewCell: UITableViewCell {
         
         iconImageView.image = image
     }
+    
+    internal func initByInput(input: ACFormInput, withParams params: ACFormParams) {
+        preconditionFailure("This method must be overridden.")
+    }
+    
+    internal func updateByInput() {
+        preconditionFailure("This method must be overridden.")
+    }
+    
 }

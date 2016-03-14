@@ -32,7 +32,7 @@ extension ACTableView {
                     for formItem in formSection.items {
                         // set delegate
                         formItem.delegate = form!.params.delegate
-                        if let item = formItem.getItem(form!.params.style, normalColor: form!.params.normalColor, tintColor: form!.params.tintColor, placeholderColor: form!.params.placeholderColor) {
+                        if let item = formItem.getItem(form!.params) {
                             items.append(item)
                         }
                     }
@@ -51,7 +51,7 @@ extension ACTableView {
 public class ACForm {
     
     internal weak var tableView: ACTableView?
-    internal var params = Params()
+    internal var params = ACFormParams()
     
     public func valueByName(name: String) -> AnyObject? {
         for formSection in params.sections {
@@ -64,18 +64,9 @@ public class ACForm {
         return nil
     }
     
-    public struct Params {
-        var delegate: ACFormDelegate?
-        var sections: [ACFormSection] = []
-        var style: ACFormStyle = .Value1
-        var normalColor: UIColor = UIColor.blackColor()
-        var tintColor: UIColor = UIColor.blueColor()
-        var placeholderColor: UIColor = UIColor.lightGrayColor()
-    }
-    
     public class Builder {
         
-        internal var params = Params()
+        internal var params = ACFormParams()
         
         public init() {}
         
@@ -157,32 +148,18 @@ public class ACFormInput: NSObject {
         self.value = value
     }
     
-    internal func getItem(style: ACFormStyle, normalColor: UIColor, tintColor: UIColor, placeholderColor: UIColor) -> ACTableViewItem? {
+    internal func getItem(params: ACFormParams) -> ACTableViewItem? {
         
         if (verifyValueType()) {
             switch type {
             case .Text:
-                let _value = self.value as! String?
                 // use identifier to avoid unnecessary register
                 return ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextValue1", display: true) { (item, cell) in
                     self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
                     _cell.contentTextField.addTarget(self, action: Selector("textFieldDidEditingChanged:"), forControlEvents: .EditingChanged)
-                    
-                    _cell.setIconImage(self.image)
-                    _cell.titleLabel.text = self.title
-                    _cell.titleLabel.textColor = normalColor
-                    _cell.placeholderLabel.text = self.placeholder
-                    _cell.placeholderLabel.textColor = placeholderColor
-                    _cell.contentTextField.text = _value
-                    _cell.contentTextField.textColor = normalColor
-                    
-                    if (_value == nil || _value == "") {
-                        _cell.placeholderLabel.hidden = false
-                    } else {
-                        _cell.placeholderLabel.hidden = true
-                    }
+                    _cell.initByInput(self, withParams: params)
                 }
             }
         }
@@ -195,13 +172,8 @@ public class ACFormInput: NSObject {
         self.value = sender.text
         self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
         
-        if let _value = self.value as? String? {
-            let _cell = self.targetCell as! ACTextTableViewCell
-            if (_value == nil || _value == "") {
-                _cell.placeholderLabel.hidden = false
-            } else {
-                _cell.placeholderLabel.hidden = true
-            }
+        if let cell = self.targetCell as? ACTextTableViewCell {
+            cell.updateByInput()
         }
     }
     
@@ -217,6 +189,15 @@ public class ACFormInput: NSObject {
         return false
     }
     
+}
+
+public struct ACFormParams {
+    var delegate: ACFormDelegate?
+    var sections: [ACFormSection] = []
+    var style: ACFormStyle = .Value1
+    var normalColor: UIColor = UIColor.blackColor()
+    var tintColor: UIColor = UIColor.blueColor()
+    var placeholderColor: UIColor = UIColor.lightGrayColor()
 }
 
 public enum ACFormStyle {
