@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		531E4B301C970F9E00E8C207 /* ACValue1TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531E4B2F1C970F9E00E8C207 /* ACValue1TableViewCell.swift */; };
 		535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */; };
 		537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC63E1C5D162600E949B1 /* AppDelegate.swift */; };
 		537FC6411C5D162600E949B1 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6401C5D162600E949B1 /* ExampleViewController.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		531E4B2F1C970F9E00E8C207 /* ACValue1TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACValue1TableViewCell.swift; sourceTree = "<group>"; };
 		5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralTableViewCell.swift; sourceTree = "<group>"; };
 		537FC63B1C5D162600E949B1 /* ACTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537FC63E1C5D162600E949B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		538219A21C91E0ED00610C17 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				531E4B2F1C970F9E00E8C207 /* ACValue1TableViewCell.swift */,
 				53863A911C934EB000F2E5B6 /* ACTextTableViewCell.swift */,
 				53863A921C934EB000F2E5B6 /* ACTextValue1TableViewCell.xib */,
 			);
@@ -261,6 +264,7 @@
 				538B74441C8C5CA500DBC9A7 /* ACForm.swift in Sources */,
 				53863A931C934EB000F2E5B6 /* ACTextTableViewCell.swift in Sources */,
 				537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */,
+				531E4B301C970F9E00E8C207 /* ACValue1TableViewCell.swift in Sources */,
 				53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */,
 				535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */,
 				53D2F1061C5E517B00F82347 /* ACTableView.swift in Sources */,

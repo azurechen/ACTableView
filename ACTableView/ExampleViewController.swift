@@ -41,16 +41,16 @@ class ExampleViewController: UIViewController, UITableViewDelegate {
             display: true,
             items: [
                 ACTableViewItem(style: .Value1, display: true) { (item, cell) in
-                    cell.imageView?.image = UIImage(named: "home")
-                    cell.textLabel?.text = "Home"
+                    cell.imageView?.image = UIImage(named: "ic_wifi")
+                    cell.textLabel?.text = "Wi-Fi"
                 },
                 ACTableViewItem(style: .Value1, display: true) { (item, cell) in
-                    cell.imageView?.image = UIImage(named: "call")
-                    cell.textLabel?.text = "Call"
+                    cell.imageView?.image = UIImage(named: "ic_carrier")
+                    cell.textLabel?.text = "Carrier"
                 },
                 ACTableViewItem(style: .Value1, display: true) { (item, cell) in
-                    cell.imageView?.image = UIImage(named: "settings")
-                    cell.textLabel?.text = "Settins"
+                    cell.imageView?.image = UIImage(named: "ic_notification")
+                    cell.textLabel?.text = "Notifications"
                 },
             ]))
         

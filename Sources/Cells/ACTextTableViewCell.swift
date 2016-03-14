@@ -8,9 +8,8 @@
 
 import UIKit
 
-class ACTextTableViewCell: UITableViewCell {
+class ACTextTableViewCell: ACValue1TableViewCell {
     
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var contentTextField: UITextField!
 

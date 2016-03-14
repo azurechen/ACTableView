@@ -141,15 +141,17 @@ public class ACFormInput: NSObject {
     
     private let type: ACFormInputType
     internal let name: String
+    internal let image: UIImage?
     internal let title: String?
     internal let placeholder: String?
     internal var value: AnyObject?
     
     internal weak var targetCell: UITableViewCell?
     
-    public init(type: ACFormInputType, name: String, title: String?, placeholder: String?, value: AnyObject?) {
+    public init(type: ACFormInputType, name: String, image: UIImage?, title: String?, placeholder: String?, value: AnyObject?) {
         self.type = type
         self.name = name
+        self.image = image
         self.title = title
         self.placeholder = placeholder
         self.value = value
@@ -168,6 +170,7 @@ public class ACFormInput: NSObject {
                     let _cell = cell as! ACTextTableViewCell
                     _cell.contentTextField.addTarget(self, action: Selector("textFieldDidEditingChanged:"), forControlEvents: .EditingChanged)
                     
+                    _cell.setIconImage(self.image)
                     _cell.titleLabel.text = self.title
                     _cell.titleLabel.textColor = normalColor
                     _cell.placeholderLabel.text = self.placeholder
