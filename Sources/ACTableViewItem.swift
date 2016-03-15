@@ -17,8 +17,13 @@ public class ACTableViewItem {
     }
     
     internal weak var tableView: ACTableView!
-    internal var row: Int!
-    internal var section: Int!
+    internal weak var section: ACTableViewSection!
+    internal var rowIndex: Int? {
+        return self.section.items.indexOf({ $0 === self })
+    }
+    internal var sectionIndex: Int? {
+        return self.tableView?.sections.indexOf({ $0 === self.section })
+    }
     
     public let tag: String?
     public var display: Bool
@@ -79,28 +84,36 @@ public class ACTableViewItem {
     }
     
     // methods
-    public func prev() -> ACTableViewItem {
-        return self.tableView.sections[section].items[row - 1]
+    public func prev() -> ACTableViewItem? {
+        if (rowIndex != nil) {
+            return section.items[rowIndex! - 1]
+        }
+        return nil
     }
     
-    public func next() -> ACTableViewItem {
-        return self.tableView.sections[section].items[row + 1]
+    public func next() -> ACTableViewItem? {
+        if (rowIndex != nil) {
+            return section.items[rowIndex! + 1]
+        }
+        return nil
     }
     
     public func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
+                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+            }
         }
         updateBoundRows()
     }
     
     public func hide(animated animated: Bool = true) {
         if (self.display) {
-            let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)!
-            self.display = false
-            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
+                self.display = false
+                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+            }
         }
         updateBoundRows()
     }
@@ -114,12 +127,11 @@ public class ACTableViewItem {
     }
     
     public func reload(animated animated: Bool = true) {
-        let indexPath = self.tableView.indexPathFromACIndex(forRow: row, inSection: section)
-        if (indexPath != nil) {
+        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
             if (animated) {
-                self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
             } else {
-                self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
             }
             updateBoundRows()
         }
@@ -128,7 +140,7 @@ public class ACTableViewItem {
     public func updateBoundRows() {
         if (self.bind != nil) {
             for item in self.bind!(self) {
-                if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.row, inSection: item.section), let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
+                if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.rowIndex!, inSection: item.sectionIndex!) where rowIndex != nil && sectionIndex != nil, let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
                     item.handler?(item: item, cell: cell)
                 }
             }

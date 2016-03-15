@@ -28,7 +28,6 @@ public class ACTableView: UITableView, UITableViewDataSource {
     public func addSection(section: ACTableViewSection) {
         sections.append(section)
         section.tableView = self
-        section.section = sections.count - 1
         section.setItems()
     }
     

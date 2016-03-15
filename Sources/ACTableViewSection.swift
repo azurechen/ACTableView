@@ -11,7 +11,9 @@ import UIKit
 public class ACTableViewSection {
     
     internal weak var tableView: ACTableView!
-    internal var section: Int!
+    internal var sectionIndex: Int? {
+        return self.tableView?.sections.indexOf({ $0 === self })
+    }
     
     public let tag: String?
     public var display: Bool
@@ -34,10 +36,9 @@ public class ACTableViewSection {
     
     internal func setItems() {
         // set row and section of items
-        for (index, item) in self.items.enumerate() {
+        for item in self.items {
             item.tableView = self.tableView
-            item.section = self.tableView.sections.count - 1
-            item.row = index
+            item.section = self
             
             // register nibs
             if (item.type == .Nib) {
@@ -57,30 +58,28 @@ public class ACTableViewSection {
     public func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            let index = self.tableView.indexOfSectionFromACIndex(section)
-            if (index != nil) {
-                self.tableView.insertSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
+            
+            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
+                self.tableView.insertSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
             }
         }
     }
     
     public func hide(animated animated: Bool = true) {
         if (self.display) {
-            let index = self.tableView.indexOfSectionFromACIndex(section)
-            self.display = false
-            if (index != nil) {
-                self.tableView.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
+            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
+                self.display = false
+                self.tableView.deleteSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
             }
         }
     }
     
     public func reload(animated animated: Bool = true) {
-        let index = self.tableView.indexOfSectionFromACIndex(section)
-        if (index != nil) {
+        if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
             if (animated) {
-                self.tableView.reloadSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.reloadSections(NSIndexSet(index: index), withRowAnimation: UITableViewRowAnimation.Fade)
             } else {
-                self.tableView.reloadSections(NSIndexSet(index: index!), withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView.reloadSections(NSIndexSet(index: index), withRowAnimation: UITableViewRowAnimation.None)
             }
         }
     }

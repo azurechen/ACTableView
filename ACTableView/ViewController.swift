@@ -96,14 +96,14 @@ class ViewController: UIViewController, UITableViewDelegate {
                 ACTableViewItem(tag: ITEM_START_DATE, style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "Start Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._startDate)
-                    if (item.next().display) {
+                    if (item.next()!.display) {
                         cell.detailTextLabel!.textColor = UIColor.redColor()
                     } else {
                         cell.detailTextLabel!.textColor = UIColor.grayColor()
                     }
                 },
                 // DatePicker
-                ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.datePickerMode = .Date
                     _cell.datePicker.date = self._startDate
@@ -113,14 +113,14 @@ class ViewController: UIViewController, UITableViewDelegate {
                 ACTableViewItem(tag: ITEM_END_DATE, style: .Value1, display: true) { (item, cell) in
                     cell.textLabel?.text = "End Date"
                     cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._endDate)
-                    if (item.next().display) {
+                    if (item.next()!.display) {
                         cell.detailTextLabel!.textColor = UIColor.redColor()
                     } else {
                         cell.detailTextLabel!.textColor = UIColor.grayColor()
                     }
                 },
                 // DatePicker
-                ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+                ACTableViewItem(tag: ITEM_END_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) in
                     let _cell = cell as! DatePickerTableViewCell
                     _cell.datePicker.datePickerMode = .Date
                     _cell.datePicker.date = self._endDate
@@ -143,7 +143,7 @@ class ViewController: UIViewController, UITableViewDelegate {
             self.tableView.sectionWithTag(SECTION_EXPANDABLE).hide()
         }
         if (item.tag == ITEM_START_DATE || item.tag == ITEM_END_DATE) {
-            let pickerItem = item.next()
+            let pickerItem = item.next()!
             if (pickerItem.display) {
                 pickerItem.hide()
             } else {
