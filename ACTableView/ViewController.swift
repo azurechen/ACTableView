@@ -135,12 +135,13 @@ class ViewController: UIViewController, UITableViewDelegate {
         
         // get the item that related to the clicked cell
         let item = self.tableView.itemAtIndexPath(indexPath)
+        let section = self.tableView.sectionAtIndex(indexPath.section)
         
         if (item.tag == ITEM_EXPAND) {
             self.tableView.sectionWithTag(SECTION_EXPANDABLE).show()
         }
         if (item.tag == ITEM_COLLAPSE) {
-            self.tableView.sectionWithTag(SECTION_EXPANDABLE).hide()
+            section.prev()!.hide()
         }
         if (item.tag == ITEM_START_DATE || item.tag == ITEM_END_DATE) {
             let pickerItem = item.next()!

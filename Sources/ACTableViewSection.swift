@@ -55,6 +55,21 @@ public class ACTableViewSection {
         setItems()
     }
     
+    // methods
+    public func prev() -> ACTableViewSection? {
+        if (sectionIndex != nil) {
+            return self.tableView.sections[sectionIndex! - 1]
+        }
+        return nil
+    }
+    
+    public func next() -> ACTableViewSection? {
+        if (sectionIndex != nil) {
+            return self.tableView.sections[sectionIndex! + 1]
+        }
+        return nil
+    }
+    
     public func show(animated animated: Bool = true) {
         if (!self.display) {
             self.display = true
