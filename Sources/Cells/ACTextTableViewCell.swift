@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ACTextTableViewCell: ACValue1TableViewCell {
+class ACTextTableViewCell: ACAbstractTableViewCell {
     
     @IBOutlet weak var contentTextField: UITextField!
 
