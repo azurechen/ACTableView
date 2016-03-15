@@ -10,7 +10,6 @@ import UIKit
 
 class ACTextTableViewCell: ACValue1TableViewCell {
     
-    @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var contentTextField: UITextField!
 
     override func awakeFromNib() {
@@ -25,8 +24,7 @@ class ACTextTableViewCell: ACValue1TableViewCell {
         setIconImage(input.image)
         titleLabel.text = input.title
         titleLabel.textColor = params.normalColor
-        placeholderLabel.text = input.placeholder
-        placeholderLabel.textColor = params.placeholderColor
+        contentTextField.placeholder = input.placeholder
         contentTextField.text = input.value as! String?
         contentTextField.textColor = params.normalColor
         
@@ -34,12 +32,6 @@ class ACTextTableViewCell: ACValue1TableViewCell {
     }
     
     override func updateByInput() {
-        let value = input?.value as! String?
-        if (value == nil || value == "") {
-            placeholderLabel.hidden = false
-        } else {
-            placeholderLabel.hidden = true
-        }
     }
     
 }

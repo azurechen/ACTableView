@@ -95,11 +95,6 @@ public class ACForm {
             return self
         }
         
-        public func setPlaceholderColor(color: UIColor) -> Self {
-            self.params.placeholderColor = color
-            return self
-        }
-        
         internal func buildForm() -> ACForm {
             let form = ACForm()
             form.params = params
@@ -158,7 +153,8 @@ public class ACFormInput: NSObject {
                     self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
-                    _cell.contentTextField.addTarget(self, action: Selector("textFieldDidEditingChanged:"), forControlEvents: .EditingChanged)
+                    _cell.contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingChanged)
+                    _cell.contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingDidEnd)
                     _cell.initByInput(self, withParams: params)
                 }
             }
@@ -168,13 +164,10 @@ public class ACFormInput: NSObject {
     }
     
     // Actions of Text, Password, Number and Float
-    func textFieldDidEditingChanged(sender: UITextField) {
+    func textFieldEditingChanged(sender: UITextField) {
+        sender.text = sender.text?.stringByReplacingOccurrencesOfString(" ", withString: "\u{00a0}")
         self.value = sender.text
         self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
-        
-        if let cell = self.targetCell as? ACTextTableViewCell {
-            cell.updateByInput()
-        }
     }
     
     func verifyValueType() -> Bool {
@@ -197,7 +190,6 @@ public struct ACFormParams {
     var style: ACFormStyle = .Value1
     var normalColor: UIColor = UIColor.blackColor()
     var tintColor: UIColor = UIColor.blueColor()
-    var placeholderColor: UIColor = UIColor.lightGrayColor()
 }
 
 public enum ACFormStyle {
