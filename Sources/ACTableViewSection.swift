@@ -34,16 +34,10 @@ public class ACTableViewSection {
         self.items = items
     }
     
-    internal func setItems() {
+    internal func registerItems() {
         // set row and section of items
         for item in self.items {
-            item.tableView = self.tableView
-            item.section = self
-            
-            // register nibs
-            if (item.type == .Nib) {
-                self.tableView.registerNib(UINib(nibName: item.reuseIdentifier, bundle: nil), forCellReuseIdentifier: item.reuseIdentifier)
-            }
+            item.registerItemWithTableView(self.tableView, inSection: self)
         }
     }
     
@@ -52,7 +46,7 @@ public class ACTableViewSection {
         self.items.removeAll()
         // reset Items
         self.items = items
-        setItems()
+        registerItems()
     }
     
     // methods
@@ -98,4 +92,31 @@ public class ACTableViewSection {
             }
         }
     }
+    
+    public func insertItem(item: ACTableViewItem, atIndex rowIndex: Int, animated: Bool = true) {
+        item.registerItemWithTableView(self.tableView, inSection: self)
+        items.insert(item, atIndex: rowIndex)
+        
+        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex, inSection: sectionIndex!) where sectionIndex != nil {
+            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+        }
+    }
+    
+    public func removeItem(item: ACTableViewItem, animated: Bool = true) {
+        if let rowIndex = item.rowIndex {
+            removeItemAtIndex(rowIndex, animated: animated)
+        }
+    }
+    
+    public func removeItemAtIndex(rowIndex: Int, animated: Bool = true) {
+        var indexPath: NSIndexPath?
+        if (sectionIndex != nil) {
+            indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex, inSection: sectionIndex!)
+        }
+        items.removeAtIndex(rowIndex)
+        if (indexPath != nil) {
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: animated ? .Fade : .None)
+        }
+    }
+    
 }

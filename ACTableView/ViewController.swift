@@ -14,6 +14,7 @@ class ViewController: UIViewController, UITableViewDelegate {
     
     // section tags
     private var SECTION_EXPANDABLE = "section_expandable"
+    private var SECTION_DYNAMIC    = "section_dynamic"
     
     // item tags
     private var ITEM_EXPAND        = "item_expand"
@@ -22,6 +23,8 @@ class ViewController: UIViewController, UITableViewDelegate {
     private var ITEM_START_PICKER  = "item_start_picker"
     private var ITEM_END_DATE      = "item_end_date"
     private var ITEM_END_PICKER    = "item_end_picker"
+    private var ITEM_ADD           = "item_add"
+    private var ITEM_REMOVE        = "item_remove"
     
     private var _startDate = NSDate()
     private var _endDate = NSDate()
@@ -127,6 +130,21 @@ class ViewController: UIViewController, UITableViewDelegate {
                     _cell.datePicker.addTarget(self, action: "datePickerValueChanged:", forControlEvents: UIControlEvents.ValueChanged)
                 }
             ]))
+        
+        self.tableView.addSection(ACTableViewSection(
+            tag: SECTION_DYNAMIC,
+            header: "Add & Remove",
+            footer: nil,
+            display: true,
+            items: [
+                // Label
+                ACTableViewItem(tag: ITEM_ADD, style: .Value1, display: true) { (item, cell) in
+                    cell.textLabel?.text = "Add a Item"
+                },
+                ACTableViewItem(tag: ITEM_REMOVE, style: .Value1, display: true) { (item, cell) in
+                    cell.textLabel?.text = "Remove a Item"
+                },
+            ]))
     }
     
     // UITableViewDelegate
@@ -151,6 +169,15 @@ class ViewController: UIViewController, UITableViewDelegate {
                 self.tableView.hideAllRowsIfNeeded()
                 pickerItem.show()
             }
+        }
+        if (item.tag == ITEM_ADD) {
+            self.tableView.sectionWithTag(SECTION_DYNAMIC).insertItem(
+                ACTableViewItem(style: .Value1, display: true) { (item, cell) -> () in
+                    cell.textLabel?.text = "New Item"
+                }, atIndex: 1)
+        }
+        if (item.tag == ITEM_REMOVE) {
+            self.tableView.sectionWithTag(SECTION_DYNAMIC).removeItemAtIndex(1)
         }
     }
     

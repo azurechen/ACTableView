@@ -35,6 +35,16 @@ public class ACTableViewItem {
     internal let reuseIdentifier: String
     private let bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
+    internal func registerItemWithTableView(tableView: ACTableView, inSection section: ACTableViewSection) {
+        self.tableView = tableView
+        self.section = section
+        
+        // register nibs
+        if (type == .Nib) {
+            self.tableView.registerNib(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        }
+    }
+    
     // storyboard
     public convenience init(tag: String? = nil, identifier: String, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
         self.init(tag: tag, identifier: identifier, display: display, bind: nil, handler: handler)
