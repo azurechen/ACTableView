@@ -119,7 +119,7 @@ func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSInde
     let item = self.tableView.itemAtIndexPath(indexPath)
     
     if (item.tag == ITEM_START_DATE || item.tag == ITEM_END_DATE) {
-        let pickerItem = item.next()
+        let pickerItem = item.next()!
         if (pickerItem.display) {
             pickerItem.hide()
         } else {
@@ -154,14 +154,14 @@ self.tableView.addSection(ACTableViewSection(
         ACTableViewItem(tag: ITEM_START_DATE, style: .Value1, display: true) { (item, cell) in
             cell.textLabel?.text = "Start Date"
             cell.detailTextLabel?.text = dateFormatter.stringFromDate(self._startDate)
-            if (item.next().display) {
+            if (item.next()!.display) {
                 cell.detailTextLabel!.textColor = UIColor.redColor()
             } else {
                 cell.detailTextLabel!.textColor = UIColor.grayColor()
             }
         },
         // DatePicker
-        ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+        ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) in
             let _cell = cell as! DatePickerTableViewCell
             _cell.datePicker.datePickerMode = .Date
             _cell.datePicker.date = self._startDate
@@ -188,7 +188,7 @@ func datePickerValueChanged(sender: UIDatePicker) {
 }
 ```
 
-I guess you notice some methods like `item.next()`, `item.prev()` or some closures like `bind: { (item) -> [ACTableViewItem] in [item.prev()] }`. It will be mentioned in next chapters.
+I guess you notice some methods like `item.next()`, `item.prev()` or some closures like `bind: { (item) -> [ACTableViewItem] in [item.prev()!] }`. It will be mentioned in next chapters.
 
 ###Item Traversing
 
@@ -213,7 +213,7 @@ let items = [
     },
     // DatePicker
     ACTableViewItem(tag: ITEM_START_PICKER, nibName: "DatePickerTableViewCell", display: false, 
-        bind: { (item) -> [ACTableViewItem] in [item.prev()] }) { (item, cell) in
+        bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) in
         
         // set the datePicker
     },
