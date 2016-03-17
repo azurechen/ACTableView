@@ -137,6 +137,28 @@ public class ACTableView: UITableView, UITableViewDataSource {
         }
     }
     
+    public func insertSection(section: ACTableViewSection, atIndex sectionIndex: Int, animated: Bool = true) {
+        sections.insert(section, atIndex: sectionIndex)
+        
+        if let index = self.indexOfSectionFromACIndex(sectionIndex) {
+            self.insertSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
+        }
+    }
+    
+    public func removeSection(section: ACTableViewSection, animated: Bool = true) {
+        if let sectionIndex = section.sectionIndex {
+            removeSectionAtIndex(sectionIndex, animated: animated)
+        }
+    }
+    
+    public func removeSectionAtIndex(sectionIndex: Int, animated: Bool = true) {
+        let index = self.indexOfSectionFromACIndex(sectionIndex)
+        sections.removeAtIndex(sectionIndex)
+        if (index != nil) {
+            self.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
+        }
+    }
+    
     // section index mapping
     internal func indexOfSectionFromACIndex(index: Int) -> Int? {
         var countSection = 0
