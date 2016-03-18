@@ -111,9 +111,9 @@ public class ACFormSection {
     
     internal let header: String?
     internal let footer: String?
-    internal var items: [ACFormInput]
+    internal var items: [ACInput]
     
-    public init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACFormInput]) {
+    public init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACInput]) {
         self.tag = tag
         self.header = header
         self.footer = footer
@@ -122,11 +122,11 @@ public class ACFormSection {
     }
 }
 
-public class ACFormInput: NSObject {
+public class ACInput: NSObject {
     
     private var delegate: ACFormDelegate?
     
-    private let type: ACFormInputType
+    private let type: ACInputType
     internal let name: String
     internal let image: UIImage?
     internal let title: String?
@@ -135,7 +135,7 @@ public class ACFormInput: NSObject {
     
     internal weak var targetCell: UITableViewCell?
     
-    public init(type: ACFormInputType, name: String, image: UIImage?, title: String?, placeholder: String?, value: AnyObject?) {
+    public init(type: ACInputType, name: String, image: UIImage?, title: String?, placeholder: String?, value: AnyObject?) {
         self.type = type
         self.name = name
         self.image = image
@@ -198,7 +198,7 @@ public enum ACFormStyle {
     case Value2
 }
 
-public enum ACFormInputType {
+public enum ACInputType {
     // Non-editable Label
 //    case Label
     // Editable TextField
@@ -228,5 +228,5 @@ public enum ACFormInputType {
 
 public protocol ACFormDelegate {
     
-    func formInput(formInput: ACFormInput, withName name: String, didChangeValue value: AnyObject?)
+    func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?)
 }

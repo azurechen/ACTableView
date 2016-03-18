@@ -26,6 +26,7 @@
                         <rect key="frame" x="59" y="11" width="34" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="9Je-u9-luX"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="vDb-3h-uoO"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,6 +59,7 @@
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="epJ-oW-Rts"/>
                     <constraint firstItem="fau-HJ-JlH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="nx7-tR-578"/>
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="leading" secondItem="HCn-rq-Qks" secondAttribute="trailing" constant="8" id="pd2-bZ-ZNG"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" constant="2" id="s8u-82-d4k"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">

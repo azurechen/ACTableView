@@ -17,13 +17,12 @@ class ACTextTableViewCell: ACAbstractTableViewCell {
         self.selectionStyle = .None
     }
     
-    override func initByInput(input: ACFormInput, withParams params: ACFormParams) {
+    override func initByInput(input: ACInput, withParams params: ACFormParams) {
+        super.initByInput(input, withParams: params)
+        
         self.input = input
         self.params = params
         
-        setIconImage(input.image)
-        titleLabel.text = input.title
-        titleLabel.textColor = params.normalColor
         contentTextField.placeholder = input.placeholder
         contentTextField.text = input.value as! String?
         contentTextField.textColor = params.normalColor

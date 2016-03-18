@@ -43,6 +43,7 @@ class ExampleViewController: UIViewController, UITableViewDelegate {
                 ACTableViewItem(style: .Value2, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "ic_wifi")
                     cell.textLabel?.text = "Wi-Fi"
+                    cell.detailTextLabel?.text = "Test"
                 },
                 ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "ic_carrier")

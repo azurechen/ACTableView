@@ -21,7 +21,7 @@ class ACAbstractTableViewCell: UITableViewCell {
     
     private var inset: CGFloat?
     
-    internal weak var input: ACFormInput?
+    internal weak var input: ACInput?
     internal var params: ACFormParams?
     
     override func awakeFromNib() {
@@ -44,12 +44,23 @@ class ACAbstractTableViewCell: UITableViewCell {
         iconImageView?.image = image
     }
     
-    internal func initByInput(input: ACFormInput, withParams params: ACFormParams) {
-        preconditionFailure("This method must be overridden.")
+    internal func setTitle(title: String?, withParams params: ACFormParams) {
+        switch params.style {
+        case .Value1:
+            titleLabel.text = title
+            titleLabel.textColor = params.normalColor
+        case .Value2:
+            titleLabel.text = title
+            titleLabel.textColor = params.tintColor
+        }
+    }
+    
+    internal func initByInput(input: ACInput, withParams params: ACFormParams) {
+        setIconImage(input.image)
+        setTitle(input.title, withParams: params)
     }
     
     internal func updateByInput() {
-        preconditionFailure("This method must be overridden.")
     }
     
 }
