@@ -40,7 +40,7 @@ class ExampleViewController: UIViewController, UITableViewDelegate {
             footer: nil,
             display: true,
             items: [
-                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
+                ACTableViewItem(style: .Value2, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "ic_wifi")
                     cell.textLabel?.text = "Wi-Fi"
                 },

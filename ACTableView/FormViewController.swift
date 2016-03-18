@@ -20,7 +20,7 @@ class FormViewController: UIViewController, ACFormDelegate {
         self.title = "Form"
         
         let builder = ACForm.Builder()
-            .setStyle(.Value1)
+            .setStyle(.Value2)
             .setNormalColor(UIColor.blackColor())
             .setTintColor(UIColor.redColor())
             .setDelegate(self)

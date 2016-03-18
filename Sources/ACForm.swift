@@ -20,6 +20,7 @@ extension ACTableView {
             }
             // Register all nibs
             self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
+            self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
             
             
             self.form = self.builder!.buildForm()
@@ -149,7 +150,7 @@ public class ACFormInput: NSObject {
             switch type {
             case .Text:
                 // use identifier to avoid unnecessary register
-                return ACTableViewItem(tag: name + "_ITEM", identifier: "ACTextValue1", display: true) { (item, cell) in
+                return ACTableViewItem(tag: name + "_ITEM", identifier: "ACText\(String(params.style))", display: true) { (item, cell) in
                     self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
@@ -194,6 +195,7 @@ public struct ACFormParams {
 
 public enum ACFormStyle {
     case Value1
+    case Value2
 }
 
 public enum ACFormInputType {

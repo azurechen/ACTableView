@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		531E4B301C970F9E00E8C207 /* ACAbstractTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531E4B2F1C970F9E00E8C207 /* ACAbstractTableViewCell.swift */; };
+		531E4B321C9B33A500E8C207 /* ACTextValue2TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 531E4B311C9B33A500E8C207 /* ACTextValue2TableViewCell.xib */; };
 		535222501C77F8E100491F1D /* CentralTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */; };
 		537FC63F1C5D162600E949B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC63E1C5D162600E949B1 /* AppDelegate.swift */; };
 		537FC6411C5D162600E949B1 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FC6401C5D162600E949B1 /* ExampleViewController.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		531E4B2F1C970F9E00E8C207 /* ACAbstractTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACAbstractTableViewCell.swift; sourceTree = "<group>"; };
+		531E4B311C9B33A500E8C207 /* ACTextValue2TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACTextValue2TableViewCell.xib; sourceTree = "<group>"; };
 		5352224F1C77F8E100491F1D /* CentralTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CentralTableViewCell.swift; sourceTree = "<group>"; };
 		537FC63B1C5D162600E949B1 /* ACTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		537FC63E1C5D162600E949B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				531E4B2F1C970F9E00E8C207 /* ACAbstractTableViewCell.swift */,
 				53863A911C934EB000F2E5B6 /* ACTextTableViewCell.swift */,
 				53863A921C934EB000F2E5B6 /* ACTextValue1TableViewCell.xib */,
+				531E4B311C9B33A500E8C207 /* ACTextValue2TableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				537FC6491C5D162600E949B1 /* LaunchScreen.storyboard in Resources */,
+				531E4B321C9B33A500E8C207 /* ACTextValue2TableViewCell.xib in Resources */,
 				53863A941C934EB000F2E5B6 /* ACTextValue1TableViewCell.xib in Resources */,
 				537FC6461C5D162600E949B1 /* Assets.xcassets in Resources */,
 				537FC6441C5D162600E949B1 /* Main.storyboard in Resources */,

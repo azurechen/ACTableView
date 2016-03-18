@@ -31,7 +31,7 @@ class ACAbstractTableViewCell: UITableViewCell {
     }
     
     internal func setIconImage(image: UIImage?) {
-        if (image != nil) {
+        if (iconImageView != nil && image != nil) {
             iconWidthConstraint?.constant = ICON_WIDTH
             iconTrailingConstraint?.constant = ICON_TEAILING
             self.separatorInset = UIEdgeInsets(top: 0, left: inset! + ICON_WIDTH + ICON_TEAILING, bottom: 0, right: 0)
