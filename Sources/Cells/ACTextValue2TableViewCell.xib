@@ -16,10 +16,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Title" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCn-rq-Qks">
-                        <rect key="frame" x="15" y="13" width="91" height="16"/>
+                        <rect key="frame" x="15" y="10" width="91" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="9Je-u9-luX"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="16" id="ELk-0v-kSh"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="ELk-0v-kSh"/>
                             <constraint firstAttribute="width" constant="91" id="dvn-bW-UPa"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -34,17 +34,17 @@
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Content" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MC6-q1-vE7">
                         <rect key="frame" x="112" y="10" width="193" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="ik4-8t-WDy"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ik4-8t-WDy"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" constant="5" id="0Dl-N3-PsP"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" id="0Dl-N3-PsP"/>
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="5YK-iP-Fm4"/>
                     <constraint firstAttribute="bottomMargin" secondItem="MC6-q1-vE7" secondAttribute="bottom" id="7WQ-ca-ksF"/>
-                    <constraint firstItem="HCn-rq-Qks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="86a-a4-whx"/>
+                    <constraint firstItem="HCn-rq-Qks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="86a-a4-whx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="MC6-q1-vE7" secondAttribute="trailing" id="GiB-VI-LrT"/>
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="GsP-ER-Omq"/>
                     <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" id="cER-NB-yQa"/>

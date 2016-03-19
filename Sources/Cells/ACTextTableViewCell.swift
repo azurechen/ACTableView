@@ -31,8 +31,6 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         contentTextField.delegate = self
         contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingChanged)
         contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingDidEnd)
-        
-        updateByInput()
     }
     
     func textFieldShouldClear(textField: UITextField) -> Bool {

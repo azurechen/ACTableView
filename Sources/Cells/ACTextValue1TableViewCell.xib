@@ -23,10 +23,10 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCn-rq-Qks">
-                        <rect key="frame" x="59" y="11" width="34" height="21"/>
+                        <rect key="frame" x="59" y="10" width="34" height="24"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="9Je-u9-luX"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="vDb-3h-uoO"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="23" id="vDb-3h-uoO"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,7 +51,8 @@
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="5YK-iP-Fm4"/>
                     <constraint firstAttribute="bottomMargin" secondItem="MC6-q1-vE7" secondAttribute="bottom" id="7WQ-ca-ksF"/>
                     <constraint firstItem="HCn-rq-Qks" firstAttribute="leading" secondItem="fau-HJ-JlH" secondAttribute="trailing" constant="15" id="7bW-77-k4f"/>
-                    <constraint firstItem="HCn-rq-Qks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="1" id="86a-a4-whx"/>
+                    <constraint firstItem="fau-HJ-JlH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="7mL-33-PZH"/>
+                    <constraint firstItem="HCn-rq-Qks" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="86a-a4-whx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="MC6-q1-vE7" secondAttribute="trailing" id="GiB-VI-LrT"/>
                     <constraint firstItem="fau-HJ-JlH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="YsD-Zr-Ls7"/>
                     <constraint firstItem="fau-HJ-JlH" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="aT2-9b-R6e"/>
@@ -59,12 +60,15 @@
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="epJ-oW-Rts"/>
                     <constraint firstItem="fau-HJ-JlH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="nx7-tR-578"/>
                     <constraint firstItem="MC6-q1-vE7" firstAttribute="leading" secondItem="HCn-rq-Qks" secondAttribute="trailing" constant="8" id="pd2-bZ-ZNG"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" constant="2" id="s8u-82-d4k"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="HCn-rq-Qks" secondAttribute="bottom" id="s8u-82-d4k"/>
+                    <constraint firstItem="fau-HJ-JlH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-4" id="xSR-vI-UzC"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="7mL-33-PZH"/>
                         <exclude reference="YsD-Zr-Ls7"/>
                         <exclude reference="aT2-9b-R6e"/>
+                        <exclude reference="nx7-tR-578"/>
                         <exclude reference="5YK-iP-Fm4"/>
                         <exclude reference="cER-NB-yQa"/>
                     </mask>
