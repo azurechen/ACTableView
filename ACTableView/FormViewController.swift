@@ -29,9 +29,9 @@ class FormViewController: UIViewController, ACFormDelegate {
                 footer: nil,
                 display: true,
                 items: [
-                    ACInput(type: .Text, name: INPUT_FIRST_NAME, image: UIImage(named: "ic_wifi"), title: "Wi-Fi", placeholder: "What's your name?", value: nil),
-                    ACInput(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
-                    ACInput(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
+                    ACInputText(type: .Text, name: INPUT_FIRST_NAME, image: UIImage(named: "ic_wifi"), title: "Wi-Fi", placeholder: "What's your name?", value: nil),
+                    ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
+                    ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
         self.tableView.builder = builder
         self.tableView.construct()

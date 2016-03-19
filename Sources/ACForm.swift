@@ -31,11 +31,7 @@ extension ACTableView {
                     // transfer ACFormItem to ACTableItem
                     var items: [ACTableViewItem] = []
                     for formItem in formSection.items {
-                        // set delegate
-                        formItem.delegate = form!.params.delegate
-                        if let item = formItem.getItem(form!.params) {
-                            items.append(item)
-                        }
+                        items += formItem.getItems(form!.params)
                     }
                     // transfer ACFormSection to ACTableViewSection
                     self.addSection(ACTableViewSection(
@@ -124,63 +120,22 @@ public class ACFormSection {
 
 public class ACInput: NSObject {
     
-    private var delegate: ACFormDelegate?
-    
-    private let type: ACInputType
     internal let name: String
     internal let image: UIImage?
     internal let title: String?
-    internal let placeholder: String?
     internal var value: AnyObject?
     
     internal weak var targetCell: UITableViewCell?
     
-    public init(type: ACInputType, name: String, image: UIImage?, title: String?, placeholder: String?, value: AnyObject?) {
-        self.type = type
+    init(name: String, image: UIImage?, title: String?, value: AnyObject?) {
         self.name = name
         self.image = image
         self.title = title
-        self.placeholder = placeholder
         self.value = value
     }
     
-    internal func getItem(params: ACFormParams) -> ACTableViewItem? {
-        
-        if (verifyValueType()) {
-            switch type {
-            case .Text:
-                // use identifier to avoid unnecessary register
-                return ACTableViewItem(tag: name + "_ITEM", identifier: "ACText\(String(params.style))", display: true) { (item, cell) in
-                    self.targetCell = cell
-                    
-                    let _cell = cell as! ACTextTableViewCell
-                    _cell.contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingChanged)
-                    _cell.contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingDidEnd)
-                    _cell.initByInput(self, withParams: params)
-                }
-            }
-        }
-        
-        return nil
-    }
-    
-    // Actions of Text, Password, Number and Float
-    func textFieldEditingChanged(sender: UITextField) {
-        sender.text = sender.text?.stringByReplacingOccurrencesOfString(" ", withString: "\u{00a0}")
-        self.value = sender.text
-        self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
-    }
-    
-    func verifyValueType() -> Bool {
-        switch type {
-        case .Text:
-            if let _ = value as? String? {
-                return true
-            }
-        }
-        
-        print("The type of value is wrong.")
-        return false
+    internal func getItems(params: ACFormParams) -> [ACTableViewItem] {
+        preconditionFailure("This method must be overridden.")
     }
     
 }
@@ -198,35 +153,32 @@ public enum ACFormStyle {
     case Value2
 }
 
-public enum ACInputType {
-    // Non-editable Label
-//    case Label
-    // Editable TextField
-    case Text
-//    case Password
-//    case Number
-//    case Float
-    // TextView
-//    case TextArea
-    // Button
-//    case Button
-    // Disclosure
-//    case Radio
-//    case CheckBox
-    // DatePicker
-//    case DateTime
-//    case Date
-//    case Time
-    
-    // Stepper
-//    case Stepper
-    // Segment
-//    case Segment
-    // Switch
-//    case Switch
-}
-
 public protocol ACFormDelegate {
     
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?)
 }
+
+// Non-editable Label
+//    case Label
+// Editable TextField
+//    case Text
+//    case Password
+//    case Number
+//    case Float
+// TextView
+//    case TextArea
+// Button
+//    case Button
+// Disclosure
+//    case Radio
+//    case CheckBox
+// DatePicker
+//    case DateTime
+//    case Date
+//    case Time
+// Stepper
+//    case Stepper
+// Segment
+//    case Segment
+// Switch
+//    case Switch
