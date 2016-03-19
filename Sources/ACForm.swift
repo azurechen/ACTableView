@@ -19,6 +19,8 @@ extension ACTableView {
                 bundle = NSBundle(URL: bundleURL)
             }
             // Register all nibs
+            self.registerNib(UINib(nibName: "ACLabelValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue1")
+            self.registerNib(UINib(nibName: "ACLabelValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue2")
             self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
             self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
             
@@ -118,28 +120,6 @@ public class ACFormSection {
     }
 }
 
-public class ACInput: NSObject {
-    
-    internal let name: String
-    internal let image: UIImage?
-    internal let title: String?
-    internal var value: AnyObject?
-    
-    internal weak var targetCell: UITableViewCell?
-    
-    init(name: String, image: UIImage?, title: String?, value: AnyObject?) {
-        self.name = name
-        self.image = image
-        self.title = title
-        self.value = value
-    }
-    
-    internal func getItems(params: ACFormParams) -> [ACTableViewItem] {
-        preconditionFailure("This method must be overridden.")
-    }
-    
-}
-
 public struct ACFormParams {
     var delegate: ACFormDelegate?
     var sections: [ACFormSection] = []
@@ -158,27 +138,3 @@ public protocol ACFormDelegate {
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?)
 }
 
-// Non-editable Label
-//    case Label
-// Editable TextField
-//    case Text
-//    case Password
-//    case Number
-//    case Float
-// TextView
-//    case TextArea
-// Button
-//    case Button
-// Disclosure
-//    case Radio
-//    case CheckBox
-// DatePicker
-//    case DateTime
-//    case Date
-//    case Time
-// Stepper
-//    case Stepper
-// Segment
-//    case Segment
-// Switch
-//    case Switch
