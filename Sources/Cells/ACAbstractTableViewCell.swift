@@ -10,8 +10,8 @@ import UIKit
 
 class ACAbstractTableViewCell: UITableViewCell {
     
-    private let ICON_WIDTH: CGFloat = 29.0
-    private let ICON_TEAILING: CGFloat = 15.0
+    internal let ICON_WIDTH: CGFloat = 29.0
+    internal let ICON_TEAILING: CGFloat = 15.0
     
     @IBOutlet weak var iconImageView: UIImageView?
     @IBOutlet weak var iconWidthConstraint: NSLayoutConstraint?
