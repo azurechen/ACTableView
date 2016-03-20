@@ -45,12 +45,11 @@ class ACAbstractTableViewCell: UITableViewCell {
     }
     
     internal func setTitle(title: String?, withParams params: ACFormParams) {
+        titleLabel.text = title
         switch params.style {
         case .Value1:
-            titleLabel.text = title
-            titleLabel.textColor = params.normalColor
+            titleLabel.textColor = params.firstColor
         case .Value2:
-            titleLabel.text = title
             titleLabel.textColor = params.tintColor
         }
     }

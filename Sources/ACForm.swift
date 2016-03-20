@@ -84,8 +84,13 @@ public class ACForm {
             return self
         }
         
-        public func setNormalColor(color: UIColor) -> Self {
-            self.params.normalColor = color
+        public func setFirstColor(color: UIColor) -> Self {
+            self.params.firstColor = color
+            return self
+        }
+        
+        public func setSecondColor(color: UIColor) -> Self {
+            self.params.secondColor = color
             return self
         }
         
@@ -124,8 +129,9 @@ public struct ACFormParams {
     var delegate: ACFormDelegate?
     var sections: [ACFormSection] = []
     var style: ACFormStyle = .Value1
-    var normalColor: UIColor = UIColor.blackColor()
-    var tintColor: UIColor = UIColor.blueColor()
+    var firstColor: UIColor = UIColor.blackColor()
+    var secondColor: UIColor = UIColor(red: 142.0 / 255, green: 142.0 / 255, blue: 147.0 / 255, alpha: 1.0)
+    var tintColor: UIColor = UIColor(red: 0.0 / 255, green: 122.0 / 255, blue: 255.0 / 255, alpha: 1.0)
 }
 
 public enum ACFormStyle {

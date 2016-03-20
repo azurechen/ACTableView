@@ -24,7 +24,12 @@ class ACLabelTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         self.params = params
         
         contentLabel.text = input.value as! String?
-        contentLabel.textColor = params.normalColor
+        switch params.style {
+        case .Value1:
+            contentLabel.textColor = params.secondColor
+        case .Value2:
+            contentLabel.textColor = params.firstColor
+        }
     }
     
     override func updateConstraints() {

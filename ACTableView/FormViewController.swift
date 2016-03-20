@@ -21,8 +21,6 @@ class FormViewController: UIViewController, ACFormDelegate {
         
         let builder = ACForm.Builder()
             .setStyle(.Value2)
-            .setNormalColor(UIColor.blackColor())
-            .setTintColor(self.view.tintColor)
             .setDelegate(self)
             .addSection(ACFormSection(
                 header: "Profile",

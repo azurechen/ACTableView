@@ -25,7 +25,7 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         
         contentTextField.placeholder = input.placeholder
         contentTextField.text = input.value as! String?
-        contentTextField.textColor = params.normalColor
+        contentTextField.textColor = params.firstColor
         
         // bind events
         contentTextField.delegate = self
