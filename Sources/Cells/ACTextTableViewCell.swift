@@ -14,7 +14,6 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .None
     }
     
     override func initWithInput(input: ACInput, withParams params: ACFormParams) {

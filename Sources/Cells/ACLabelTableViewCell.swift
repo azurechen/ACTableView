@@ -14,7 +14,6 @@ class ACLabelTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .None
     }
     
     override func updateConstraints() {

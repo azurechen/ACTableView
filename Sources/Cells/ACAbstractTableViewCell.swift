@@ -26,6 +26,7 @@ class ACAbstractTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.selectionStyle = .None
         
         inset = self.separatorInset.left
     }

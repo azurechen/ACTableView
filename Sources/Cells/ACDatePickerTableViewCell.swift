@@ -8,17 +8,22 @@
 
 import UIKit
 
-class ACDatePickerTableViewCell: ACAbstractTableViewCell {
+class ACDatePickerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    internal weak var input: ACInput?
+    internal weak var item: ACTableViewItem?
+    internal var params: ACFormParams?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
-    override func initWithInput(input: ACInput, withParams params: ACFormParams) {
-        super.initWithInput(input, withParams: params)
+    func initWithInput(input: ACInput, withItem item: ACTableViewItem, withParams params: ACFormParams) {
+        self.input = input
+        self.item = item
+        self.params = params
         
         // bind events
         datePicker.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: .ValueChanged)
@@ -29,6 +34,7 @@ class ACDatePickerTableViewCell: ACAbstractTableViewCell {
         // callback
         if let input = self.input {
             input.value = sender.date
+            item?.updateBoundRows()
         }
     }
     
@@ -53,7 +59,7 @@ public class ACInputDate: ACInput {
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
         // use identifier to avoid unnecessary register
         return [
-            ACTableViewItem(tag: name + "_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
+            ACTableViewItem(tag: name + "_PICKER_LABEL_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
                 self.targetCell = cell
                 
                 let _cell = cell as! ACLabelTableViewCell
@@ -65,10 +71,12 @@ public class ACInputDate: ACInput {
                 } else {
                     _cell.contentLabel.textColor = params.firstColor
                 }
+                
+                _cell.selectionStyle = .Default
             },
-            ACTableViewItem(tag: name + "_PICKER_ITEM", identifier: "ACDatePickerTableViewCell", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) -> () in
+            ACTableViewItem(tag: name + "_PICKER_ITEM", identifier: "ACDatePicker", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) -> () in
                 let _cell = cell as! ACDatePickerTableViewCell
-                _cell.initWithInput(self, withParams: params)
+                _cell.initWithInput(self, withItem: item, withParams: params)
                 
                 switch self.type {
                 case .Date:

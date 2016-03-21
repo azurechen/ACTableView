@@ -23,10 +23,12 @@ extension ACTableView {
             self.registerNib(UINib(nibName: "ACLabelValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue2")
             self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
             self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
+            self.registerNib(UINib(nibName: "ACDatePickerTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACDatePicker")
             
-            
+            // A COMPLICATED love triangle
             self.form = self.builder!.buildForm()
             self.form!.tableView = self
+            self.form!.tableView?.delegate = self.form
             
             if (builder != nil) {
                 for formSection in form!.params.sections {
@@ -47,7 +49,7 @@ extension ACTableView {
     }
 }
 
-public class ACForm {
+public class ACForm: NSObject, UITableViewDelegate {
     
     internal weak var tableView: ACTableView?
     internal var params = ACFormParams()
@@ -105,6 +107,24 @@ public class ACForm {
             return form
         }
     }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.tableView?.deselectRowAtIndexPath(indexPath, animated: true)
+        
+        // get the item that related to the clicked cell
+        if let item = self.tableView?.itemAtIndexPath(indexPath) {
+            if (item.tag?.rangeOfString("_PICKER_LABEL_ITEM") != nil) {
+                let pickerItem = item.next()!
+                if (pickerItem.display) {
+                    pickerItem.hide()
+                } else {
+                    self.tableView?.hideAllRowsIfNeeded()
+                    pickerItem.show()
+                }
+            }
+        }
+    }
+    
 }
 
 public class ACFormSection {
