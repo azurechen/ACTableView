@@ -17,15 +17,8 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         self.selectionStyle = .None
     }
     
-    func initWithInput(input: ACInputText, withParams params: ACFormParams) {
+    override func initWithInput(input: ACInput, withParams params: ACFormParams) {
         super.initWithInput(input, withParams: params)
-        
-        self.input = input
-        self.params = params
-        
-        contentTextField.placeholder = input.placeholder
-        contentTextField.text = input.value as! String?
-        contentTextField.textColor = params.firstColor
         
         // bind events
         contentTextField.delegate = self
@@ -84,6 +77,10 @@ public class ACInputText: ACInput {
                     
                     let _cell = cell as! ACTextTableViewCell
                     _cell.initWithInput(self, withParams: params)
+                    
+                    _cell.contentTextField.placeholder = self.placeholder
+                    _cell.contentTextField.text = self.value as! String?
+                    _cell.contentTextField.textColor = params.firstColor
                 },
             ]
         }

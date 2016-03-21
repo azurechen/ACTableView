@@ -12,6 +12,7 @@ class FormViewController: UIViewController, ACFormDelegate {
     
     let INPUT_FIRST_NAME = "first_name"
     let INPUT_LAST_NAME = "last_name"
+    let INPUT_BIRTHDAY = "birthday"
     
     @IBOutlet weak var tableView: ACTableView!
     
@@ -27,8 +28,8 @@ class FormViewController: UIViewController, ACFormDelegate {
                 footer: nil,
                 display: true,
                 items: [
-                    ACInputText(type: .Text, name: INPUT_FIRST_NAME, image: UIImage(named: "ic_wifi"), title: "Wi-Fi", placeholder: "What's your name?", value: nil),
-                    ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
+                    ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
         self.tableView.builder = builder
@@ -43,7 +44,7 @@ class FormViewController: UIViewController, ACFormDelegate {
     
     @IBAction func saveAction(sender: UIBarButtonItem) {
         if let form = self.tableView.form {
-            print("\(INPUT_FIRST_NAME) \(form.valueByName(INPUT_FIRST_NAME) as? String)")
+            print("\(INPUT_BIRTHDAY) \(form.valueByName(INPUT_BIRTHDAY))")
         }
     }
     

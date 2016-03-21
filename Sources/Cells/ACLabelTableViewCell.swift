@@ -17,21 +17,6 @@ class ACLabelTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         self.selectionStyle = .None
     }
     
-    func initWithInput(input: ACInputLabel, withParams params: ACFormParams) {
-        super.initWithInput(input, withParams: params)
-        
-        self.input = input
-        self.params = params
-        
-        contentLabel.text = input.value as! String?
-        switch params.style {
-        case .Value1:
-            contentLabel.textColor = params.secondColor
-        case .Value2:
-            contentLabel.textColor = params.firstColor
-        }
-    }
-    
     override func updateConstraints() {
         super.updateConstraints()
         self.layoutSubviews()
@@ -80,6 +65,14 @@ public class ACInputLabel: ACInput {
                 
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
+                
+                _cell.contentLabel.text = self.value as! String?
+                switch params.style {
+                case .Value1:
+                    _cell.contentLabel.textColor = params.secondColor
+                case .Value2:
+                    _cell.contentLabel.textColor = params.firstColor
+                }
             },
         ]
     }

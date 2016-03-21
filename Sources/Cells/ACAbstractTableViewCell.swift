@@ -55,11 +55,11 @@ class ACAbstractTableViewCell: UITableViewCell {
     }
     
     internal func initWithInput(input: ACInput, withParams params: ACFormParams) {
+        self.input = input
+        self.params = params
+        
         setIconImage(input.image)
         setTitle(input.title, withParams: params)
-    }
-    
-    internal func updateByInput() {
     }
     
 }
