@@ -60,7 +60,6 @@ public class ACInputDate: ACInput {
         // use identifier to avoid unnecessary register
         return [
             ACTableViewItem(tag: name + "_PICKER_LABEL_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
-                self.targetCell = cell
                 
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)

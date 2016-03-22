@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ACLabelTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
+class ACLabelTableViewCell: ACAbstractTableViewCell {
     
     @IBOutlet weak var contentLabel: UILabel!
 
@@ -60,7 +60,6 @@ public class ACInputLabel: ACInput {
         // use identifier to avoid unnecessary register
         return [
             ACTableViewItem(tag: name + "_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
-                self.targetCell = cell
                 
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)

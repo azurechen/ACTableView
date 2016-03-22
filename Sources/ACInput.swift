@@ -10,12 +10,16 @@ import UIKit
 
 public class ACInput: NSObject {
     
+    internal var delegate: ACInputDelegate?
+    
     internal let name: String
     internal let image: UIImage?
     internal let title: String?
-    internal var value: AnyObject?
-    
-    internal weak var targetCell: UITableViewCell?
+    internal var value: AnyObject? {
+        didSet {
+            self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
+        }
+    }
     
     init(name: String, image: UIImage?, title: String?, value: AnyObject?) {
         self.name = name
@@ -31,26 +35,26 @@ public class ACInput: NSObject {
 }
 
 // Non-editable Label
-//    case Label
+//  v  case Label
 // Editable TextField
-//    case Text
-//    case Password
-//    case Number
-//    case Float
+//  v  case Text
+//     case Password
+//     case Number
+//     case Float
 // TextView
-//    case TextArea
+//     case TextArea
 // Button
-//    case Button
+//     case Button
 // Disclosure
-//    case Radio
-//    case CheckBox
+//     case Radio
+//     case CheckBox
 // DatePicker
-//    case DateTime
-//    case Date
-//    case Time
+//  v  case DateTime
+//  v  case Date
+//  v  case Time
 // Stepper
-//    case Stepper
+//     case Stepper
 // Segment
-//    case Segment
+//     case Segment
 // Switch
-//    case Switch
+//     case Switch

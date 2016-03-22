@@ -41,10 +41,9 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
             sender.text = sender.text?.stringByReplacingOccurrencesOfString(" ", withString: "\u{00a0}")
         }
         
-        // callback
+        // set value
         if let input = self.input {
             input.value = sender.text
-            self.params?.delegate?.formInput(input, withName: input.name, didChangeValue: input.value)
         }
     }
     
@@ -72,7 +71,6 @@ public class ACInputText: ACInput {
             // use identifier to avoid unnecessary register
             return [
                 ACTableViewItem(tag: name + "_ITEM", identifier: "ACText\(String(params.style))", display: true) { (item, cell) in
-                    self.targetCell = cell
                     
                     let _cell = cell as! ACTextTableViewCell
                     _cell.initWithInput(self, withParams: params)

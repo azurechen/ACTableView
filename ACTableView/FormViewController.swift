@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FormViewController: UIViewController, ACFormDelegate {
+class FormViewController: UIViewController, ACInputDelegate {
     
     let INPUT_FIRST_NAME = "first_name"
     let INPUT_LAST_NAME = "last_name"
@@ -27,7 +27,7 @@ class FormViewController: UIViewController, ACFormDelegate {
                 header: "Profile",
                 footer: nil,
                 display: true,
-                items: [
+                inputs: [
                     ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
@@ -39,7 +39,7 @@ class FormViewController: UIViewController, ACFormDelegate {
     }
     
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?) {
-        print("\(name) \(value as? String)")
+        print("\(name) \(value as? NSDate)")
     }
     
     @IBAction func saveAction(sender: UIBarButtonItem) {

@@ -32,10 +32,12 @@ extension ACTableView {
             
             if (builder != nil) {
                 for formSection in form!.params.sections {
-                    // transfer ACFormItem to ACTableItem
+                    // transfer ACInput to ACTableItem
                     var items: [ACTableViewItem] = []
-                    for formItem in formSection.items {
-                        items += formItem.getItems(form!.params)
+                    for formInput in formSection.inputs {
+                        items += formInput.getItems(form!.params)
+                        // set the ACInputDelegate
+                        formInput.delegate = form!.params.delegate
                     }
                     // transfer ACFormSection to ACTableViewSection
                     self.addSection(ACTableViewSection(
@@ -56,9 +58,9 @@ public class ACForm: NSObject, UITableViewDelegate {
     
     public func valueByName(name: String) -> AnyObject? {
         for formSection in params.sections {
-            for formItem in formSection.items {
-                if (formItem.name == name) {
-                    return formItem.value
+            for formInput in formSection.inputs {
+                if (formInput.name == name) {
+                    return formInput.value
                 }
             }
         }
@@ -76,7 +78,7 @@ public class ACForm: NSObject, UITableViewDelegate {
             return self
         }
         
-        public func setDelegate(delegate: ACFormDelegate) -> Self {
+        public func setDelegate(delegate: ACInputDelegate) -> Self {
             self.params.delegate = delegate
             return self
         }
@@ -134,19 +136,19 @@ public class ACFormSection {
     
     internal let header: String?
     internal let footer: String?
-    internal var items: [ACInput]
+    internal var inputs: [ACInput]
     
-    public init(tag: String? = nil, header: String?, footer: String?, display: Bool, items: [ACInput]) {
+    public init(tag: String? = nil, header: String?, footer: String?, display: Bool, inputs: [ACInput]) {
         self.tag = tag
         self.header = header
         self.footer = footer
         self.display = display
-        self.items = items
+        self.inputs = inputs
     }
 }
 
 public struct ACFormParams {
-    var delegate: ACFormDelegate?
+    var delegate: ACInputDelegate?
     var sections: [ACFormSection] = []
     var style: ACFormStyle = .Value1
     var firstColor: UIColor = UIColor.blackColor()
@@ -159,7 +161,7 @@ public enum ACFormStyle {
     case Value2
 }
 
-public protocol ACFormDelegate {
+public protocol ACInputDelegate {
     
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?)
 }
