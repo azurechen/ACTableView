@@ -10,43 +10,39 @@ import UIKit
 
 extension ACTableView {
     
-    public func construct() {
-        if (self.builder != nil) {
-            
-            // CocoaPods Support, bundle is nil if not a library of CocoaPods
-            var bundle: NSBundle?
-            if let bundleURL = NSBundle(forClass: self.classForCoder).URLForResource("ACTableView", withExtension: "bundle") {
-                bundle = NSBundle(URL: bundleURL)
+    public func buildWithForm(form: ACForm) {
+        self.form = form
+        
+        // CocoaPods Support, bundle is nil if not a library of CocoaPods
+        var bundle: NSBundle?
+        if let bundleURL = NSBundle(forClass: self.classForCoder).URLForResource("ACTableView", withExtension: "bundle") {
+            bundle = NSBundle(URL: bundleURL)
+        }
+        // Register all nibs
+        self.registerNib(UINib(nibName: "ACLabelValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue1")
+        self.registerNib(UINib(nibName: "ACLabelValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue2")
+        self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
+        self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
+        self.registerNib(UINib(nibName: "ACDatePickerTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACDatePicker")
+        
+        // A COMPLICATED love triangle
+        form.tableView = self
+        self.delegate = form
+        
+        for formSection in form.params.sections {
+            // transfer ACInput to ACTableItem
+            var items: [ACTableViewItem] = []
+            for formInput in formSection.inputs {
+                items += formInput.getItems(form.params)
+                // set the ACInputDelegate
+                formInput.delegate = form.params.delegate
             }
-            // Register all nibs
-            self.registerNib(UINib(nibName: "ACLabelValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue1")
-            self.registerNib(UINib(nibName: "ACLabelValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACLabelValue2")
-            self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
-            self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
-            self.registerNib(UINib(nibName: "ACDatePickerTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACDatePicker")
-            
-            // A COMPLICATED love triangle
-            self.form = self.builder!.buildForm()
-            self.form!.tableView = self
-            self.form!.tableView?.delegate = self.form
-            
-            if (builder != nil) {
-                for formSection in form!.params.sections {
-                    // transfer ACInput to ACTableItem
-                    var items: [ACTableViewItem] = []
-                    for formInput in formSection.inputs {
-                        items += formInput.getItems(form!.params)
-                        // set the ACInputDelegate
-                        formInput.delegate = form!.params.delegate
-                    }
-                    // transfer ACFormSection to ACTableViewSection
-                    self.addSection(ACTableViewSection(
-                        header: formSection.header,
-                        footer: formSection.footer,
-                        display: formSection.display,
-                        items: items))
-                }
-            }
+            // transfer ACFormSection to ACTableViewSection
+            self.addSection(ACTableViewSection(
+                header: formSection.header,
+                footer: formSection.footer,
+                display: formSection.display,
+                items: items))
         }
     }
 }
@@ -103,7 +99,7 @@ public class ACForm: NSObject, UITableViewDelegate {
             return self
         }
         
-        internal func buildForm() -> ACForm {
+        public func create() -> ACForm {
             let form = ACForm()
             
             form.params = params.copy()

@@ -32,14 +32,12 @@ class FormViewController: UIViewController, ACInputDelegate {
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
-        self.tableView.builder = builder
-        self.tableView.construct()
-        
-        
+        let form = builder.create()
+        self.tableView.buildWithForm(form)
     }
     
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?) {
-        print("\(name) \(value as? NSDate)")
+        print("\(name) \(value as? String)")
     }
     
     @IBAction func saveAction(sender: UIBarButtonItem) {
