@@ -43,12 +43,13 @@ class ACDatePickerTableViewCell: UITableViewCell {
 public enum ACInputDateType {
     case Date
     case Time
-    case DateTime
+    case DateAndTime
 }
 
 public class ACInputDate: ACInput {
     
     internal let type: ACInputDateType
+    internal let dateFormatter = NSDateFormatter()
     
     public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?) {
         self.type = type
@@ -64,7 +65,20 @@ public class ACInputDate: ACInput {
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
                 
-                _cell.contentLabel.text = String(self.value)
+                // set the default date format
+                switch self.type {
+                case .Date:
+                    self.dateFormatter.dateStyle = .LongStyle
+                    self.dateFormatter.timeStyle = .NoStyle
+                case .Time:
+                    self.dateFormatter.dateStyle = .NoStyle
+                    self.dateFormatter.timeStyle = .ShortStyle
+                case .DateAndTime:
+                    self.dateFormatter.dateStyle = .MediumStyle
+                    self.dateFormatter.timeStyle = .ShortStyle
+                }
+                
+                _cell.contentLabel.text = self.dateFormatter.stringFromDate(self.value as! NSDate)
                 if (item.next()!.display) {
                     _cell.contentLabel.textColor = params.tintColor
                 } else {
@@ -82,7 +96,7 @@ public class ACInputDate: ACInput {
                     _cell.datePicker.datePickerMode = .Date
                 case .Time:
                     _cell.datePicker.datePickerMode = .Time
-                case .DateTime:
+                case .DateAndTime:
                     _cell.datePicker.datePickerMode = .DateAndTime
                 }
             },
