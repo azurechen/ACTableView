@@ -21,7 +21,7 @@ class FormViewController: UIViewController, ACInputDelegate {
         self.title = "Form"
         
         let builder = ACForm.Builder()
-            .setStyle(.Value2)
+            .setStyle(.Value1)
             .setDelegate(self)
             .addSection(ACFormSection(
                 header: "Profile",
@@ -30,6 +30,12 @@ class FormViewController: UIViewController, ACInputDelegate {
                 inputs: [
                     ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()),
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()) { (date) in
+                        let dateFormatter = NSDateFormatter()
+                        dateFormatter.dateStyle = .LongStyle
+                        dateFormatter.timeStyle = .NoStyle
+                        return "Hi \(dateFormatter.stringFromDate(date!))"
+                    },
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
         let form = builder.create()

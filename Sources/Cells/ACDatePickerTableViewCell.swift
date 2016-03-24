@@ -49,10 +49,17 @@ public enum ACInputDateType {
 public class ACInputDate: ACInput {
     
     internal let type: ACInputDateType
+    internal let formatter: ((date: NSDate?) -> String)?
+    
     internal let dateFormatter = NSDateFormatter()
     
-    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?) {
+    public convenience init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?) {
+        self.init(type: type, name: name, image: image, title: title, value: value, formatter: nil)
+    }
+    
+    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)?) {
         self.type = type
+        self.formatter = formatter
         
         super.init(name: name, image: image, title: title, value: value)
     }
@@ -65,20 +72,25 @@ public class ACInputDate: ACInput {
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
                 
-                // set the default date format
-                switch self.type {
-                case .Date:
-                    self.dateFormatter.dateStyle = .LongStyle
-                    self.dateFormatter.timeStyle = .NoStyle
-                case .Time:
-                    self.dateFormatter.dateStyle = .NoStyle
-                    self.dateFormatter.timeStyle = .ShortStyle
-                case .DateAndTime:
-                    self.dateFormatter.dateStyle = .MediumStyle
-                    self.dateFormatter.timeStyle = .ShortStyle
+                if (self.formatter == nil) {
+                    // set the default date format
+                    switch self.type {
+                    case .Date:
+                        self.dateFormatter.dateStyle = .LongStyle
+                        self.dateFormatter.timeStyle = .NoStyle
+                    case .Time:
+                        self.dateFormatter.dateStyle = .NoStyle
+                        self.dateFormatter.timeStyle = .ShortStyle
+                    case .DateAndTime:
+                        self.dateFormatter.dateStyle = .MediumStyle
+                        self.dateFormatter.timeStyle = .ShortStyle
+                    }
+                    _cell.contentLabel.text = self.dateFormatter.stringFromDate(self.value as! NSDate)
+                } else {
+                    _cell.contentLabel.text = self.formatter!(date: (self.value as! NSDate))
                 }
                 
-                _cell.contentLabel.text = self.dateFormatter.stringFromDate(self.value as! NSDate)
+                
                 if (item.next()!.display) {
                     _cell.contentLabel.textColor = params.tintColor
                 } else {
