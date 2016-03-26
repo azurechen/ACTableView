@@ -53,7 +53,7 @@ class ACLabelTableViewCell: ACAbstractTableViewCell {
 public class ACInputLabel: ACInput {
     
     public init(name: String, image: UIImage?, title: String?, content: String?) {
-        super.init(name: name, image: image, title: title, value: content)
+        super.init(name: name, image: image, title: title, placeholder: nil, value: content)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {

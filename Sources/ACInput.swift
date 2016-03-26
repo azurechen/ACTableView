@@ -10,21 +10,25 @@ import UIKit
 
 public class ACInput: NSObject {
     
+    internal static let placeholderColor = UIColor(red: 199.0 / 255, green: 199.0 / 255, blue: 205.0 / 255, alpha: 1.0)
+    
     internal var delegate: ACInputDelegate?
     
     internal let name: String
     internal let image: UIImage?
     internal let title: String?
+    internal let placeholder: String?
     internal var value: AnyObject? {
         didSet {
             self.delegate?.formInput(self, withName: self.name, didChangeValue: self.value)
         }
     }
     
-    init(name: String, image: UIImage?, title: String?, value: AnyObject?) {
+    init(name: String, image: UIImage?, title: String?, placeholder: String?, value: AnyObject?) {
         self.name = name
         self.image = image
         self.title = title
+        self.placeholder = placeholder
         self.value = value
     }
     

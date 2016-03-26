@@ -29,8 +29,8 @@ class FormViewController: UIViewController, ACInputDelegate {
                 display: true,
                 inputs: [
                     ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
-                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()),
-                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", value: NSDate()) { (date) in
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", placeholder: "Please select", value: NSDate()),
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name",placeholder: "What's your name?", value: nil) { (date) in
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateStyle = .LongStyle
                         dateFormatter.timeStyle = .NoStyle

@@ -56,13 +56,11 @@ public enum ACInputTextType {
 public class ACInputText: ACInput {
     
     internal let type: ACInputTextType
-    internal let placeholder: String?
     
     public init(type: ACInputTextType, name: String, image: UIImage?, title: String?, placeholder: String?, value: String?) {
         self.type = type
-        self.placeholder = placeholder
         
-        super.init(name: name, image: image, title: title, value: value)
+        super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {

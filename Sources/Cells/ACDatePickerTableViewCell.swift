@@ -51,17 +51,17 @@ public class ACInputDate: ACInput {
     internal let type: ACInputDateType
     internal let formatter: ((date: NSDate?) -> String)?
     
-    internal let dateFormatter = NSDateFormatter()
+    private let defaultFormatter = NSDateFormatter()
     
-    public convenience init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?) {
-        self.init(type: type, name: name, image: image, title: title, value: value, formatter: nil)
+    public convenience init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?) {
+        self.init(type: type, name: name, image: image, title: title, placeholder: placeholder, value: value, formatter: nil)
     }
     
-    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)?) {
+    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)?) {
         self.type = type
         self.formatter = formatter
         
-        super.init(name: name, image: image, title: title, value: value)
+        super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
@@ -72,29 +72,33 @@ public class ACInputDate: ACInput {
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
                 
-                if (self.formatter == nil) {
-                    // set the default date format
-                    switch self.type {
-                    case .Date:
-                        self.dateFormatter.dateStyle = .LongStyle
-                        self.dateFormatter.timeStyle = .NoStyle
-                    case .Time:
-                        self.dateFormatter.dateStyle = .NoStyle
-                        self.dateFormatter.timeStyle = .ShortStyle
-                    case .DateAndTime:
-                        self.dateFormatter.dateStyle = .MediumStyle
-                        self.dateFormatter.timeStyle = .ShortStyle
+                if let value = self.value as? NSDate {
+                    if (self.formatter == nil) {
+                        // use the default date format
+                        switch self.type {
+                        case .Date:
+                            self.defaultFormatter.dateStyle = .LongStyle
+                            self.defaultFormatter.timeStyle = .NoStyle
+                        case .Time:
+                            self.defaultFormatter.dateStyle = .NoStyle
+                            self.defaultFormatter.timeStyle = .ShortStyle
+                        case .DateAndTime:
+                            self.defaultFormatter.dateStyle = .MediumStyle
+                            self.defaultFormatter.timeStyle = .ShortStyle
+                        }
+                        _cell.contentLabel.text = self.defaultFormatter.stringFromDate(value)
+                    } else {
+                        _cell.contentLabel.text = self.formatter!(date: value)
                     }
-                    _cell.contentLabel.text = self.dateFormatter.stringFromDate(self.value as! NSDate)
+                    
+                    if (item.next()!.display) {
+                        _cell.contentLabel.textColor = params.tintColor
+                    } else {
+                        _cell.contentLabel.textColor = params.firstColor
+                    }
                 } else {
-                    _cell.contentLabel.text = self.formatter!(date: (self.value as! NSDate))
-                }
-                
-                
-                if (item.next()!.display) {
-                    _cell.contentLabel.textColor = params.tintColor
-                } else {
-                    _cell.contentLabel.textColor = params.firstColor
+                    _cell.contentLabel.text = self.placeholder
+                    _cell.contentLabel.textColor = ACInput.placeholderColor
                 }
                 
                 _cell.selectionStyle = .Default
