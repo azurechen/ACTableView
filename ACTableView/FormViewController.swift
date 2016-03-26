@@ -30,11 +30,13 @@ class FormViewController: UIViewController, ACInputDelegate {
                 inputs: [
                     ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", placeholder: "Please select", value: NSDate()),
-                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name",placeholder: "What's your name?", value: nil) { (date) in
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name",placeholder: "Please select", value: nil, formatter: { (date) in
                         let dateFormatter = NSDateFormatter()
                         dateFormatter.dateStyle = .LongStyle
                         dateFormatter.timeStyle = .NoStyle
                         return "Hi \(dateFormatter.stringFromDate(date!))"
+                    }) { (datePicker) in
+                        datePicker.maximumDate = NSDate()
                     },
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))

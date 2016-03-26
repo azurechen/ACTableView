@@ -50,16 +50,14 @@ public class ACInputDate: ACInput {
     
     internal let type: ACInputDateType
     internal let formatter: ((date: NSDate?) -> String)?
+    internal let handler: ((datePicker: UIDatePicker) -> ())?
     
     private let defaultFormatter = NSDateFormatter()
     
-    public convenience init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?) {
-        self.init(type: type, name: name, image: image, title: title, placeholder: placeholder, value: value, formatter: nil)
-    }
-    
-    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)?) {
+    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)? = nil, handler: ((datePicker: UIDatePicker) -> ())? = nil) {
         self.type = type
         self.formatter = formatter
+        self.handler = handler
         
         super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
     }
@@ -120,6 +118,9 @@ public class ACInputDate: ACInput {
                 if (item.display == true) {
                     self.value = _cell.datePicker.date
                 }
+                
+                // call handler
+                self.handler?(datePicker: _cell.datePicker)
             },
         ]
     }
