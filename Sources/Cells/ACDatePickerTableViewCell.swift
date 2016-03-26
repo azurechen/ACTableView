@@ -115,6 +115,11 @@ public class ACInputDate: ACInput {
                 case .DateAndTime:
                     _cell.datePicker.datePickerMode = .DateAndTime
                 }
+                
+                _cell.datePicker.date = self.value as? NSDate ?? NSDate()
+                if (item.display == true) {
+                    self.value = _cell.datePicker.date
+                }
             },
         ]
     }
