@@ -45,9 +45,10 @@ class ExampleViewController: UIViewController, UITableViewDelegate {
                     cell.textLabel?.text = "Wi-Fi"
                     cell.detailTextLabel?.text = "Test"
                 },
-                ACTableViewItem(style: .Value1, display: true) { (item, cell) in
-                    cell.imageView?.image = UIImage(named: "ic_carrier")
-                    cell.textLabel?.text = "Carrier"
+                ACTableViewItem(style: .Value2, display: true) { (item, cell) in
+                    cell.imageView?.image = UIImage(named: "ic_wifi")
+                    cell.textLabel?.text = "Wi-Fi"
+                    cell.detailTextLabel?.text = "TestTestTestTestTestTestTestTestTestTestTestTestTestTest"
                 },
                 ACTableViewItem(style: .Value1, display: true) { (item, cell) in
                     cell.imageView?.image = UIImage(named: "ic_notification")
@@ -150,7 +151,7 @@ class ExampleViewController: UIViewController, UITableViewDelegate {
     
     // UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         // get the item that related to the clicked cell
         let item = self.tableView.itemAtIndexPath(indexPath)
