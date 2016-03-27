@@ -25,12 +25,9 @@ class ACSelectPickerTableViewCell: UITableViewCell, UIPickerViewDataSource, UIPi
         self.item = item
         self.params = params
         
+        // bind events
         pickerView.dataSource = self
         pickerView.delegate = self
-        //pickerView.reloadAllComponents()
-        
-        // bind events
-        //datePicker.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: .ValueChanged)
     }
     
     // UIPickerViewDataSource
@@ -48,18 +45,17 @@ class ACSelectPickerTableViewCell: UITableViewCell, UIPickerViewDataSource, UIPi
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // This method is triggered whenever the user makes a change to the picker selection.
-        // The parameter named row and component represents what was selected.
+        // callback
+        if let input = self.input {
+            let count = input.options.count
+            var selections: [String] = []
+            for i in 0 ..< count {
+                selections.append(input.options[i][pickerView.selectedRowInComponent(i)])
+            }
+            input.value = selections
+            item?.updateBoundRows()
+        }
     }
-    
-    // Action
-//    func datePickerValueChanged(sender: UIDatePicker) {
-//        // callback
-//        if let input = self.input {
-//            input.value = sender.date
-//            item?.updateBoundRows()
-//        }
-//    }
     
 }
 

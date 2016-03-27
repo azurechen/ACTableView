@@ -51,12 +51,12 @@ class FormViewController: UIViewController, ACInputDelegate {
     }
     
     func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?) {
-        print("\(name) \(value as? String)")
+        print("\(name) \(String(value))")
     }
     
     @IBAction func saveAction(sender: UIBarButtonItem) {
         if let form = self.tableView.form {
-            print("\(INPUT_BIRTHDAY) \(form.valueByName(INPUT_BIRTHDAY))")
+            print("\(INPUT_GENDER) \(form.valueByName(INPUT_GENDER))")
         }
     }
     
