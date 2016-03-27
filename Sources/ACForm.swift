@@ -24,6 +24,7 @@ extension ACTableView {
         self.registerNib(UINib(nibName: "ACTextValue1TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue1")
         self.registerNib(UINib(nibName: "ACTextValue2TableViewCell", bundle: bundle), forCellReuseIdentifier: "ACTextValue2")
         self.registerNib(UINib(nibName: "ACDatePickerTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACDatePicker")
+        self.registerNib(UINib(nibName: "ACSelectPickerTableViewCell", bundle: bundle), forCellReuseIdentifier: "ACSelectPicker")
         
         // A COMPLICATED love triangle
         form.tableView = self

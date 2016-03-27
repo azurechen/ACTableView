@@ -25,6 +25,8 @@
 		538B74461C8C600600DBC9A7 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538B74451C8C600600DBC9A7 /* FormViewController.swift */; };
 		5397BD891C9F316500F0EB0B /* ACDatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD871C9F316500F0EB0B /* ACDatePickerTableViewCell.swift */; };
 		5397BD8A1C9F316500F0EB0B /* ACDatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5397BD881C9F316500F0EB0B /* ACDatePickerTableViewCell.xib */; };
+		5397BD8D1CA7363200F0EB0B /* ACSelectPickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5397BD8B1CA7363200F0EB0B /* ACSelectPickerTableViewCell.swift */; };
+		5397BD8E1CA7363200F0EB0B /* ACSelectPickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5397BD8C1CA7363200F0EB0B /* ACSelectPickerTableViewCell.xib */; };
 		53A86A501C9DCFC500B842EF /* ACInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A86A4F1C9DCFC500B842EF /* ACInput.swift */; };
 		53D2F1021C5E511800F82347 /* DatePickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */; };
 		53D2F1031C5E511800F82347 /* DatePickerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */; };
@@ -66,6 +68,8 @@
 		538B74451C8C600600DBC9A7 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		5397BD871C9F316500F0EB0B /* ACDatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACDatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		5397BD881C9F316500F0EB0B /* ACDatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACDatePickerTableViewCell.xib; sourceTree = "<group>"; };
+		5397BD8B1CA7363200F0EB0B /* ACSelectPickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACSelectPickerTableViewCell.swift; sourceTree = "<group>"; };
+		5397BD8C1CA7363200F0EB0B /* ACSelectPickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ACSelectPickerTableViewCell.xib; sourceTree = "<group>"; };
 		53A86A4F1C9DCFC500B842EF /* ACInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACInput.swift; sourceTree = "<group>"; };
 		53D2F1001C5E511800F82347 /* DatePickerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerTableViewCell.swift; sourceTree = "<group>"; };
 		53D2F1011C5E511800F82347 /* DatePickerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerTableViewCell.xib; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 				531E4B311C9B33A500E8C207 /* ACTextValue2TableViewCell.xib */,
 				5397BD871C9F316500F0EB0B /* ACDatePickerTableViewCell.swift */,
 				5397BD881C9F316500F0EB0B /* ACDatePickerTableViewCell.xib */,
+				5397BD8B1CA7363200F0EB0B /* ACSelectPickerTableViewCell.swift */,
+				5397BD8C1CA7363200F0EB0B /* ACSelectPickerTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -263,6 +269,7 @@
 				53863A941C934EB000F2E5B6 /* ACTextValue1TableViewCell.xib in Resources */,
 				537FC6461C5D162600E949B1 /* Assets.xcassets in Resources */,
 				537FC6441C5D162600E949B1 /* Main.storyboard in Resources */,
+				5397BD8E1CA7363200F0EB0B /* ACSelectPickerTableViewCell.xib in Resources */,
 				536FFB241C9E18E7004A4E51 /* ACLabelValue2TableViewCell.xib in Resources */,
 				536FFB231C9E18E7004A4E51 /* ACLabelValue1TableViewCell.xib in Resources */,
 				53D2F1031C5E511800F82347 /* DatePickerTableViewCell.xib in Resources */,
@@ -286,6 +293,7 @@
 				538B74461C8C600600DBC9A7 /* FormViewController.swift in Sources */,
 				53D2F1071C5E517B00F82347 /* ACTableViewItem.swift in Sources */,
 				537FC6411C5D162600E949B1 /* ExampleViewController.swift in Sources */,
+				5397BD8D1CA7363200F0EB0B /* ACSelectPickerTableViewCell.swift in Sources */,
 				538B74441C8C5CA500DBC9A7 /* ACForm.swift in Sources */,
 				53A86A501C9DCFC500B842EF /* ACInput.swift in Sources */,
 				53863A931C934EB000F2E5B6 /* ACTextTableViewCell.swift in Sources */,

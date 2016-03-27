@@ -12,7 +12,7 @@ class ACDatePickerTableViewCell: UITableViewCell {
 
     @IBOutlet weak var datePicker: UIDatePicker!
     
-    internal weak var input: ACInput?
+    internal weak var input: ACInputDate?
     internal weak var item: ACTableViewItem?
     internal var params: ACFormParams?
     
@@ -20,7 +20,7 @@ class ACDatePickerTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func initWithInput(input: ACInput, withItem item: ACTableViewItem, withParams params: ACFormParams) {
+    func initWithInput(input: ACInputDate, withItem item: ACTableViewItem, withParams params: ACFormParams) {
         self.input = input
         self.item = item
         self.params = params

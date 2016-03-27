@@ -13,6 +13,7 @@ class FormViewController: UIViewController, ACInputDelegate {
     let INPUT_FIRST_NAME = "first_name"
     let INPUT_LAST_NAME = "last_name"
     let INPUT_BIRTHDAY = "birthday"
+    let INPUT_GENDER = "gender"
     
     @IBOutlet weak var tableView: ACTableView!
     
@@ -38,6 +39,11 @@ class FormViewController: UIViewController, ACInputDelegate {
                     }) { (datePicker) in
                         datePicker.maximumDate = NSDate()
                     },
+                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", value: [], options: [
+                            ["Apple", "Orange", "Pitch"],
+                            ["Car", "Bike", "MRT", "Airplane"],
+                            ["Guitar", "Pinao"]
+                        ]),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
         let form = builder.create()
