@@ -62,10 +62,10 @@ class ACSelectPickerTableViewCell: UITableViewCell, UIPickerViewDataSource, UIPi
 public class ACInputSelect: ACInput {
     
     internal let options: [[String]]
-    internal let formatter: ((string: String?) -> String)?
+    internal let formatter: ((strings: [String]) -> String)?
     internal let handler: ((pickerView: UIPickerView) -> ())?
     
-    public init(name: String, image: UIImage?, title: String?, placeholder: String?, value: [String]?, options: [[String]], formatter: ((string: String?) -> String)? = nil, handler: ((pickerView: UIPickerView) -> ())? = nil) {
+    public init(name: String, image: UIImage?, title: String?, placeholder: String?, value: [String]?, options: [[String]], formatter: ((strings: [String]) -> String)? = nil, handler: ((pickerView: UIPickerView) -> ())? = nil) {
         self.options = options
         self.formatter = formatter
         self.handler = handler
@@ -81,12 +81,12 @@ public class ACInputSelect: ACInput {
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
                 
-                if let value = self.value as? NSDate {
+                if let value = self.value as? [String] {
                     if (self.formatter == nil) {
-                        // use the default date format
-//                        _cell.contentLabel.text = self.defaultFormatter.stringFromDate(value)
+                        // use the default format
+                        _cell.contentLabel.text = value.joinWithSeparator(", ")
                     } else {
-//                        _cell.contentLabel.text = self.formatter!(date: value)
+                        _cell.contentLabel.text = self.formatter!(strings: value)
                     }
                     
                     if (item.next()!.display) {

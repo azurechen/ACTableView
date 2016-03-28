@@ -32,18 +32,20 @@ class FormViewController: UIViewController, ACInputDelegate {
                     ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", placeholder: "Please select", value: NSDate()),
                     ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name",placeholder: "Please select", value: nil, formatter: { (date) in
-                        let dateFormatter = NSDateFormatter()
-                        dateFormatter.dateStyle = .LongStyle
-                        dateFormatter.timeStyle = .NoStyle
-                        return "Hi \(dateFormatter.stringFromDate(date!))"
-                    }) { (datePicker) in
-                        datePicker.maximumDate = NSDate()
+                            let dateFormatter = NSDateFormatter()
+                            dateFormatter.dateStyle = .LongStyle
+                            dateFormatter.timeStyle = .NoStyle
+                            return "Hi \(dateFormatter.stringFromDate(date))"
+                        }) { (datePicker) in
+                            datePicker.maximumDate = NSDate()
                     },
-                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", value: [], options: [
+                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", value: nil, options: [
                             ["Apple", "Orange", "Pitch"],
                             ["Car", "Bike", "MRT", "Airplane"],
                             ["Guitar", "Pinao"]
-                        ]),
+                        ], formatter: { (strings) in
+                            return strings.joinWithSeparator("!! ")
+                    }),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
                 ]))
         let form = builder.create()

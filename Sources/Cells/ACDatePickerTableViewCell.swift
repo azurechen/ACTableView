@@ -49,12 +49,12 @@ public enum ACInputDateType {
 public class ACInputDate: ACInput {
     
     internal let type: ACInputDateType
-    internal let formatter: ((date: NSDate?) -> String)?
+    internal let formatter: ((date: NSDate) -> String)?
     internal let handler: ((datePicker: UIDatePicker) -> ())?
     
     private let defaultFormatter = NSDateFormatter()
     
-    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate?) -> String)? = nil, handler: ((datePicker: UIDatePicker) -> ())? = nil) {
+    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate) -> String)? = nil, handler: ((datePicker: UIDatePicker) -> ())? = nil) {
         self.type = type
         self.formatter = formatter
         self.handler = handler
