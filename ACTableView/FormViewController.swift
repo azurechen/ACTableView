@@ -39,7 +39,7 @@ class FormViewController: UIViewController, ACInputDelegate {
                         }) { (datePicker) in
                             datePicker.maximumDate = NSDate()
                     },
-                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", value: nil, options: [
+                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", values: ["Orange", "MRT", "Pinao"], options: [
                             ["Apple", "Orange", "Pitch"],
                             ["Car", "Bike", "MRT", "Airplane"],
                             ["Guitar", "Pinao"]

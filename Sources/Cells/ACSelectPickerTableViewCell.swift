@@ -30,6 +30,18 @@ class ACSelectPickerTableViewCell: UITableViewCell, UIPickerViewDataSource, UIPi
         pickerView.delegate = self
     }
     
+    func currentSelections() -> [String] {
+        if let input = self.input {
+            let count = input.options.count
+            var selections: [String] = []
+            for i in 0 ..< count {
+                selections.append(input.options[i][pickerView.selectedRowInComponent(i)])
+            }
+            return selections
+        }
+        return []
+    }
+    
     // UIPickerViewDataSource
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return input!.options.count
@@ -47,12 +59,7 @@ class ACSelectPickerTableViewCell: UITableViewCell, UIPickerViewDataSource, UIPi
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // callback
         if let input = self.input {
-            let count = input.options.count
-            var selections: [String] = []
-            for i in 0 ..< count {
-                selections.append(input.options[i][pickerView.selectedRowInComponent(i)])
-            }
-            input.value = selections
+            input.value = currentSelections()
             item?.updateBoundRows()
         }
     }
@@ -65,12 +72,12 @@ public class ACInputSelect: ACInput {
     internal let formatter: ((strings: [String]) -> String)?
     internal let handler: ((pickerView: UIPickerView) -> ())?
     
-    public init(name: String, image: UIImage?, title: String?, placeholder: String?, value: [String]?, options: [[String]], formatter: ((strings: [String]) -> String)? = nil, handler: ((pickerView: UIPickerView) -> ())? = nil) {
+    public init(name: String, image: UIImage?, title: String?, placeholder: String?, values: [String]?, options: [[String]], formatter: ((strings: [String]) -> String)? = nil, handler: ((pickerView: UIPickerView) -> ())? = nil) {
         self.options = options
         self.formatter = formatter
         self.handler = handler
         
-        super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
+        super.init(name: name, image: image, title: title, placeholder: placeholder, value: values)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
@@ -82,17 +89,22 @@ public class ACInputSelect: ACInput {
                 _cell.initWithInput(self, withParams: params)
                 
                 if let value = self.value as? [String] {
-                    if (self.formatter == nil) {
-                        // use the default format
-                        _cell.contentLabel.text = value.joinWithSeparator(", ")
+                    if (value.count != self.options.count) {
+                        _cell.contentLabel.text = "Incorrect default values"
+                        _cell.contentLabel.textColor = ACInput.placeholderColor
                     } else {
-                        _cell.contentLabel.text = self.formatter!(strings: value)
-                    }
-                    
-                    if (item.next()!.display) {
-                        _cell.contentLabel.textColor = params.tintColor
-                    } else {
-                        _cell.contentLabel.textColor = params.firstColor
+                        if (self.formatter == nil) {
+                            // use the default format
+                            _cell.contentLabel.text = value.joinWithSeparator(", ")
+                        } else {
+                            _cell.contentLabel.text = self.formatter!(strings: value)
+                        }
+                        
+                        if (item.next()!.display) {
+                            _cell.contentLabel.textColor = params.tintColor
+                        } else {
+                            _cell.contentLabel.textColor = params.firstColor
+                        }
                     }
                 } else {
                     _cell.contentLabel.text = self.placeholder
@@ -105,13 +117,23 @@ public class ACInputSelect: ACInput {
                 let _cell = cell as! ACSelectPickerTableViewCell
                 _cell.initWithInput(self, withItem: item, withParams: params)
                 
-//                _cell.datePicker.date = self.value as? NSDate ?? NSDate()
-//                if (item.display == true) {
-//                    self.value = _cell.datePicker.date
-//                }
-//                
-//                // call handler
-//                self.handler?(datePicker: _cell.datePicker)
+                // set the default values of picker view
+                if let value = self.value as? [String] {
+                    for (component, selection) in value.enumerate() {
+                        for (row, oqtion) in self.options[component].enumerate() {
+                            if (oqtion == selection) {
+                                _cell.pickerView.selectRow(row, inComponent: component, animated: false)
+                                break
+                            }
+                        }
+                    }
+                }
+                if (item.display == true) {
+                    self.value = _cell.currentSelections()
+                }
+                
+                // call handler
+                self.handler?(pickerView: _cell.pickerView)
             },
         ]
     }
