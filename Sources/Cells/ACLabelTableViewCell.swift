@@ -52,7 +52,11 @@ class ACLabelTableViewCell: ACAbstractTableViewCell {
 
 public class ACInputLabel: ACInput {
     
-    public init(name: String, image: UIImage?, title: String?, content: String?) {
+    internal let handler: ((label: UILabel) -> ())?
+    
+    public init(name: String, image: UIImage?, title: String?, content: String?, handler: ((label: UILabel) -> ())? = nil) {
+        self.handler = handler
+        
         super.init(name: name, image: image, title: title, placeholder: nil, value: content)
     }
     
@@ -71,6 +75,9 @@ public class ACInputLabel: ACInput {
                 case .Value2:
                     _cell.contentLabel.textColor = params.secondColor
                 }
+                
+                // call handler
+                self.handler?(label: _cell.contentLabel)
             },
         ]
     }

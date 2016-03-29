@@ -56,9 +56,11 @@ public enum ACInputTextType {
 public class ACInputText: ACInput {
     
     internal let type: ACInputTextType
+    internal let handler: ((textField: UITextField) -> ())?
     
-    public init(type: ACInputTextType, name: String, image: UIImage?, title: String?, placeholder: String?, value: String?) {
+    public init(type: ACInputTextType, name: String, image: UIImage?, title: String?, placeholder: String?, value: String?, handler: ((textField: UITextField) -> ())? = nil) {
         self.type = type
+        self.handler = handler
         
         super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
     }
@@ -76,6 +78,9 @@ public class ACInputText: ACInput {
                     _cell.contentTextField.placeholder = self.placeholder
                     _cell.contentTextField.text = self.value as! String?
                     _cell.contentTextField.textColor = params.secondColor
+                    
+                    // call handler
+                    self.handler?(textField: _cell.contentTextField)
                 },
             ]
         }
