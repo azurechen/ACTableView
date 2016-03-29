@@ -45,6 +45,13 @@ extension ACTableView {
                 display: formSection.display,
                 items: items))
         }
+        
+        // set the keyboard dismiss mode
+        self.keyboardDismissMode = .OnDrag
+    }
+    
+    func dismissKeyboard() {
+        self.endEditing(true)
     }
 }
 
@@ -127,6 +134,13 @@ public class ACForm: NSObject, UITableViewDelegate {
                     pickerItem.show()
                 }
             }
+        }
+        
+        // handle the keyboard for textField
+        if let textCell = tableView.cellForRowAtIndexPath(indexPath) as? ACTextTableViewCell {
+            textCell.contentTextField.becomeFirstResponder()
+        } else {
+            self.tableView?.dismissKeyboard()
         }
     }
     
