@@ -29,24 +29,12 @@ class FormViewController: UIViewController, ACInputDelegate {
                 footer: nil,
                 display: true,
                 inputs: [
-                    ACInputLabel(name: INPUT_LAST_NAME, image: nil, title: "Last Name", content: "Test"),
-                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name", placeholder: "Please select", value: NSDate()),
-                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Last Name",placeholder: "Please select", value: nil, formatter: { (date) in
-                            let dateFormatter = NSDateFormatter()
-                            dateFormatter.dateStyle = .LongStyle
-                            dateFormatter.timeStyle = .NoStyle
-                            return "Hi \(dateFormatter.stringFromDate(date))"
-                        }) { (datePicker) in
-                            datePicker.maximumDate = NSDate()
-                    },
-                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Last Name", placeholder: "Please select", values: ["Orange", "MRT", "Pinao"], options: [
-                            ["Apple", "Orange", "Pitch"],
-                            ["Car", "Bike", "MRT", "Airplane"],
-                            ["Guitar", "Pinao"]
-                        ], formatter: { (strings) in
-                            return strings.joinWithSeparator("!! ")
-                    }),
+                    ACInputLabel(name: INPUT_FIRST_NAME, image: nil, title: "First Name", content: "Test"),
                     ACInputText(type: .Text, name: INPUT_LAST_NAME, image: nil, title: "Last Name", placeholder: "What's your name?", value: nil),
+                    ACInputDate(type: .Date, name: INPUT_BIRTHDAY, image: nil, title: "Birtday", placeholder: "Please select", value: NSDate()),
+                    ACInputSelect(name: INPUT_GENDER, image: nil, title: "Gender", placeholder: "Please select", values: nil, options: [
+                            ["Male", "Female", "Others"],
+                        ]),
                 ]))
         let form = builder.create()
         self.tableView.buildWithForm(form)

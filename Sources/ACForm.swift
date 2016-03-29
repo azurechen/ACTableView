@@ -95,6 +95,11 @@ public class ACForm: NSObject, UITableViewDelegate {
             return self
         }
         
+        public func setThirdColor(color: UIColor) -> Self {
+            self.params.thirdColor = color
+            return self
+        }
+        
         public func setTintColor(color: UIColor) -> Self {
             self.params.tintColor = color
             return self
@@ -150,7 +155,8 @@ public class ACFormParams {
     var sections: [ACFormSection] = []
     var style: ACFormStyle = .Value1
     var firstColor: UIColor = UIColor.blackColor()
-    var secondColor: UIColor = UIColor(red: 142.0 / 255, green: 142.0 / 255, blue: 147.0 / 255, alpha: 1.0)
+    var secondColor: UIColor = UIColor.blackColor()
+    var thirdColor: UIColor = UIColor(red: 142.0 / 255, green: 142.0 / 255, blue: 147.0 / 255, alpha: 1.0)
     var tintColor: UIColor = UIColor(red: 0.0 / 255, green: 122.0 / 255, blue: 255.0 / 255, alpha: 1.0)
     
     public func copy() -> ACFormParams {
@@ -160,6 +166,7 @@ public class ACFormParams {
         params.style = self.style
         params.firstColor = self.firstColor
         params.secondColor = self.secondColor
+        params.thirdColor = self.thirdColor
         params.tintColor = self.tintColor
         
         return params

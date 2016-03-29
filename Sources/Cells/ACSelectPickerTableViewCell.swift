@@ -103,7 +103,7 @@ public class ACInputSelect: ACInput {
                         if (item.next()!.display) {
                             _cell.contentLabel.textColor = params.tintColor
                         } else {
-                            _cell.contentLabel.textColor = params.firstColor
+                            _cell.contentLabel.textColor = params.secondColor
                         }
                     }
                 } else {

@@ -67,9 +67,9 @@ public class ACInputLabel: ACInput {
                 _cell.contentLabel.text = self.value as! String?
                 switch params.style {
                 case .Value1:
-                    _cell.contentLabel.textColor = params.secondColor
+                    _cell.contentLabel.textColor = params.thirdColor
                 case .Value2:
-                    _cell.contentLabel.textColor = params.firstColor
+                    _cell.contentLabel.textColor = params.secondColor
                 }
             },
         ]

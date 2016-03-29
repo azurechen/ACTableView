@@ -75,7 +75,7 @@ public class ACInputText: ACInput {
                     
                     _cell.contentTextField.placeholder = self.placeholder
                     _cell.contentTextField.text = self.value as! String?
-                    _cell.contentTextField.textColor = params.firstColor
+                    _cell.contentTextField.textColor = params.secondColor
                 },
             ]
         }
