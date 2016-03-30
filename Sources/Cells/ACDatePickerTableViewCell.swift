@@ -92,7 +92,7 @@ public class ACInputDate: ACInput {
                     if (item.next()!.display) {
                         _cell.contentLabel.textColor = params.tintColor
                     } else {
-                        _cell.contentLabel.textColor = params.secondColor
+                        _cell.contentLabel.textColor = params.firstColor
                     }
                 } else {
                     _cell.contentLabel.text = self.placeholder

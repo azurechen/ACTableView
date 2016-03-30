@@ -49,7 +49,7 @@ class ACAbstractTableViewCell: UITableViewCell {
         titleLabel.text = title
         switch params.style {
         case .Value1:
-            titleLabel.textColor = params.firstColor
+            titleLabel.textColor = params.titleColor
         case .Value2:
             titleLabel.textColor = params.tintColor
         }
