@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ACTableView"
-  s.version      = "0.3.1"
+  s.version      = "0.3.2"
   s.summary      = "A faster and easier way to create a table and maintain your code."
 
   s.description  = <<-DESC

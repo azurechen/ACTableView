@@ -12,9 +12,6 @@ public class ACTableView: UITableView, UITableViewDataSource {
     
     internal var sections: [ACTableViewSection] = []
     
-    // For ACForm
-    public internal(set) var form: ACForm?
-    
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -249,4 +246,8 @@ public class ACTableView: UITableView, UITableViewDataSource {
     public func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return sectionAtIndex(section).footer
     }
+    
+    // For ACForm
+    public internal(set) var form: ACForm?
+
 }
