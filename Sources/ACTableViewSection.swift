@@ -12,7 +12,7 @@ public class ACTableViewSection {
     
     internal weak var tableView: ACTableView!
     internal var sectionIndex: Int? {
-        return self.tableView?.sections.indexOf({ $0 === self })
+        return self.tableView?.sections.index(where: { $0 === self })
     }
     
     public let tag: String?
@@ -37,11 +37,11 @@ public class ACTableViewSection {
     internal func registerItems() {
         // set row and section of items
         for item in self.items {
-            item.registerItemWithTableView(self.tableView, inSection: self)
+            item.registerItem(for: self.tableView, in: self)
         }
     }
     
-    public func updateItems(items: [ACTableViewItem]) {
+    public func updateItems(_ items: [ACTableViewItem]) {
         // clear items
         self.items.removeAll()
         // reset Items
@@ -64,58 +64,58 @@ public class ACTableViewSection {
         return nil
     }
     
-    public func show(animated animated: Bool = true) {
+    public func show(animated: Bool = true) {
         if (!self.display) {
             self.display = true
             
-            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
-                self.tableView.insertSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
+            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!), sectionIndex != nil {
+                self.tableView.insertSections(IndexSet(integer: index), with: animated ? .fade : .none)
             }
         }
     }
     
-    public func hide(animated animated: Bool = true) {
+    public func hide(animated: Bool = true) {
         if (self.display) {
-            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
+            if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!), sectionIndex != nil {
                 self.display = false
-                self.tableView.deleteSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
+                self.tableView.deleteSections(IndexSet(integer: index), with: animated ? .fade : .none)
             }
         }
     }
     
-    public func reload(animated animated: Bool = true) {
-        if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!) where sectionIndex != nil {
+    public func reload(animated: Bool = true) {
+        if let index = self.tableView.indexOfSectionFromACIndex(sectionIndex!), sectionIndex != nil {
             if (animated) {
-                self.tableView.reloadSections(NSIndexSet(index: index), withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.reloadSections(IndexSet(integer: index), with: .fade)
             } else {
-                self.tableView.reloadSections(NSIndexSet(index: index), withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView.reloadSections(IndexSet(integer: index), with: .none)
             }
         }
     }
     
-    public func insertItem(item: ACTableViewItem, atIndex rowIndex: Int, animated: Bool = true) {
-        item.registerItemWithTableView(self.tableView, inSection: self)
-        items.insert(item, atIndex: rowIndex)
+    public func insertItem(_ item: ACTableViewItem, atIndex rowIndex: Int, animated: Bool = true) {
+        item.registerItem(for: self.tableView, in: self)
+        items.insert(item, at: rowIndex)
         
-        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex, inSection: sectionIndex!) where sectionIndex != nil {
-            self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex, inSection: sectionIndex!), sectionIndex != nil {
+            self.tableView.insertRows(at: [indexPath], with: animated ? .fade : .none)
         }
     }
     
-    public func removeItem(item: ACTableViewItem, animated: Bool = true) {
+    public func removeItem(_ item: ACTableViewItem, animated: Bool = true) {
         if let rowIndex = item.rowIndex {
-            removeItemAtIndex(rowIndex, animated: animated)
+            removeItem(at: rowIndex, animated: animated)
         }
     }
     
-    public func removeItemAtIndex(rowIndex: Int, animated: Bool = true) {
-        var indexPath: NSIndexPath?
+    public func removeItem(at rowIndex: Int, animated: Bool = true) {
+        var indexPath: IndexPath?
         if (sectionIndex != nil) {
             indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex, inSection: sectionIndex!)
         }
-        items.removeAtIndex(rowIndex)
+        items.remove(at: rowIndex)
         if (indexPath != nil) {
-            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: animated ? .Fade : .None)
+            self.tableView.deleteRows(at: [indexPath!], with: animated ? .fade : .none)
         }
     }
     

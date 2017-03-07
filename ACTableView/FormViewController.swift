@@ -37,16 +37,16 @@ class FormViewController: UIViewController, ACInputDelegate {
                         ]),
                 ]))
         let form = builder.create()
-        self.tableView.buildWithForm(form)
+        self.tableView.build(with: form)
     }
     
-    func formInput(formInput: ACInput, withName name: String, didChangeValue value: AnyObject?) {
-        print("\(name) \(String(value))")
+    func formInput(_ formInput: ACInput, withName name: String, didChangeValue value: AnyObject?) {
+        print("\(name) \(String(describing: value))")
     }
     
     @IBAction func saveAction(sender: UIBarButtonItem) {
         if let form = self.tableView.form {
-            print("\(INPUT_GENDER) \(form.valueByName(INPUT_GENDER))")
+            print("\(INPUT_GENDER) \(form.value(with: INPUT_GENDER))")
         }
     }
     

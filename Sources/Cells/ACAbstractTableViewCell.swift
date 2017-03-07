@@ -26,12 +26,12 @@ class ACAbstractTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.selectionStyle = .None
+        self.selectionStyle = .none
         
         inset = self.separatorInset.left
     }
     
-    internal func setIconImage(image: UIImage?) {
+    internal func setIconImage(_ image: UIImage?) {
         if (iconImageView != nil && image != nil) {
             iconWidthConstraint?.constant = ICON_WIDTH
             iconTrailingConstraint?.constant = ICON_TEAILING
@@ -45,7 +45,7 @@ class ACAbstractTableViewCell: UITableViewCell {
         iconImageView?.image = image
     }
     
-    internal func setTitle(title: String?, withParams params: ACFormParams) {
+    internal func setTitle(_ title: String?, withParams params: ACFormParams) {
         titleLabel.text = title
         switch params.style {
         case .Value1:
@@ -55,7 +55,7 @@ class ACAbstractTableViewCell: UITableViewCell {
         }
     }
     
-    internal func initWithInput(input: ACInput, withParams params: ACFormParams) {
+    internal func initWithInput(_ input: ACInput, withParams params: ACFormParams) {
         self.input = input
         self.params = params
         

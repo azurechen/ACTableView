@@ -8,52 +8,52 @@
 
 import UIKit
 
+public enum ACTableViewItemType {
+    case storyboard
+    case nib
+    case native
+}
+
 public class ACTableViewItem {
-    
-    public enum Type {
-        case Storyboard
-        case Nib
-        case Default
-    }
     
     internal weak var tableView: ACTableView!
     internal weak var section: ACTableViewSection!
     internal var rowIndex: Int? {
-        return self.section.items.indexOf({ $0 === self })
+        return self.section.items.index(where: { $0 === self })
     }
     internal var sectionIndex: Int? {
-        return self.tableView?.sections.indexOf({ $0 === self.section })
+        return self.tableView?.sections.index(where: { $0 === self.section })
     }
     
     public let tag: String?
     public var display: Bool
     
-    internal let type: Type
+    internal let type: ACTableViewItemType
     internal let style: UITableViewCellStyle
-    internal let handler: ((item: ACTableViewItem, cell: UITableViewCell) -> ())?
+    internal let handler: ((ACTableViewItem, UITableViewCell) -> ())?
     internal let initDisplay: Bool
     internal let reuseIdentifier: String
     private let bind: ((ACTableViewItem) -> [ACTableViewItem])?
     
-    internal func registerItemWithTableView(tableView: ACTableView, inSection section: ACTableViewSection) {
+    internal func registerItem(for tableView: ACTableView, in section: ACTableViewSection) {
         self.tableView = tableView
         self.section = section
         
         // register nibs
-        if (type == .Nib) {
-            self.tableView.registerNib(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
+        if (type == .nib) {
+            self.tableView.register(UINib(nibName: reuseIdentifier, bundle: nil), forCellReuseIdentifier: reuseIdentifier)
         }
     }
     
     // storyboard
-    public convenience init(tag: String? = nil, identifier: String, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public convenience init(tag: String? = nil, identifier: String, display: Bool, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.init(tag: tag, identifier: identifier, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, identifier: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, identifier: String, display: Bool, bind: ((ACTableViewItem) -> [ACTableViewItem])?, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.tag = tag
-        self.type = .Storyboard
-        self.style = .Default
+        self.type = .storyboard
+        self.style = .default
         self.handler = handler
         self.initDisplay = display
         self.display = display
@@ -62,14 +62,14 @@ public class ACTableViewItem {
     }
     
     // nib
-    public convenience init(tag: String? = nil, nibName: String, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public convenience init(tag: String? = nil, nibName: String, display: Bool, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.init(tag: tag, nibName: nibName, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, nibName: String, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, nibName: String, display: Bool, bind: ((ACTableViewItem) -> [ACTableViewItem])?, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.tag = tag
-        self.type = .Nib
-        self.style = .Default
+        self.type = .nib
+        self.style = .default
         self.handler = handler
         self.initDisplay = display
         self.display = display
@@ -78,13 +78,13 @@ public class ACTableViewItem {
     }
     
     // built-in cells
-    public convenience init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public convenience init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.init(tag: tag, style: style, display: display, bind: nil, handler: handler)
     }
     
-    public init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((item: ACTableViewItem) -> [ACTableViewItem])?, handler: (item: ACTableViewItem, cell: UITableViewCell) -> ()) {
+    public init(tag: String? = nil, style: UITableViewCellStyle, display: Bool, bind: ((ACTableViewItem) -> [ACTableViewItem])?, handler: @escaping (ACTableViewItem, UITableViewCell) -> ()) {
         self.tag = tag
-        self.type = .Default
+        self.type = .native
         self.style = style
         self.handler = handler
         self.initDisplay = display
@@ -108,27 +108,27 @@ public class ACTableViewItem {
         return nil
     }
     
-    public func show(animated animated: Bool = true) {
+    public func show(animated: Bool = true) {
         if (!self.display) {
             self.display = true
-            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
-                self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!), rowIndex != nil && sectionIndex != nil {
+                self.tableView.insertRows(at: [indexPath], with: animated ? .fade : .none)
             }
         }
         updateBoundRows()
     }
     
-    public func hide(animated animated: Bool = true) {
+    public func hide(animated: Bool = true) {
         if (self.display) {
-            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
+            if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!), rowIndex != nil && sectionIndex != nil {
                 self.display = false
-                self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: animated ? .Fade : .None)
+                self.tableView.deleteRows(at: [indexPath], with: animated ? .fade : .none)
             }
         }
         updateBoundRows()
     }
     
-    public func toggle(animated animated: Bool = true){
+    public func toggle(animated: Bool = true){
         if(self.display){
             self.hide(animated: animated)
         } else {
@@ -136,12 +136,12 @@ public class ACTableViewItem {
         }
     }
     
-    public func reload(animated animated: Bool = true) {
-        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!) where rowIndex != nil && sectionIndex != nil {
+    public func reload(animated: Bool = true) {
+        if let indexPath = self.tableView.indexPathFromACIndex(forRow: rowIndex!, inSection: sectionIndex!), rowIndex != nil && sectionIndex != nil {
             if (animated) {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+                self.tableView.reloadRows(at: [indexPath], with: .fade)
             } else {
-                self.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.None)
+                self.tableView.reloadRows(at: [indexPath], with: .none)
             }
             updateBoundRows()
         }
@@ -150,8 +150,8 @@ public class ACTableViewItem {
     public func updateBoundRows() {
         if (self.bind != nil) {
             for item in self.bind!(self) {
-                if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.rowIndex!, inSection: item.sectionIndex!) where rowIndex != nil && sectionIndex != nil, let cell = self.tableView.cellForRowAtIndexPath(indexPath) {
-                    item.handler?(item: item, cell: cell)
+                if let indexPath = self.tableView.indexPathFromACIndex(forRow: item.rowIndex!, inSection: item.sectionIndex!), rowIndex != nil && sectionIndex != nil, let cell = self.tableView.cellForRow(at: indexPath) {
+                    item.handler?(item, cell)
                 }
             }
         }

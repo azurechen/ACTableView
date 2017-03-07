@@ -31,7 +31,7 @@ class ACLabelTableViewCell: ACAbstractTableViewCell {
         let pstyle = NSMutableParagraphStyle()
         pstyle.lineBreakMode = titleLabel.lineBreakMode
         
-        let titleSize = titleLabel.text!.sizeWithAttributes([
+        let titleSize = titleLabel.text!.size(attributes: [
             NSFontAttributeName: titleLabel.font,
             NSParagraphStyleAttributeName: pstyle,
             ])
@@ -42,7 +42,7 @@ class ACLabelTableViewCell: ACAbstractTableViewCell {
         }
         // set preferredMaxLayoutWidth
         contentLabel.preferredMaxLayoutWidth =
-            UIScreen.mainScreen().bounds.width - titleSize.width -
+            UIScreen.main.bounds.width - titleSize.width -
             ((iconImageView != nil && iconImageView!.image != nil) ? (ICON_WIDTH + ICON_TEAILING) : 0) -
             (marginWidth != nil ? marginWidth! : 15 + 15) -
             (self.params?.style == .Value1 ? 8 : 6)
@@ -52,18 +52,18 @@ class ACLabelTableViewCell: ACAbstractTableViewCell {
 
 public class ACInputLabel: ACInput {
     
-    internal let handler: ((label: UILabel) -> ())?
+    internal let handler: ((UILabel) -> ())?
     
-    public init(name: String, image: UIImage?, title: String?, content: String?, handler: ((label: UILabel) -> ())? = nil) {
+    public init(name: String, image: UIImage?, title: String?, content: String?, handler: ((UILabel) -> ())? = nil) {
         self.handler = handler
         
-        super.init(name: name, image: image, title: title, placeholder: nil, value: content)
+        super.init(name: name, image: image, title: title, placeholder: nil, value: content as AnyObject?)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
         // use identifier to avoid unnecessary register
         return [
-            ACTableViewItem(tag: name + "_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
+            ACTableViewItem(tag: name + "_ITEM", identifier: "ACLabel\(String(describing: params.style))", display: true) { (item, cell) in
                 
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
@@ -77,7 +77,7 @@ public class ACInputLabel: ACInput {
                 }
                 
                 // call handler
-                self.handler?(label: _cell.contentLabel)
+                self.handler?(_cell.contentLabel)
             },
         ]
     }

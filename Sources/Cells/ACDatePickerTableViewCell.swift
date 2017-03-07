@@ -20,20 +20,20 @@ class ACDatePickerTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func initWithInput(input: ACInputDate, withItem item: ACTableViewItem, withParams params: ACFormParams) {
+    func initWithInput(_ input: ACInputDate, withItem item: ACTableViewItem, withParams params: ACFormParams) {
         self.input = input
         self.item = item
         self.params = params
         
         // bind events
-        datePicker.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: .ValueChanged)
+        datePicker.addTarget(self, action: #selector(self.datePickerValueChanged), for: .valueChanged)
     }
     
     // Action
     func datePickerValueChanged(sender: UIDatePicker) {
         // callback
         if let input = self.input {
-            input.value = sender.date
+            input.value = sender.date as AnyObject?
             item?.updateBoundRows()
         }
     }
@@ -49,12 +49,12 @@ public enum ACInputDateType {
 public class ACInputDate: ACInput {
     
     internal let type: ACInputDateType
-    internal let formatter: ((date: NSDate) -> String)?
-    internal let handler: ((datePicker: UIDatePicker) -> ())?
+    internal let formatter: ((Date) -> String)?
+    internal let handler: ((UIDatePicker) -> ())?
     
-    private let defaultFormatter = NSDateFormatter()
+    private let defaultFormatter = DateFormatter()
     
-    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((date: NSDate) -> String)? = nil, handler: ((datePicker: UIDatePicker) -> ())? = nil) {
+    public init(type: ACInputDateType, name: String, image: UIImage?, title: String?, placeholder: String?, value: NSDate?, formatter: ((Date) -> String)? = nil, handler: ((UIDatePicker) -> ())? = nil) {
         self.type = type
         self.formatter = formatter
         self.handler = handler
@@ -65,28 +65,28 @@ public class ACInputDate: ACInput {
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
         // use identifier to avoid unnecessary register
         return [
-            ACTableViewItem(tag: name + "_PICKER_LABEL_ITEM", identifier: "ACLabel\(String(params.style))", display: true) { (item, cell) in
+            ACTableViewItem(tag: name + "_PICKER_LABEL_ITEM", identifier: "ACLabel\(String(describing: params.style))", display: true) { (item, cell) in
                 
                 let _cell = cell as! ACLabelTableViewCell
                 _cell.initWithInput(self, withParams: params)
                 
-                if let value = self.value as? NSDate {
+                if let value = self.value as? Date {
                     if (self.formatter == nil) {
                         // use the default date format
                         switch self.type {
                         case .Date:
-                            self.defaultFormatter.dateStyle = .LongStyle
-                            self.defaultFormatter.timeStyle = .NoStyle
+                            self.defaultFormatter.dateStyle = .long
+                            self.defaultFormatter.timeStyle = .none
                         case .Time:
-                            self.defaultFormatter.dateStyle = .NoStyle
-                            self.defaultFormatter.timeStyle = .ShortStyle
+                            self.defaultFormatter.dateStyle = .none
+                            self.defaultFormatter.timeStyle = .short
                         case .DateAndTime:
-                            self.defaultFormatter.dateStyle = .MediumStyle
-                            self.defaultFormatter.timeStyle = .ShortStyle
+                            self.defaultFormatter.dateStyle = .medium
+                            self.defaultFormatter.timeStyle = .short
                         }
-                        _cell.contentLabel.text = self.defaultFormatter.stringFromDate(value)
+                        _cell.contentLabel.text = self.defaultFormatter.string(from: value)
                     } else {
-                        _cell.contentLabel.text = self.formatter!(date: value)
+                        _cell.contentLabel.text = self.formatter!(value)
                     }
                     
                     if (item.next()!.display) {
@@ -99,7 +99,7 @@ public class ACInputDate: ACInput {
                     _cell.contentLabel.textColor = ACInput.placeholderColor
                 }
                 
-                _cell.selectionStyle = .Default
+                _cell.selectionStyle = .default
             },
             ACTableViewItem(tag: name + "_PICKER_ITEM", identifier: "ACDatePicker", display: false, bind: { (item) -> [ACTableViewItem] in [item.prev()!] }) { (item, cell) -> () in
                 let _cell = cell as! ACDatePickerTableViewCell
@@ -107,21 +107,21 @@ public class ACInputDate: ACInput {
                 
                 switch self.type {
                 case .Date:
-                    _cell.datePicker.datePickerMode = .Date
+                    _cell.datePicker.datePickerMode = .date
                 case .Time:
-                    _cell.datePicker.datePickerMode = .Time
+                    _cell.datePicker.datePickerMode = .time
                 case .DateAndTime:
-                    _cell.datePicker.datePickerMode = .DateAndTime
+                    _cell.datePicker.datePickerMode = .dateAndTime
                 }
                 
                 // set the default value of date picker
-                _cell.datePicker.date = self.value as? NSDate ?? NSDate()
+                _cell.datePicker.date = self.value as? Date ?? Date()
                 if (item.display == true) {
-                    self.value = _cell.datePicker.date
+                    self.value = _cell.datePicker.date as AnyObject?
                 }
                 
                 // call handler
-                self.handler?(datePicker: _cell.datePicker)
+                self.handler?(_cell.datePicker)
             },
         ]
     }

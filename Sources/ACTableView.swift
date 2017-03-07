@@ -25,14 +25,14 @@ public class ACTableView: UITableView, UITableViewDataSource {
         sections.removeAll()
     }
     
-    public func addSection(section: ACTableViewSection) {
+    public func addSection(_ section: ACTableViewSection) {
         sections.append(section)
         section.tableView = self
         section.registerItems()
     }
     
     // get a section by tag
-    public func sectionWithTag(tag: String) -> ACTableViewSection! {
+    public func section(with tag: String) -> ACTableViewSection! {
         for section in sections {
             if (section.tag == tag) {
                 return section
@@ -42,16 +42,16 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get a section by Section Index in TableView
-    public func sectionAtIndex(index: Int) -> ACTableViewSection! {
+    public func section(at index: Int) -> ACTableViewSection! {
         var countSection = 0
         
-        for (var i = 0; i < sections.count; i++) {
+        for i in 0 ..< sections.count {
             let section = sections[i]
             if (section.display) {
                 if (countSection == index) {
                     return sections[i]
                 }
-                countSection++
+                countSection += 1
             }
         }
         
@@ -59,7 +59,7 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item by tag
-    public func itemWithTag(tag: String) -> ACTableViewItem! {
+    public func item(with tag: String) -> ACTableViewItem! {
         for section in sections {
             for item in section.items {
                 if (item.tag == tag) {
@@ -71,26 +71,26 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item by IndexPath in tableView
-    public func itemAtIndexPath(indexPath: NSIndexPath) -> ACTableViewItem! {
+    public func item(at indexPath: IndexPath) -> ACTableViewItem! {
         var countSection = 0
         
-        for (var i = 0; i < sections.count; i++) {
+        for i in 0 ..< sections.count {
             let section = sections[i]
             if (section.display) {
                 if (countSection == indexPath.section) {
                     var countRow = 0
                     
-                    for (var j = 0; j < section.items.count; j++) {
+                    for j in 0 ..< section.items.count {
                         let item = section.items[j]
                         if (item.display) {
                             if (countRow == indexPath.row) {
                                 return sections[i].items[j]
                             }
-                            countRow++
+                            countRow += 1
                         }
                     }
                 }
-                countSection++
+                countSection += 1
             }
         }
         
@@ -98,13 +98,13 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // get an item by subview
-    public func itemWithSubview(subview: UIView) -> ACTableViewItem! {
+    public func item(include subview: UIView) -> ACTableViewItem! {
         var view: UIView? = subview
         
         while (view != nil) {
             if let v = view as? UITableViewCell {
-                if let indexPath = indexPathForCell(v) {
-                    return itemAtIndexPath(indexPath)
+                if let indexPath = indexPath(for: v) {
+                    return item(at: indexPath)
                 } else {
                     return nil
                 }
@@ -137,39 +137,39 @@ public class ACTableView: UITableView, UITableViewDataSource {
         }
     }
     
-    public func insertSection(section: ACTableViewSection, atIndex sectionIndex: Int, animated: Bool = true) {
-        sections.insert(section, atIndex: sectionIndex)
+    public func insertSection(_ section: ACTableViewSection, atIndex sectionIndex: Int, animated: Bool = true) {
+        sections.insert(section, at: sectionIndex)
         
         if let index = self.indexOfSectionFromACIndex(sectionIndex) {
-            self.insertSections(NSIndexSet(index: index), withRowAnimation: animated ? .Fade : .None)
+            self.insertSections(IndexSet(integer: index), with: animated ? .fade : .none)
         }
     }
     
-    public func removeSection(section: ACTableViewSection, animated: Bool = true) {
+    public func removeSection(_ section: ACTableViewSection, animated: Bool = true) {
         if let sectionIndex = section.sectionIndex {
-            removeSectionAtIndex(sectionIndex, animated: animated)
+            removeSection(at: sectionIndex, animated: animated)
         }
     }
     
-    public func removeSectionAtIndex(sectionIndex: Int, animated: Bool = true) {
+    public func removeSection(at sectionIndex: Int, animated: Bool = true) {
         let index = self.indexOfSectionFromACIndex(sectionIndex)
-        sections.removeAtIndex(sectionIndex)
+        sections.remove(at: sectionIndex)
         if (index != nil) {
-            self.deleteSections(NSIndexSet(index: index!), withRowAnimation: animated ? .Fade : .None)
+            self.deleteSections(IndexSet(integer: index!), with: animated ? .fade : .none)
         }
     }
     
     // section index mapping
-    internal func indexOfSectionFromACIndex(index: Int) -> Int? {
+    internal func indexOfSectionFromACIndex(_ index: Int) -> Int? {
         var countSection = 0
         
-        for (var i = 0; i < sections.count; i++) {
+        for i in 0 ..< sections.count {
             let section = sections[i]
             if (section.display) {
                 if (i == index) {
                     return countSection
                 }
-                countSection++
+                countSection += 1
             }
         }
         
@@ -177,26 +177,26 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // item index mapping
-    internal func indexPathFromACIndex(forRow row: Int, inSection sectionNum: Int) -> NSIndexPath? {
+    internal func indexPathFromACIndex(forRow row: Int, inSection sectionNum: Int) -> IndexPath? {
         var countSection = 0
         
-        for (var i = 0; i < sections.count; i++) {
+        for i in 0 ..< sections.count {
             let section = sections[i]
             if (section.display) {
                 if (i == sectionNum) {
                     var countRow = 0
                     
-                    for (var j = 0; j < section.items.count; j++) {
+                    for j in 0 ..< section.items.count {
                         let item = section.items[j]
                         if (item.display) {
                             if (j == row) {
-                                return NSIndexPath(forRow: countRow, inSection: countSection)
+                                return IndexPath(row: countRow, section: countSection)
                             }
-                            countRow++
+                            countRow += 1
                         }
                     }
                 }
-                countSection++
+                countSection += 1
             }
         }
         
@@ -204,47 +204,47 @@ public class ACTableView: UITableView, UITableViewDataSource {
     }
     
     // DataSource
-    public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         var count = 0
         for section in sections {
             if (section.display) {
-                count++
+                count += 1
             }
         }
         return count
     }
     
-    public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var count = 0
-        for item in self.sectionAtIndex(section).items {
+        for item in self.section(at: section).items {
             if (item.display) {
-                count++
+                count += 1
             }
         }
         return count
     }
     
-    public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let item = itemAtIndexPath(indexPath)
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = self.item(at: indexPath)!
         let identifier = item.reuseIdentifier
         
         // get cell
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier.componentsSeparatedByString(".").first!)
+        var cell = tableView.dequeueReusableCell(withIdentifier: identifier.components(separatedBy: ".").first!)
         if (cell == nil) {
             cell = UITableViewCell(style: item.style, reuseIdentifier: identifier)
         }
-        item.handler?(item: item, cell: cell!)
+        item.handler?(item, cell!)
         
-        cell?.clipsToBounds
+        cell?.clipsToBounds = true
         return cell!
     }
     
-    public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionAtIndex(section).header
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.section(at: section).header
     }
     
-    public func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        return sectionAtIndex(section).footer
+    public func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return self.section(at: section).footer
     }
     
     // For ACForm

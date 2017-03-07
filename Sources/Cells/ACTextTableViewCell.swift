@@ -16,34 +16,34 @@ class ACTextTableViewCell: ACAbstractTableViewCell, UITextFieldDelegate {
         super.awakeFromNib()
     }
     
-    override func initWithInput(input: ACInput, withParams params: ACFormParams) {
+    override func initWithInput(_ input: ACInput, withParams params: ACFormParams) {
         super.initWithInput(input, withParams: params)
         
         // bind events
         contentTextField.delegate = self
-        contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingChanged)
-        contentTextField.addTarget(self, action: Selector("textFieldEditingChanged:"), forControlEvents: .EditingDidEnd)
+        contentTextField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingChanged)
+        contentTextField.addTarget(self, action: #selector(self.textFieldEditingChanged), for: .editingDidEnd)
     }
     
-    func textFieldShouldClear(textField: UITextField) -> Bool {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
         textFieldEditingChanged(textField)
         return true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textFieldEditingChanged(textField)
         return true
     }
     
     // Actions of Text, Password, Number and Float
-    func textFieldEditingChanged(sender: UITextField) {
+    func textFieldEditingChanged(_ sender: UITextField) {
         if (params?.style == .Value1) {
-            sender.text = sender.text?.stringByReplacingOccurrencesOfString(" ", withString: "\u{00a0}")
+            sender.text = sender.text?.replacingOccurrences(of: " ", with: "\u{00a0}")
         }
         
         // set value
         if let input = self.input {
-            input.value = sender.text
+            input.value = sender.text as AnyObject?
         }
     }
     
@@ -56,13 +56,13 @@ public enum ACInputTextType {
 public class ACInputText: ACInput {
     
     internal let type: ACInputTextType
-    internal let handler: ((textField: UITextField) -> ())?
+    internal let handler: ((UITextField) -> ())?
     
-    public init(type: ACInputTextType, name: String, image: UIImage?, title: String?, placeholder: String?, value: String?, handler: ((textField: UITextField) -> ())? = nil) {
+    public init(type: ACInputTextType, name: String, image: UIImage?, title: String?, placeholder: String?, value: String?, handler: ((UITextField) -> ())? = nil) {
         self.type = type
         self.handler = handler
         
-        super.init(name: name, image: image, title: title, placeholder: placeholder, value: value)
+        super.init(name: name, image: image, title: title, placeholder: placeholder, value: value as AnyObject?)
     }
     
     override func getItems(params: ACFormParams) -> [ACTableViewItem] {
@@ -70,7 +70,7 @@ public class ACInputText: ACInput {
         case .Text:
             // use identifier to avoid unnecessary register
             return [
-                ACTableViewItem(tag: name + "_ITEM", identifier: "ACText\(String(params.style))", display: true) { (item, cell) in
+                ACTableViewItem(tag: name + "_ITEM", identifier: "ACText\(String(describing: params.style))", display: true) { (item, cell) in
                     
                     let _cell = cell as! ACTextTableViewCell
                     _cell.initWithInput(self, withParams: params)
@@ -80,7 +80,7 @@ public class ACInputText: ACInput {
                     _cell.contentTextField.textColor = params.firstColor
                     
                     // call handler
-                    self.handler?(textField: _cell.contentTextField)
+                    self.handler?(_cell.contentTextField)
                 },
             ]
         }
